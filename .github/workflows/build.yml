@@ -50,11 +50,11 @@ jobs:
     - name: Deployment Package
       run: |
         mkdir ${{github.workspace}}\release\all\
-        cp ${{github.workspace}}/release/FractalDiscovery.exe ${{github.workspace}}\release\all\
+        cp ${{github.workspace}}/release/FractalsDiscovery.exe ${{github.workspace}}\release\all\
         cd ${{github.workspace}}\release\all\
-        windeployqt.exe FractalDiscovery.exe --release
+        windeployqt.exe FractalsDiscovery.exe --release
         ls
-        Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalDiscovery.zip
+        Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.zip
  
 #    Upload Artifact
     - name: Upload production-ready build files
