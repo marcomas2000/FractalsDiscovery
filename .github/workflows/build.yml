@@ -6,9 +6,9 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master Development]
   pull_request:
-    branches: [ master ]
+    branches: [ master Development]
 
 env:
   # Path to the solution file relative to the root of the project.
