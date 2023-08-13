@@ -1,93 +1,67 @@
 #include "mainfractals.h"
 #include "ui_mainfractals.h"
 #include "fractaltypes.h"
-#include "juliasquared.h"
-#include "juliacosh.h"
-#include "juliaexp.h"
-#include "attracthenon.h"
-#include "attractikeda.h"
-#include "juliapower4.h"
-#include "juliafractalparams.h"
-#include "lyapfractalparams.h"
-#include "mandelbrot.h"
-#include "lyapunov.h"
-#include <QFileDialog>
-#include <QPixmap>
-#include <QImageWriter>
+//#include "juliasquared.h"
+//#include "juliacosh.h"
+//#include "juliaexp.h"
+//#include "attracthenon.h"
+//#include "attractikeda.h"
+//#include "juliapower4.h"
+//#include "juliafractalparams.h"
+//#include "lyapfractalparams.h"
+//#include "mandelbrot.h"
+//#include "lyapunov.h"
+//#include <QFileDialog>
+//#include <QPixmap>
+//#include <QImageWriter>
+//#include <QFile>
+//#include <QXmlStreamWriter>
+//#include <QHBoxLayout>
+//#include <QGraphicsSceneMouseEvent>
+//#include <QGraphicsItem>
+#include <QMouseEvent>
 #include <QMessageBox>
-#include <QFile>
-#include <QXmlStreamWriter>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QGraphicsSceneMouseEvent>
-#include <QGraphicsItem>
 
 MainFractals::MainFractals(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainFractals),
+    m_mousePos(QPointF(0,0)),
     m_fracDlg(new FractalTypes(this)),
-    m_juliaImage(0),
     m_scene(0),
     m_view(0),
-    m_hbox1(0),
-    m_xLine(0),
-    m_yLine(0),
-    m_mousePos(QPointF(0,0)),
-    m_vbox12(new QVBoxLayout()),
+    /********************
+    m_juliaImage(0),
     m_juliaParams (new JuliaFractalParams(this)),
     m_lyapParams (new LyapFractalParams(this)),
-    m_generatedImageNotSaved(false),
-    m_currentImage(0)
+    ****************************/
+    m_generatedImageNotSaved(false)
+    //m_currentImage(0)
 {
     ui->setupUi(this);
+    connect(m_view, SIGNAL(routingSignal(QObject *, QMouseEvent *)), this, SLOT(fillCoordinates(QObject *, QMouseEvent *)));
     m_scene = new PaintScene;
     m_view = new PaintView(m_scene);
-    connect(m_view, SIGNAL(routingSignal(QObject *, QMouseEvent *)), this, SLOT(fillCoordinates(QObject *, QMouseEvent *)));
-    m_hbox1 = new QHBoxLayout();
-    QVBoxLayout* vbox11 = new QVBoxLayout();
-    QHBoxLayout* hbox111 = new QHBoxLayout();
-    QHBoxLayout* hbox112 = new QHBoxLayout();
-    QLabel * xlabel = new QLabel("X:");
-    QLabel * ylabel = new QLabel("Y:");
-    m_xLine = new QLineEdit();
-    m_xLine->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_xLine->setMaxLength(9);
-    m_xLine->setReadOnly(true);
-    m_xLine->setAlignment(Qt::AlignRight);
-    m_yLine = new QLineEdit();
-    m_yLine->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_yLine->setMaxLength(9);
-    m_yLine->setReadOnly(true);
-    m_yLine->setAlignment(Qt::AlignRight);
-    hbox111->addWidget(xlabel);
-    hbox111->addWidget(m_xLine);
-    vbox11->addLayout(hbox111);
-    hbox112->addWidget(ylabel);
-    hbox112->addWidget(m_yLine);
-    vbox11->addLayout(hbox112);
-    vbox11->setSizeConstraint(QLayout::SetFixedSize);
-    vbox11->addSpacing(600);
-    m_hbox1->addLayout(vbox11);
-    m_vbox12->addWidget(m_view);
-    m_hbox1->addLayout(m_vbox12);
+    ui->verticalLayout_3->addWidget(m_view);
 
-    ui->frame->setLayout(m_hbox1);
+    ui->frame->setLayout(ui->horizontalLayout);
+    setCentralWidget(ui->frame);
 }
 
 MainFractals::~MainFractals()
 {
+    /**************
     if(m_juliaImage != 0)
     {
         delete m_juliaImage;
         m_juliaImage = 0;
     }
+    ********************/
     delete ui;
 }
 
 void MainFractals::on_actionExit_triggered()
 {
+    /*********************
     if (m_generatedImageNotSaved == true)
     {
         QMessageBox::StandardButton answer = QMessageBox::question(this, "Fractals", "The document has been modified. Do you want to save it?",
@@ -97,11 +71,13 @@ void MainFractals::on_actionExit_triggered()
             on_actionSave_triggered();
         }
     }
+    *****************************/
     exit(0);
 }
 
 void MainFractals::closeEvent(QCloseEvent *event)
 {
+    /************************
     if (m_generatedImageNotSaved == true)
     {
         QMessageBox::StandardButton answer = QMessageBox::question(this, "Fractals", "The document has been modified. Do you want to save it?",
@@ -116,8 +92,10 @@ void MainFractals::closeEvent(QCloseEvent *event)
             event->ignore();
         }
     }
+    ********************************/
     exit(0);
 }
+/***************
 void MainFractals::on_actionSave_triggered()
 {
     QString fileOut = QFileDialog::getSaveFileName(this, tr("Save File"), "");
@@ -244,6 +222,7 @@ void MainFractals::on_actionSave_triggered()
     delete m_juliaImage;
     m_juliaImage = 0;
 }
+***************************/
 
 void MainFractals::on_actionNew_2_triggered()
 {
@@ -254,90 +233,90 @@ void MainFractals::on_actionNew_2_triggered()
                              QMessageBox::StandardButtons( QMessageBox::Yes | QMessageBox::No ), QMessageBox::Yes);
         if(answer == QMessageBox::Yes)
         {
-            on_actionSave_triggered();
+            //on_actionSave_triggered();
         }
     }
     ret = m_fracDlg->exec();
     if (ret == QDialog::Accepted)
     {
-        if(m_fracDlg->getFractalType() == "Squared")
-        {
-            ret2 = m_juliaParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_juliaImage = new JuliaSquared();
-                showJuliaImage();
-            }
-        }
-        else if (m_fracDlg->getFractalType() == "HyperbolicCos")
-        {
-            ret2 = m_juliaParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_juliaImage = new JuliaCosH();
-                showJuliaImage();
-            }
-        }
-        else if (m_fracDlg->getFractalType() == "Exponential")
-        {
-            ret2 = m_juliaParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_juliaImage = new JuliaExp();
-                showJuliaImage();
-            }
-        }
-        else if (m_fracDlg->getFractalType() == "Mandelbrot")
-        {
-            ret2 = m_juliaParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_juliaImage = new Mandelbrot();
-                showJuliaImage();
-            }
-        }
-        else if (m_fracDlg->getFractalType() == "Sequence1")
-        {
-            ret2 = m_lyapParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_lyapImage = new Lyapunov();
-                showLyapImage();
-            }
-        }
-        else if (m_fracDlg->getFractalType() == "Power4")
-        {
-            ret2 = m_juliaParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_juliaImage = new JuliaPower4();
-                showJuliaImage();
-            }
-        }
-        else if (m_fracDlg->getFractalType() == "Henon")
-        {
-            ret2 = m_juliaParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_attractImage = new AttractHenon();
-                showAttractorImage();
-            }
-        }
-        else if (m_fracDlg->getFractalType() == "Ikeda")
-        {
-            ret2 = m_juliaParams->exec();
-            if (ret2 == QDialog::Accepted)
-            {
-                m_attractImage = new AttractIkeda();
-                showAttractorImage();
-            }
-        }
-        else
-        {
-        }
+//        if(m_fracDlg->getFractalType() == "Squared")
+//        {
+//            ret2 = m_juliaParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_juliaImage = new JuliaSquared();
+//                showJuliaImage();
+//            }
+//        }
+//        else if (m_fracDlg->getFractalType() == "HyperbolicCos")
+//        {
+//            ret2 = m_juliaParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_juliaImage = new JuliaCosH();
+//                showJuliaImage();
+//            }
+//        }
+//        else if (m_fracDlg->getFractalType() == "Exponential")
+//        {
+//            ret2 = m_juliaParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_juliaImage = new JuliaExp();
+//                showJuliaImage();
+//            }
+//        }
+//        else if (m_fracDlg->getFractalType() == "Mandelbrot")
+//        {
+//            ret2 = m_juliaParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_juliaImage = new Mandelbrot();
+//                showJuliaImage();
+//            }
+//        }
+//        else if (m_fracDlg->getFractalType() == "Sequence1")
+//        {
+//            ret2 = m_lyapParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_lyapImage = new Lyapunov();
+//                showLyapImage();
+//            }
+//        }
+//        else if (m_fracDlg->getFractalType() == "Power4")
+//        {
+//            ret2 = m_juliaParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_juliaImage = new JuliaPower4();
+//                showJuliaImage();
+//            }
+//        }
+//        else if (m_fracDlg->getFractalType() == "Henon")
+//        {
+//            ret2 = m_juliaParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_attractImage = new AttractHenon();
+//                showAttractorImage();
+//            }
+//        }
+//        else if (m_fracDlg->getFractalType() == "Ikeda")
+//        {
+//            ret2 = m_juliaParams->exec();
+//            if (ret2 == QDialog::Accepted)
+//            {
+//                m_attractImage = new AttractIkeda();
+//                showAttractorImage();
+//            }
+//        }
+//        else
+//        {
+//        }
     }
 }
-
+/***********************************
 void MainFractals::showRow()
 {
     static QPixmap * item = new QPixmap( QPixmap::fromImage(*(m_lyapImage->getImage())));
@@ -345,7 +324,8 @@ void MainFractals::showRow()
     m_view->updateGeometry();
 
 }
-
+****************************/
+/*************************
 void MainFractals::showLyapImage()
 {
     if (m_currentImage != 0)
@@ -371,7 +351,8 @@ void MainFractals::showLyapImage()
     m_generatedImageNotSaved = true;
     ui->actionSave->setEnabled(true);
 }
-
+*************************************/
+/**********************************
 void MainFractals::showJuliaImage()
 {
     if (m_currentImage != 0)
@@ -398,7 +379,8 @@ void MainFractals::showJuliaImage()
     m_generatedImageNotSaved = true;
     ui->actionSave->setEnabled(true);
 }
-
+************************************/
+/*********************************
 void MainFractals::showAttractorImage()
 {
     if (m_currentImage != 0)
@@ -425,11 +407,10 @@ void MainFractals::showAttractorImage()
     m_generatedImageNotSaved = true;
     ui->actionSave->setEnabled(true);
 }
-
-
+*************************************/
 void MainFractals::fillCoordinates(QObject *, QMouseEvent * event)
 {
     m_mousePos = event->pos();
-    m_xLine->setText(QString::number((m_mousePos.x()/(double)m_scene->width()*(m_juliaParams->getXmax()-m_juliaParams->getXmin()))+m_juliaParams->getXmin()));
-    m_yLine->setText(QString::number((m_mousePos.y()/(double)m_scene->height()*(m_juliaParams->getYmax()-m_juliaParams->getYmin()))+m_juliaParams->getYmin()));
+//    ui->lineEdit->setText(QString::number((m_mousePos.x()/(double)m_scene->width()*(m_juliaParams->getXmax()-m_juliaParams->getXmin()))+m_juliaParams->getXmin()));
+//    ui->lineEdit_2->setText(QString::number((m_mousePos.y()/(double)m_scene->height()*(m_juliaParams->getYmax()-m_juliaParams->getYmin()))+m_juliaParams->getYmin()));
 }

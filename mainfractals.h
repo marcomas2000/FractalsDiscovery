@@ -3,9 +3,8 @@
 
 #include "paintscene.h"
 #include "paintview.h"
+#include <QPointF>
 #include <QMainWindow>
-#include <QLineEdit>
-#include <QHBoxLayout>
 
 namespace Ui {
 class MainFractals;
@@ -30,31 +29,29 @@ public:
 private slots:
     void on_actionExit_triggered();
 
-    void on_actionSave_triggered();
+    //void on_actionSave_triggered();
 
     void on_actionNew_2_triggered();
     void closeEvent(QCloseEvent * event);
     void fillCoordinates(QObject *, QMouseEvent *event);
-    void showRow();
+    //void showRow();
 private:
+    Ui::MainFractals *ui;
+    QPointF m_mousePos;
+    FractalTypes *m_fracDlg;
+    /******
     void showJuliaImage();
     void showLyapImage();
     void showAttractorImage();
-    FractalTypes *m_fracDlg;
     JuliaFractalParams *m_juliaParams;
     LyapFractalParams *m_lyapParams;
-    Ui::MainFractals *ui;
     JuliaSet * m_juliaImage;
     LyapSet * m_lyapImage;
+    Attractors * m_attractImage;
+    QGraphicsPixmapItem * m_currentImage;
+    */
     PaintScene* m_scene;
     PaintView* m_view;
-    Attractors * m_attractImage;
-    QPointF m_mousePos;
-    QLineEdit* m_xLine;
-    QLineEdit* m_yLine;
-    QHBoxLayout* m_hbox1;
-    QVBoxLayout* m_vbox12;
-    QGraphicsPixmapItem * m_currentImage;
     /**
      * @brief m_generatedImage generated image not saved
      */
