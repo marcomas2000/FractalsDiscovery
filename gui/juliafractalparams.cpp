@@ -1,5 +1,5 @@
 #include "juliafractalparams.h"
-#include "ui_juliafractalparams.h"
+#include "paramUi_juliafractal.h"
 
 JuliaFractalParams::JuliaFractalParams(QWidget *parent) :
     QDialog(parent),

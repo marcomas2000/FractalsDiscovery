@@ -5,7 +5,7 @@
 FractalTypes::FractalTypes(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FractalTypesDlg),
-    m_fractalType("")
+    m_fractalType(-1)
 {
     ui->setupUi(this);
 }
@@ -15,8 +15,8 @@ FractalTypes::~FractalTypes()
     delete ui;
 }
 
-QString FractalTypes::getFractalType()
+int FractalTypes::getFractalType()
 {
-    m_fractalType = ui->buttonGroup->checkedButton()->text();
+    m_fractalType = ui->buttonGroup->checkedId();
     return (m_fractalType);
 }

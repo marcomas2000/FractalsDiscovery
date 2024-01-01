@@ -39,11 +39,11 @@ private:
     Ui::MainFractals *ui;
     QPointF m_mousePos;
     FractalTypes *m_fracDlg;
+    JuliaFractalParams *m_juliaParams;
     /******
     void showJuliaImage();
     void showLyapImage();
     void showAttractorImage();
-    JuliaFractalParams *m_juliaParams;
     LyapFractalParams *m_lyapParams;
     JuliaSet * m_juliaImage;
     LyapSet * m_lyapImage;

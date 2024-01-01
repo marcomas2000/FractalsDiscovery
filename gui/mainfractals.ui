@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Fractals</string>
+   <string>Fractals Discovery</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -135,8 +135,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>16777193</width>
-     <height>22</height>
+     <width>1024</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -7,7 +7,7 @@
 //#include "attracthenon.h"
 //#include "attractikeda.h"
 //#include "juliapower4.h"
-//#include "juliafractalparams.h"
+#include "juliafractalparams.h"
 //#include "lyapfractalparams.h"
 //#include "mandelbrot.h"
 //#include "lyapunov.h"
@@ -21,6 +21,7 @@
 //#include <QGraphicsItem>
 #include <QMouseEvent>
 #include <QMessageBox>
+#include <QDebug>
 
 MainFractals::MainFractals(QWidget *parent) :
     QMainWindow(parent),
@@ -29,18 +30,18 @@ MainFractals::MainFractals(QWidget *parent) :
     m_fracDlg(new FractalTypes(this)),
     m_scene(0),
     m_view(0),
+    m_juliaParams (new JuliaFractalParams(this)),
     /********************
     m_juliaImage(0),
-    m_juliaParams (new JuliaFractalParams(this)),
     m_lyapParams (new LyapFractalParams(this)),
     ****************************/
     m_generatedImageNotSaved(false)
     //m_currentImage(0)
 {
     ui->setupUi(this);
-    connect(m_view, SIGNAL(routingSignal(QObject *, QMouseEvent *)), this, SLOT(fillCoordinates(QObject *, QMouseEvent *)));
     m_scene = new PaintScene;
     m_view = new PaintView(m_scene);
+    connect(m_view, SIGNAL(routingSignal(QObject *, QMouseEvent *)), this, SLOT(fillCoordinates(QObject *, QMouseEvent *)));
     ui->verticalLayout_3->addWidget(m_view);
 
     ui->frame->setLayout(ui->horizontalLayout);
@@ -239,15 +240,17 @@ void MainFractals::on_actionNew_2_triggered()
     ret = m_fracDlg->exec();
     if (ret == QDialog::Accepted)
     {
-//        if(m_fracDlg->getFractalType() == "Squared")
-//        {
-//            ret2 = m_juliaParams->exec();
+        qDebug() << "Fractal Type: " << m_fracDlg->getFractalType();
+        if(m_fracDlg->getFractalType() == (int) FRACTAL_DOMAIN::SQUARED)
+        {
+              qDebug() << "Fractal Type: SQUARED";
+              ret2 = m_juliaParams->exec();
 //            if (ret2 == QDialog::Accepted)
 //            {
 //                m_juliaImage = new JuliaSquared();
 //                showJuliaImage();
 //            }
-//        }
+        }
 //        else if (m_fracDlg->getFractalType() == "HyperbolicCos")
 //        {
 //            ret2 = m_juliaParams->exec();
