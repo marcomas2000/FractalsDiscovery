@@ -18,10 +18,10 @@ set(PROJECT_SOURCES
         fractaltypes.cpp
         fractaltypes.h
         fractaltypesdlg.ui
-        juliafractalparams.cpp
-        juliafractalparams.h
-        paramUi_juliafractal.h
-        paramUi_main.h
+        juliasquaredfractalparams.cpp
+        juliasquaredfractalparams.h
+        juliasquaredfractals_ui.h
+        main_ui.h
         paintscene.cpp
         paintscene.h
         paintview.cpp

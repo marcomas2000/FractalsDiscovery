@@ -7,7 +7,7 @@
 //#include "attracthenon.h"
 //#include "attractikeda.h"
 //#include "juliapower4.h"
-#include "juliafractalparams.h"
+#include "juliasquaredfractalparams.h"
 //#include "lyapfractalparams.h"
 //#include "mandelbrot.h"
 //#include "lyapunov.h"
@@ -30,7 +30,7 @@ MainFractals::MainFractals(QWidget *parent) :
     m_fracDlg(new FractalTypes(this)),
     m_scene(0),
     m_view(0),
-    m_juliaParams (new JuliaFractalParams(this)),
+    m_juliaParams (0),
     /********************
     m_juliaImage(0),
     m_lyapParams (new LyapFractalParams(this)),
@@ -240,85 +240,23 @@ void MainFractals::on_actionNew_2_triggered()
     ret = m_fracDlg->exec();
     if (ret == QDialog::Accepted)
     {
-        qDebug() << "Fractal Type: " << m_fracDlg->getFractalType();
-        if(m_fracDlg->getFractalType() == (int) FRACTAL_DOMAIN::SQUARED)
+        switch (m_fracDlg->getFractalType())
         {
-              qDebug() << "Fractal Type: SQUARED";
-              ret2 = m_juliaParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_juliaImage = new JuliaSquared();
-//                showJuliaImage();
-//            }
+            case (int) FRACTAL_DOMAIN::SQUARED: 
+                m_juliaParams = new JuliaSquaredFractalParams(this);
+                ret2 = m_juliaParams->exec();
+//                if (ret2 == QDialog::Accepted)
+//                {
+//                     m_juliaImage = new JuliaSquared();
+//                     showJuliaImage();
+//                }
+                break;
+            default:
+                break;
         }
-//        else if (m_fracDlg->getFractalType() == "HyperbolicCos")
-//        {
-//            ret2 = m_juliaParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_juliaImage = new JuliaCosH();
-//                showJuliaImage();
-//            }
-//        }
-//        else if (m_fracDlg->getFractalType() == "Exponential")
-//        {
-//            ret2 = m_juliaParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_juliaImage = new JuliaExp();
-//                showJuliaImage();
-//            }
-//        }
-//        else if (m_fracDlg->getFractalType() == "Mandelbrot")
-//        {
-//            ret2 = m_juliaParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_juliaImage = new Mandelbrot();
-//                showJuliaImage();
-//            }
-//        }
-//        else if (m_fracDlg->getFractalType() == "Sequence1")
-//        {
-//            ret2 = m_lyapParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_lyapImage = new Lyapunov();
-//                showLyapImage();
-//            }
-//        }
-//        else if (m_fracDlg->getFractalType() == "Power4")
-//        {
-//            ret2 = m_juliaParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_juliaImage = new JuliaPower4();
-//                showJuliaImage();
-//            }
-//        }
-//        else if (m_fracDlg->getFractalType() == "Henon")
-//        {
-//            ret2 = m_juliaParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_attractImage = new AttractHenon();
-//                showAttractorImage();
-//            }
-//        }
-//        else if (m_fracDlg->getFractalType() == "Ikeda")
-//        {
-//            ret2 = m_juliaParams->exec();
-//            if (ret2 == QDialog::Accepted)
-//            {
-//                m_attractImage = new AttractIkeda();
-//                showAttractorImage();
-//            }
-//        }
-//        else
-//        {
-//        }
     }
 }
+
 /***********************************
 void MainFractals::showRow()
 {

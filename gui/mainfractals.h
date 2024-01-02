@@ -13,7 +13,7 @@ class MainFractals;
 class JuliaSet;
 class LyapSet;
 class Attractors;
-class JuliaFractalParams;
+class JuliaSquaredFractalParams;
 class LyapFractalParams;
 class FractalTypes;
 
@@ -39,7 +39,7 @@ private:
     Ui::MainFractals *ui;
     QPointF m_mousePos;
     FractalTypes *m_fracDlg;
-    JuliaFractalParams *m_juliaParams;
+    JuliaSquaredFractalParams *m_juliaParams;
     /******
     void showJuliaImage();
     void showLyapImage();

@@ -1,5 +1,5 @@
-#ifndef UI_JULIAFRACTALPARAMS_H
-#define UI_JULIAFRACTALPARAMS_H
+#ifndef JULIASQUAREDFRACTALS_UI_H
+#define JULIASQUAREDFRACTALS_UI_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAbstractButton>
@@ -13,11 +13,11 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
-#include "paramUi_main.h"
+#include "main_ui.h"
 
 QT_BEGIN_NAMESPACE
 
-class Ui_JuliaFractalParams : public Ui_Main
+class Ui_JuliaSquaredFractalParams : public Ui_Main
 {
 public:
     QHBoxLayout *horizontalLayout_2;
@@ -202,9 +202,9 @@ public:
 };
 
 namespace Ui {
-    class JuliaFractalParams: public Ui_JuliaFractalParams{};
+    class JuliaSquaredFractalParams: public Ui_JuliaSquaredFractalParams{};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_JULIAFRACTALPARAMS_H
+#endif // JULIASQUAREDFRACTALS_UI_H
