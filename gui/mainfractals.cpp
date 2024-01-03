@@ -1,5 +1,5 @@
 #include "mainfractals.h"
-#include "ui_mainfractals.h"
+#include "mainfractals_ui.h"
 #include "fractaltypes.h"
 //#include "juliasquared.h"
 //#include "juliacosh.h"
@@ -25,77 +25,31 @@
 
 MainFractals::MainFractals(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainFractals),
-    m_mousePos(QPointF(0,0)),
-    m_fracDlg(new FractalTypes(this)),
-    m_scene(0),
-    m_view(0),
-    m_juliaParams (0),
-    /********************
-    m_juliaImage(0),
-    m_lyapParams (new LyapFractalParams(this)),
-    ****************************/
-    m_generatedImageNotSaved(false)
-    //m_currentImage(0)
+    ui(new Ui::MainFractals)
 {
     ui->setupUi(this);
-    m_scene = new PaintScene;
-    m_view = new PaintView(m_scene);
-    connect(m_view, SIGNAL(routingSignal(QObject *, QMouseEvent *)), this, SLOT(fillCoordinates(QObject *, QMouseEvent *)));
-    ui->verticalLayout_3->addWidget(m_view);
-
-    ui->frame->setLayout(ui->horizontalLayout);
-    setCentralWidget(ui->frame);
 }
 
 MainFractals::~MainFractals()
 {
-    /**************
-    if(m_juliaImage != 0)
-    {
-        delete m_juliaImage;
-        m_juliaImage = 0;
-    }
-    ********************/
     delete ui;
 }
 
 void MainFractals::on_actionExit_triggered()
 {
-    /*********************
-    if (m_generatedImageNotSaved == true)
-    {
-        QMessageBox::StandardButton answer = QMessageBox::question(this, "Fractals", "The document has been modified. Do you want to save it?",
-                             QMessageBox::StandardButtons( QMessageBox::Yes | QMessageBox::No ), QMessageBox::Yes);
-        if(answer == QMessageBox::Yes)
-        {
-            on_actionSave_triggered();
-        }
-    }
-    *****************************/
     exit(0);
+}
+
+void MainFractals::on_actionLoad_triggered()
+{
+    // exit(0);
 }
 
 void MainFractals::closeEvent(QCloseEvent *event)
 {
-    /************************
-    if (m_generatedImageNotSaved == true)
-    {
-        QMessageBox::StandardButton answer = QMessageBox::question(this, "Fractals", "The document has been modified. Do you want to save it?",
-                             QMessageBox::StandardButtons( QMessageBox::Yes | QMessageBox::No ), QMessageBox::Yes);
-        if(answer == QMessageBox::Yes)
-        {
-            on_actionSave_triggered();
-            event->accept();
-        }
-        else
-        {
-            event->ignore();
-        }
-    }
-    ********************************/
     exit(0);
 }
+
 /***************
 void MainFractals::on_actionSave_triggered()
 {
@@ -225,26 +179,19 @@ void MainFractals::on_actionSave_triggered()
 }
 ***************************/
 
-void MainFractals::on_actionNew_2_triggered()
+/****
+void MainFractals::on_actionNew_triggered()
 {
     int ret, ret2;
-    if (m_generatedImageNotSaved == true)
-    {
-        QMessageBox::StandardButton answer = QMessageBox::question(this, "Fractals", "The document has been modified. Do you want to save it?",
-                             QMessageBox::StandardButtons( QMessageBox::Yes | QMessageBox::No ), QMessageBox::Yes);
-        if(answer == QMessageBox::Yes)
-        {
-            //on_actionSave_triggered();
-        }
-    }
+    JuliaSquaredFractalParams * juliaSqParams;
     ret = m_fracDlg->exec();
     if (ret == QDialog::Accepted)
     {
         switch (m_fracDlg->getFractalType())
         {
             case (int) FRACTAL_DOMAIN::SQUARED: 
-                m_juliaParams = new JuliaSquaredFractalParams(this);
-                ret2 = m_juliaParams->exec();
+                juliaSqParams = new JuliaSquaredFractalParams(this);
+                ret2 = juliaSqParams->exec();
 //                if (ret2 == QDialog::Accepted)
 //                {
 //                     m_juliaImage = new JuliaSquared();
@@ -256,6 +203,8 @@ void MainFractals::on_actionNew_2_triggered()
         }
     }
 }
+
+****/
 
 /***********************************
 void MainFractals::showRow()
@@ -349,9 +298,3 @@ void MainFractals::showAttractorImage()
     ui->actionSave->setEnabled(true);
 }
 *************************************/
-void MainFractals::fillCoordinates(QObject *, QMouseEvent * event)
-{
-    m_mousePos = event->pos();
-//    ui->lineEdit->setText(QString::number((m_mousePos.x()/(double)m_scene->width()*(m_juliaParams->getXmax()-m_juliaParams->getXmin()))+m_juliaParams->getXmin()));
-//    ui->lineEdit_2->setText(QString::number((m_mousePos.y()/(double)m_scene->height()*(m_juliaParams->getYmax()-m_juliaParams->getYmin()))+m_juliaParams->getYmin()));
-}

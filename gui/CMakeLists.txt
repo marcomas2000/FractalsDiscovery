@@ -14,18 +14,20 @@ set(PROJECT_SOURCES
         main.cpp
         mainfractals.cpp
         mainfractals.h
-        mainfractals.ui
-        fractaltypes.cpp
-        fractaltypes.h
-        fractaltypesdlg.ui
+#        mainfractals.ui
+        mainfractals_ui.h
+#        fractaltypes.cpp
+#        fractaltypes.h
+#        fractaltypesdlg.ui
+#        fractaltypesdlg_ui.h
         juliasquaredfractalparams.cpp
         juliasquaredfractalparams.h
         juliasquaredfractals_ui.h
         main_ui.h
-        paintscene.cpp
-        paintscene.h
-        paintview.cpp
-        paintview.h
+#        paintscene.cpp
+#        paintscene.h
+#        paintview.cpp
+#        paintview.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

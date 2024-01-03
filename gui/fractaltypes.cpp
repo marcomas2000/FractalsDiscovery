@@ -1,5 +1,5 @@
 #include "fractaltypes.h"
-#include "ui_fractaltypesdlg.h"
+#include "fractaltypesdlg_ui.h"
 #include <QMessageBox>
 
 FractalTypes::FractalTypes(QWidget *parent) :

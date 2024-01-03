@@ -1,8 +1,6 @@
 #ifndef MAINFRACTALS_H
 #define MAINFRACTALS_H
 
-#include "paintscene.h"
-#include "paintview.h"
 #include <QPointF>
 #include <QMainWindow>
 
@@ -29,17 +27,12 @@ public:
 private slots:
     void on_actionExit_triggered();
 
-    //void on_actionSave_triggered();
+    void on_actionLoad_triggered();
 
-    void on_actionNew_2_triggered();
+    //void on_actionNew_triggered();
     void closeEvent(QCloseEvent * event);
-    void fillCoordinates(QObject *, QMouseEvent *event);
-    //void showRow();
 private:
     Ui::MainFractals *ui;
-    QPointF m_mousePos;
-    FractalTypes *m_fracDlg;
-    JuliaSquaredFractalParams *m_juliaParams;
     /******
     void showJuliaImage();
     void showLyapImage();
@@ -50,12 +43,6 @@ private:
     Attractors * m_attractImage;
     QGraphicsPixmapItem * m_currentImage;
     */
-    PaintScene* m_scene;
-    PaintView* m_view;
-    /**
-     * @brief m_generatedImage generated image not saved
-     */
-    bool m_generatedImageNotSaved;
 };
 
 #endif // MAINFRACTALS_H
