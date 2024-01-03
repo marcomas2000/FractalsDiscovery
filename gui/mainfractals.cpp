@@ -179,32 +179,26 @@ void MainFractals::on_actionSave_triggered()
 }
 ***************************/
 
-/****
-void MainFractals::on_actionNew_triggered()
+void MainFractals::on_actionConfigure_triggered()
 {
     int ret, ret2;
     JuliaSquaredFractalParams * juliaSqParams;
-    ret = m_fracDlg->exec();
-    if (ret == QDialog::Accepted)
+    switch (ui->buttonGroup->checkedId())
     {
-        switch (m_fracDlg->getFractalType())
-        {
-            case (int) FRACTAL_DOMAIN::SQUARED: 
-                juliaSqParams = new JuliaSquaredFractalParams(this);
-                ret2 = juliaSqParams->exec();
+        case (int) FRACTAL_DOMAIN::SQUARED: 
+            qWarning() << "SQUARED";
+            juliaSqParams = new JuliaSquaredFractalParams(this);
+            ret2 = juliaSqParams->exec();
 //                if (ret2 == QDialog::Accepted)
 //                {
 //                     m_juliaImage = new JuliaSquared();
 //                     showJuliaImage();
 //                }
-                break;
-            default:
-                break;
-        }
+            break;
+        default:
+            break;
     }
 }
-
-****/
 
 /***********************************
 void MainFractals::showRow()
