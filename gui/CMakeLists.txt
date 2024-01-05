@@ -14,20 +14,11 @@ set(PROJECT_SOURCES
         main.cpp
         mainfractals.cpp
         mainfractals.h
-#        mainfractals.ui
         mainfractals_ui.h
-#        fractaltypes.cpp
-#        fractaltypes.h
-#        fractaltypesdlg.ui
-#        fractaltypesdlg_ui.h
         juliasquaredfractalparams.cpp
         juliasquaredfractalparams.h
         juliasquaredfractals_ui.h
         main_ui.h
-#        paintscene.cpp
-#        paintscene.h
-#        paintview.cpp
-#        paintview.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -53,7 +44,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(FractalsDiscovery PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(FractalsDiscovery PRIVATE creators Qt${QT_VERSION_MAJOR}::Widgets)
 
 set_target_properties(FractalsDiscovery PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

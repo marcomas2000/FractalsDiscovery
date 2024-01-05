@@ -1,7 +1,7 @@
 #include "mainfractals.h"
 #include "mainfractals_ui.h"
-#include "fractaltypes.h"
-//#include "juliasquared.h"
+//#include "fractaltypes.h"
+#include "../creators/juliasquared.h"
 //#include "juliacosh.h"
 //#include "juliaexp.h"
 //#include "attracthenon.h"
@@ -22,11 +22,14 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QDebug>
+#include <QThread>
+#include <thread>
 
 MainFractals::MainFractals(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainFractals)
 {
+    connect(this, &MainFractals::generationCompleted, this, &MainFractals::generationCompleted_triggered);
     ui->setupUi(this);
 }
 
@@ -178,37 +181,54 @@ void MainFractals::on_actionSave_triggered()
     m_juliaImage = 0;
 }
 ***************************/
+void MainFractals::generationCompleted_triggered()
+{
+    ui->actionGenerate->setEnabled(true);
+    qWarning() << "Thread completed";
+}
 
 void MainFractals::on_actionConfigure_triggered()
 {
     int ret, ret2;
-    JuliaSquaredFractalParams * juliaSqParams;
+    JuliaSquaredFractalParams * juliaSqParams = new JuliaSquaredFractalParams;
+
     switch (ui->buttonGroup->checkedId())
     {
         case (int) FRACTAL_DOMAIN::SQUARED: 
             qWarning() << "SQUARED";
-            juliaSqParams = new JuliaSquaredFractalParams(this);
             ret2 = juliaSqParams->exec();
-//                if (ret2 == QDialog::Accepted)
-//                {
-//                     m_juliaImage = new JuliaSquared();
-//                     showJuliaImage();
-//                }
+            if (ret2 == QDialog::Accepted)
+            {
+                std::thread generation(&MainFractals::createJuliaSquaredImage, this, juliaSqParams);
+                generation.detach();
+            }                
             break;
         default:
             break;
     }
 }
 
-/***********************************
-void MainFractals::showRow()
+void MainFractals::createJuliaSquaredImage(JuliaSquaredFractalParams * imParams)
 {
-    static QPixmap * item = new QPixmap( QPixmap::fromImage(*(m_lyapImage->getImage())));
-    m_currentImage = m_scene->addPixmap(*item);
-    m_view->updateGeometry();
+    qWarning() << "Thread started";
+    JuliaSquared * im = new JuliaSquared;
+    im->setXres(imParams->getXres());
+    im->setYres(imParams->getYres());
+    im->setXmin(imParams->getXmin());
+    im->setYmin(imParams->getYmin());
+    im->setXmax(imParams->getXmax());
+    im->setYmax(imParams->getYmax());
+    im->setMaxiter(imParams->getMaxiter());
+    im->setLx(imParams->getLx());
+    im->setLy(imParams->getLy());
+    im->setDivergencyFactor(imParams->getDivergencyFactor());
 
+    double quote=im->createJulia();
+    im->storeImage();
+    qWarning() << "Percentage converging points: "<< quote;
+    emit generationCompleted();
 }
-****************************/
+
 /*************************
 void MainFractals::showLyapImage()
 {
@@ -236,34 +256,6 @@ void MainFractals::showLyapImage()
     ui->actionSave->setEnabled(true);
 }
 *************************************/
-/**********************************
-void MainFractals::showJuliaImage()
-{
-    if (m_currentImage != 0)
-    {
-        delete m_currentImage;
-    }
-    m_juliaImage->setXres(m_juliaParams->getXres());
-    m_juliaImage->setYres(m_juliaParams->getYres());
-    m_juliaImage->setXmin(m_juliaParams->getXmin());
-    m_juliaImage->setYmin(m_juliaParams->getYmin());
-    m_juliaImage->setXmax(m_juliaParams->getXmax());
-    m_juliaImage->setYmax(m_juliaParams->getYmax());
-    m_juliaImage->setMaxiter(m_juliaParams->getMaxiter());
-    m_juliaImage->setLx(m_juliaParams->getLx());
-    m_juliaImage->setLy(m_juliaParams->getLy());
-    m_juliaImage->setDivergencyFactor(m_juliaParams->getDivergencyFactor());
-
-    m_juliaImage->createJulia();
-
-    QPixmap * item = new QPixmap( QPixmap::fromImage(*(m_juliaImage->getImage())));
-    m_currentImage = m_scene->addPixmap(*item);
-    m_view->updateGeometry();
-
-    m_generatedImageNotSaved = true;
-    ui->actionSave->setEnabled(true);
-}
-************************************/
 /*********************************
 void MainFractals::showAttractorImage()
 {

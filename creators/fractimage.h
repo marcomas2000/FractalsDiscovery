@@ -1,8 +1,6 @@
 #ifndef FRACTIMAGE_H
 #define FRACTIMAGE_H
 
-#include <QImage>
-
 class FractImage
 {
 public:

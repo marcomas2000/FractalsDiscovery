@@ -8,12 +8,23 @@ namespace Ui {
 class MainFractals;
 }
 
+enum  class FRACTAL_DOMAIN {
+        SQUARED = -2,
+        HYPERBOLICCOS = -3,
+        EXPONENTIAL = -4,
+        MANDELBROT = -5,
+        SEQUENCE1 = -6,
+        POWER4 = -7,
+        HENON = -8,
+        IKEDA = -9
+    };
+
+
 class JuliaSet;
 class LyapSet;
 class Attractors;
 class JuliaSquaredFractalParams;
 class LyapFractalParams;
-class FractalTypes;
 
 class MainFractals : public QMainWindow
 {
@@ -31,12 +42,15 @@ private slots:
 
     void on_actionConfigure_triggered();
 
-    //void on_actionNew_triggered();
+    void generationCompleted_triggered();
+
     void closeEvent(QCloseEvent * event);
+signals:
+    void generationCompleted();
 private:
     Ui::MainFractals *ui;
+    void createJuliaSquaredImage(JuliaSquaredFractalParams * imParams);
     /******
-    void showJuliaImage();
     void showLyapImage();
     void showAttractorImage();
     LyapFractalParams *m_lyapParams;
