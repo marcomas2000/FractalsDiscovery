@@ -10,7 +10,7 @@ class MainFractals;
 
 enum  class FRACTAL_DOMAIN {
         SQUARED = -2,
-        HYPERBOLICCOS = -3,
+        HCOS = -3,
         EXPONENTIAL = -4,
         MANDELBROT = -5,
         SEQUENCE1 = -6,
@@ -20,11 +20,8 @@ enum  class FRACTAL_DOMAIN {
     };
 
 
-class JuliaSet;
-class LyapSet;
-class Attractors;
 class JuliaSquaredFractalParams;
-class LyapFractalParams;
+class JuliaCosHFractalParams;
 
 class MainFractals : public QMainWindow
 {
@@ -50,15 +47,7 @@ signals:
 private:
     Ui::MainFractals *ui;
     void createJuliaSquaredImage(JuliaSquaredFractalParams * imParams);
-    /******
-    void showLyapImage();
-    void showAttractorImage();
-    LyapFractalParams *m_lyapParams;
-    JuliaSet * m_juliaImage;
-    LyapSet * m_lyapImage;
-    Attractors * m_attractImage;
-    QGraphicsPixmapItem * m_currentImage;
-    */
+    void createJuliaCosHImage(JuliaCosHFractalParams * imParams);
 };
 
 #endif // MAINFRACTALS_H

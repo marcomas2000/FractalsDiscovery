@@ -1,34 +1,32 @@
 #include <math.h>
-#include "juliasquared.h"
+#include "juliacosh.h"
 #include <vector>
 #include <chrono>
 #include <iostream>
 #include <fstream>
 #include <string>
 
-JuliaSquared::JuliaSquared(): m_maxiter(0), m_lx(0.0), m_ly(0.0), m_divergencyFactor(3.0)
+JuliaCosH::JuliaCosH(): m_maxiter(0), m_lx(0.0), m_ly(0.0), m_divergencyFactor(3.0)
 {
 }
 
-JuliaSquared::~JuliaSquared()
+JuliaCosH::~JuliaCosH()
 {
 }
 
-double JuliaSquared::checkDivergency(double x_pos, double y_pos)
+double JuliaCosH::checkDivergency(double x_pos, double y_pos)
 {
-    double x,y,x2,y2,mod, ret;
+    double x,y,x2,y2, ret=0.0;
     int iter;
 
-    mod=0.0;
     x=x_pos;
     y=y_pos;
-    for(iter=0;(iter < m_maxiter)&&(mod < m_divergencyFactor);iter++)
+    for(iter=0;(iter < m_maxiter)&&(fabs(y) < m_divergencyFactor);iter++)
     {
-        x2=x*x-y*y+m_lx;
-        y2=2*x*y+m_ly;
-        x=x2;
-        y=y2;
-        mod=sqrt(x*x+y*y);
+        x2=sin(x)*cosh(y);
+        y2=cos(x)*sinh(y);
+        x=m_lx*x2-m_ly*y2;
+        y=m_ly*x2+m_lx*y2;
     }
     if(iter >= m_maxiter)
     {
@@ -36,12 +34,12 @@ double JuliaSquared::checkDivergency(double x_pos, double y_pos)
     }
     else
     {
-        ret = mod;
+        ret = fabs(y);
     }
     return(ret);
 }
 
-void JuliaSquared::storeImage()
+void JuliaCosH::storeImage()
 {
     const std::chrono::_V2::system_clock::time_point timenow = std::chrono::system_clock::now();
     const std::time_t timestamp = std::chrono::system_clock::to_time_t(timenow);
@@ -50,11 +48,11 @@ void JuliaSquared::storeImage()
     std::strftime(filename_timestamp, sizeof(filename_timestamp), "%Y%m%d_%H%M%S", std::localtime(&timestamp));
 
     std::string fileNameXML(filename_timestamp);
-    fileNameXML += "_JuliaSquared.xml";
+    fileNameXML += "_JuliaCosH.xml";
      
     std::ofstream specs;
     specs.open(fileNameXML.c_str());
-    specs << "<FRACTAL fractaltype=\"JuliaSquared\">" << std::endl;
+    specs << "<FRACTAL fractaltype=\"JuliaCosH\">" << std::endl;
     specs << "<IMAGERESOLUTION xres=" << m_xres << " yres=" << m_yres << "/>" << std::endl;
     specs << "<FUNCTIONDOMAIN>" << std::endl;
     specs << "    <TOPLEFTCORNER xmin=" << m_xmin << " ymin=" << m_ymin << "/>" << std::endl;
@@ -68,7 +66,7 @@ void JuliaSquared::storeImage()
     specs.close();
 
     std::string fileNameIm(filename_timestamp);
-    fileNameIm += "_JuliaSquared.csv";
+    fileNameIm += "_JuliaCosH.csv";
 
     std::ofstream image;
     image.open(fileNameIm.c_str());
@@ -85,3 +83,4 @@ void JuliaSquared::storeImage()
     image.close();
 
 }
+

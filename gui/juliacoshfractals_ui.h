@@ -1,5 +1,5 @@
-#ifndef JULIASQUAREDFRACTALS_UI_H
-#define JULIASQUAREDFRACTALS_UI_H
+#ifndef JULIACOSHFRACTALS_UI_H
+#define JULIACOSHFRACTALS_UI_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAbstractButton>
@@ -17,7 +17,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_JuliaSquaredFractalParams : public Ui_Main
+class Ui_JuliaCoHFractalParams : public Ui_Main
 {
 public:
     QHBoxLayout *horizontalLayout_2;
@@ -188,7 +188,7 @@ public:
     virtual void retranslateUi(QDialog *JuliaFractalParams)
     {
         Ui_Main::retranslateUi(JuliaFractalParams);
-        JuliaFractalParams->setWindowTitle(QCoreApplication::translate("JuliaFractalParams", "Julia Squared Params", nullptr));
+        JuliaFractalParams->setWindowTitle(QCoreApplication::translate("JuliaFractalParams", "Julia CosH Params", nullptr));
         label_3->setText(QCoreApplication::translate("JuliaFractalParams", "F(x) xmin", nullptr));
         label_4->setText(QCoreApplication::translate("JuliaFractalParams", "F(x) ymin", nullptr));
         label_5->setText(QCoreApplication::translate("JuliaFractalParams", "F(x) xmax", nullptr));
@@ -202,9 +202,9 @@ public:
 };
 
 namespace Ui {
-    class JuliaSquaredFractalParams: public Ui_JuliaSquaredFractalParams{};
+    class JuliaCosHFractalParams: public Ui_JuliaCoHFractalParams{};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // JULIASQUAREDFRACTALS_UI_H
+#endif // JULIACOSHFRACTALS_UI_H

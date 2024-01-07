@@ -18,6 +18,9 @@ set(PROJECT_SOURCES
         juliasquaredfractalparams.cpp
         juliasquaredfractalparams.h
         juliasquaredfractals_ui.h
+        juliacoshfractalparams.cpp
+        juliacoshfractalparams.h
+        juliacoshfractals_ui.h
         main_ui.h
 )
 

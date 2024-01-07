@@ -8,8 +8,7 @@ class JuliaCosH : public JuliaSet
 public:
     JuliaCosH();
     virtual ~JuliaCosH();
-    virtual int msetlevel(double x_pos, double y_pos);
-    virtual QRgb setColour(int level);
+    virtual double checkDivergency(double x_pos, double y_pos);
     /**
      * @brief setLx sets Lx deviation
      * @param value
@@ -34,6 +33,12 @@ public:
      */
     void setMaxiter(int value);
 
+    /**
+     * @brief m_mod divergence factor
+     */
+    void storeImage();
+
+
 private:
     /**
      * @brief maxiter max number of iterations for function msetlevel
@@ -41,15 +46,15 @@ private:
     int    m_maxiter;
 
     /**
-     * @brief variations for msetlevel
+     * @brief variations for checkdivergencyfactor
      */
 
     double m_lx, m_ly;
 
     /**
-     * @brief m_mod divergence factor
+     * @brief m_mod divergency factor
      */
-    double m_divergenceFactor;
+    double m_divergencyFactor;
 };
 
 inline void JuliaCosH::setMaxiter(int value)
@@ -69,7 +74,7 @@ inline void JuliaCosH::setLy(double value)
 
 inline void JuliaCosH::setDivergencyFactor(double value)
 {
-    m_divergenceFactor = value;
+    m_divergencyFactor = value;
 }
 
 

@@ -5,6 +5,7 @@ set(PROJECT_SOURCES
         fractimage.cpp
         juliaset.cpp
         juliasquared.cpp
+        juliacosh.cpp
 )
 
 add_library(creators STATIC ${PROJECT_SOURCES})

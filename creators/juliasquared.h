@@ -53,9 +53,9 @@ private:
     double m_lx, m_ly;
 
     /**
-     * @brief m_mod divergence factor
+     * @brief m_mod divergency factor
      */
-    double m_divergenceFactor;
+    double m_divergencyFactor;
 };
 
 
@@ -76,7 +76,7 @@ inline void JuliaSquared::setLy(double value)
 
 inline void JuliaSquared::setDivergencyFactor(double value)
 {
-    m_divergenceFactor = value;
+    m_divergencyFactor = value;
 }
 
 
