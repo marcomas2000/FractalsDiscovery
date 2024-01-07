@@ -37,7 +37,7 @@ public:
     /**
      * @brief m_mod divergence factor
      */
-    void storeImage();
+    void storeImage(const char * standardPath);
 
 private:
 

@@ -3,12 +3,14 @@
 //#include "fractaltypes.h"
 #include "../creators/juliasquared.h"
 #include "../creators/juliacosh.h"
-//#include "juliaexp.h"
+#include "../creators/juliaexp.h"
+#include "../creators/juliapower4.h"
 //#include "attracthenon.h"
 //#include "attractikeda.h"
-//#include "juliapower4.h"
 #include "juliasquaredfractalparams.h"
 #include "juliacoshfractalparams.h"
+#include "juliaexpfractalparams.h"
+#include "juliapower4fractalparams.h"
 //#include "lyapfractalparams.h"
 //#include "mandelbrot.h"
 //#include "lyapunov.h"
@@ -20,10 +22,11 @@
 //#include <QHBoxLayout>
 //#include <QGraphicsSceneMouseEvent>
 //#include <QGraphicsItem>
+#include <QDir>
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QDebug>
-#include <QThread>
+#include <QStandardPaths>
 #include <thread>
 
 MainFractals::MainFractals(QWidget *parent) :
@@ -31,7 +34,13 @@ MainFractals::MainFractals(QWidget *parent) :
     ui(new Ui::MainFractals)
 {
     connect(this, &MainFractals::generationCompleted, this, &MainFractals::generationCompleted_triggered);
+    QDir pictureFolder(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+    if (!pictureFolder.exists())
+    {
+        pictureFolder.mkpath(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+    }
     ui->setupUi(this);
+
 }
 
 MainFractals::~MainFractals()
@@ -67,7 +76,6 @@ void MainFractals::on_actionConfigure_triggered()
     {
         case (int) FRACTAL_DOMAIN::SQUARED:
             {
-                qWarning() << "SQUARED";
                 JuliaSquaredFractalParams * juliaSqParams = new JuliaSquaredFractalParams;
                 ret2 = juliaSqParams->exec();
                 if (ret2 == QDialog::Accepted)
@@ -79,12 +87,33 @@ void MainFractals::on_actionConfigure_triggered()
             break;                
         case (int) FRACTAL_DOMAIN::HCOS:
             {
-                qWarning() << "HCOS";
                 JuliaCosHFractalParams * juliaCosHParams = new JuliaCosHFractalParams;
                 ret2 = juliaCosHParams->exec();
                 if (ret2 == QDialog::Accepted)
                 {
                     std::thread generation(&MainFractals::createJuliaCosHImage, this, juliaCosHParams);
+                    generation.detach();
+                }
+            }                
+            break;
+        case (int) FRACTAL_DOMAIN::EXPONENTIAL:
+            {
+                JuliaExpFractalParams * juliaExpParams = new JuliaExpFractalParams;
+                ret2 = juliaExpParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    std::thread generation(&MainFractals::createJuliaExpImage, this, juliaExpParams);
+                    generation.detach();
+                }
+            }                
+            break;
+        case (int) FRACTAL_DOMAIN::POWER4:
+            {
+                JuliaPower4FractalParams * juliaPower4Params = new JuliaPower4FractalParams;
+                ret2 = juliaPower4Params->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    std::thread generation(&MainFractals::createJuliaPower4Image, this, juliaPower4Params);
                     generation.detach();
                 }
             }                
@@ -109,8 +138,8 @@ void MainFractals::createJuliaSquaredImage(JuliaSquaredFractalParams * imParams)
     im->setDivergencyFactor(imParams->getDivergencyFactor());
 
     double quote=im->createJulia();
-    im->storeImage();
-    qWarning() << "Percentage converging points: "<< quote;
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -129,10 +158,51 @@ void MainFractals::createJuliaCosHImage(JuliaCosHFractalParams * imParams)
     im->setDivergencyFactor(imParams->getDivergencyFactor());
 
     double quote=im->createJulia();
-    im->storeImage();
-    qWarning() << "Percentage converging points: "<< quote;
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
+
+void MainFractals::createJuliaExpImage(JuliaExpFractalParams * imParams)
+{
+    JuliaExp * im = new JuliaExp;
+    im->setXres(imParams->getXres());
+    im->setYres(imParams->getYres());
+    im->setXmin(imParams->getXmin());
+    im->setYmin(imParams->getYmin());
+    im->setXmax(imParams->getXmax());
+    im->setYmax(imParams->getYmax());
+    im->setMaxiter(imParams->getMaxiter());
+    im->setLx(imParams->getLx());
+    im->setLy(imParams->getLy());
+    im->setDivergencyFactor(imParams->getDivergencyFactor());
+
+    double quote=im->createJulia();
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
+    emit generationCompleted();
+}
+
+void MainFractals::createJuliaPower4Image(JuliaPower4FractalParams * imParams)
+{
+    JuliaPower4 * im = new JuliaPower4;
+    im->setXres(imParams->getXres());
+    im->setYres(imParams->getYres());
+    im->setXmin(imParams->getXmin());
+    im->setYmin(imParams->getYmin());
+    im->setXmax(imParams->getXmax());
+    im->setYmax(imParams->getYmax());
+    im->setMaxiter(imParams->getMaxiter());
+    im->setLx(imParams->getLx());
+    im->setLy(imParams->getLy());
+    im->setDivergencyFactor(imParams->getDivergencyFactor());
+
+    double quote=im->createJulia();
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
+    emit generationCompleted();
+}
+
 
 /*************************
 void MainFractals::showLyapImage()

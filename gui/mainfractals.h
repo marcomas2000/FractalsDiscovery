@@ -12,16 +12,18 @@ enum  class FRACTAL_DOMAIN {
         SQUARED = -2,
         HCOS = -3,
         EXPONENTIAL = -4,
-        MANDELBROT = -5,
-        SEQUENCE1 = -6,
-        POWER4 = -7,
-        HENON = -8,
-        IKEDA = -9
+        POWER4 = -5,
+        HENON = -6,
+        IKEDA = -7,
+        MANDELBROT = -8,
+        SEQUENCE1 = -9
     };
 
 
 class JuliaSquaredFractalParams;
 class JuliaCosHFractalParams;
+class JuliaExpFractalParams;
+class JuliaPower4FractalParams;
 
 class MainFractals : public QMainWindow
 {
@@ -48,6 +50,8 @@ private:
     Ui::MainFractals *ui;
     void createJuliaSquaredImage(JuliaSquaredFractalParams * imParams);
     void createJuliaCosHImage(JuliaCosHFractalParams * imParams);
+    void createJuliaExpImage(JuliaExpFractalParams * imParams);
+    void createJuliaPower4Image(JuliaPower4FractalParams * imParams);
 };
 
 #endif // MAINFRACTALS_H

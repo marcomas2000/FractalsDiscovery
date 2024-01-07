@@ -8,9 +8,7 @@ class JuliaExp : public JuliaSet
 public:
     JuliaExp();
     virtual ~JuliaExp();
-
-    virtual int msetlevel(double x_pos, double y_pos);
-    virtual QRgb setColour(int level);
+    virtual double checkDivergency(double x_pos, double y_pos);
 
     /**
      * @brief setLx sets Lx deviation
@@ -36,6 +34,11 @@ public:
      */
     void setMaxiter(int value);
 
+    /**
+     * @brief m_mod divergence factor
+     */
+    void storeImage(const char * standardPath);
+
 private:
     /**
      * @brief maxiter max number of iterations for function msetlevel
@@ -49,10 +52,12 @@ private:
     double m_lx, m_ly;
 
     /**
-     * @brief m_mod divergence factor
+     * @brief m_mod divergency factor
      */
-    double m_divergenceFactor;
+    double m_divergencyFactor;
+
 };
+
 
 inline void JuliaExp::setMaxiter(int value)
 {
@@ -71,7 +76,7 @@ inline void JuliaExp::setLy(double value)
 
 inline void JuliaExp::setDivergencyFactor(double value)
 {
-    m_divergenceFactor = value;
+    m_divergencyFactor = value;
 }
 
 

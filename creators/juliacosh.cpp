@@ -39,7 +39,7 @@ double JuliaCosH::checkDivergency(double x_pos, double y_pos)
     return(ret);
 }
 
-void JuliaCosH::storeImage()
+void JuliaCosH::storeImage(const char * standardPath)
 {
     const std::chrono::_V2::system_clock::time_point timenow = std::chrono::system_clock::now();
     const std::time_t timestamp = std::chrono::system_clock::to_time_t(timenow);
@@ -47,7 +47,9 @@ void JuliaCosH::storeImage()
     char filename_timestamp[100];
     std::strftime(filename_timestamp, sizeof(filename_timestamp), "%Y%m%d_%H%M%S", std::localtime(&timestamp));
 
-    std::string fileNameXML(filename_timestamp);
+    std::string fileNameXML(standardPath);
+    fileNameXML += "/";
+    fileNameXML += filename_timestamp;
     fileNameXML += "_JuliaCosH.xml";
      
     std::ofstream specs;
@@ -65,7 +67,9 @@ void JuliaCosH::storeImage()
     specs << "</FRACTAL>" << std::endl;
     specs.close();
 
-    std::string fileNameIm(filename_timestamp);
+    std::string fileNameIm(standardPath);
+    fileNameIm += "/";
+    fileNameIm += filename_timestamp;
     fileNameIm += "_JuliaCosH.csv";
 
     std::ofstream image;

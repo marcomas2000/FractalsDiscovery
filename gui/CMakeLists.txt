@@ -21,6 +21,12 @@ set(PROJECT_SOURCES
         juliacoshfractalparams.cpp
         juliacoshfractalparams.h
         juliacoshfractals_ui.h
+        juliaexpfractalparams.cpp
+        juliaexpfractalparams.h
+        juliaexpfractals_ui.h
+        juliapower4fractalparams.cpp
+        juliapower4fractalparams.h
+        juliapower4fractals_ui.h
         main_ui.h
 )
 

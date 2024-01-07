@@ -1,34 +1,42 @@
 #include <math.h>
-#include "juliasquared.h"
+#include "juliapower4.h"
 #include <vector>
 #include <chrono>
 #include <iostream>
 #include <fstream>
 #include <string>
 
-JuliaSquared::JuliaSquared(): m_maxiter(0), m_lx(0.0), m_ly(0.0), m_divergencyFactor(3.0)
+JuliaPower4::JuliaPower4() : m_maxiter(0), m_lx(0.0), m_ly(0.0), m_divergencyFactor(3.0)
 {
 }
 
-JuliaSquared::~JuliaSquared()
+JuliaPower4::~JuliaPower4()
 {
 }
 
-double JuliaSquared::checkDivergency(double x_pos, double y_pos)
+
+double JuliaPower4::checkDivergency(double x_pos, double y_pos)
 {
-    double x,y,x2,y2,mod, ret=0.0;
+    double x,y,x2,y2, theta, mod, ret=0.0;
     int iter;
+//  z = x + iy
+//  (z exp n) = (mod(z) exp n) (cos(n theta) +i sin(n theta))
+//  theta = arctg (y / x)
 
     mod=0.0;
     x=x_pos;
     y=y_pos;
+
     for(iter=0;(iter < m_maxiter)&&(mod < m_divergencyFactor);iter++)
     {
-        x2=x*x-y*y+m_lx;
-        y2=2*x*y+m_ly;
+        /***
+        theta = qAtan(y/x);
+        mod=sqrt(x*x+y*y);
+        x2 = qPow(mod, 4.0) * qCos( 4 * theta);
+        y2 = qPow(mod, 4.0) * qSin( 4 * theta);
         x=x2;
         y=y2;
-        mod=sqrt(x*x+y*y);
+        **/
     }
     if(iter >= m_maxiter)
     {
@@ -41,7 +49,7 @@ double JuliaSquared::checkDivergency(double x_pos, double y_pos)
     return(ret);
 }
 
-void JuliaSquared::storeImage(const char * standardPath)
+void JuliaPower4::storeImage(const char * standardPath)
 {
     const std::chrono::_V2::system_clock::time_point timenow = std::chrono::system_clock::now();
     const std::time_t timestamp = std::chrono::system_clock::to_time_t(timenow);
@@ -52,7 +60,7 @@ void JuliaSquared::storeImage(const char * standardPath)
     std::string fileNameXML(standardPath);
     fileNameXML += "/";
     fileNameXML += filename_timestamp;
-    fileNameXML += "_JuliaSquared.xml";
+    fileNameXML += "_JuliaPower4.xml";
      
     std::ofstream specs;
     specs.open(fileNameXML.c_str());
@@ -72,7 +80,7 @@ void JuliaSquared::storeImage(const char * standardPath)
     std::string fileNameIm(standardPath);
     fileNameIm += "/";
     fileNameIm += filename_timestamp;
-    fileNameIm += "_JuliaSquared.csv";
+    fileNameIm += "_JuliaPower4.csv";
 
     std::ofstream image;
     image.open(fileNameIm.c_str());

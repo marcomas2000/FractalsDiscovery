@@ -6,6 +6,8 @@ set(PROJECT_SOURCES
         juliaset.cpp
         juliasquared.cpp
         juliacosh.cpp
+        juliaexp.cpp
+        juliapower4.cpp
 )
 
 add_library(creators STATIC ${PROJECT_SOURCES})
