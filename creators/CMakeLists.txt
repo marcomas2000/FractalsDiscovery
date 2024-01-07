@@ -8,6 +8,8 @@ set(PROJECT_SOURCES
         juliacosh.cpp
         juliaexp.cpp
         juliapower4.cpp
+        mandelbrotset.cpp
+        mandelbrot.cpp
 )
 
 add_library(creators STATIC ${PROJECT_SOURCES})

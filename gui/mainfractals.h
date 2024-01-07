@@ -24,6 +24,7 @@ class JuliaSquaredFractalParams;
 class JuliaCosHFractalParams;
 class JuliaExpFractalParams;
 class JuliaPower4FractalParams;
+class MandelbrotFractalParams;
 
 class MainFractals : public QMainWindow
 {
@@ -52,6 +53,7 @@ private:
     void createJuliaCosHImage(JuliaCosHFractalParams * imParams);
     void createJuliaExpImage(JuliaExpFractalParams * imParams);
     void createJuliaPower4Image(JuliaPower4FractalParams * imParams);
+    void createMandelbrotImage(MandelbrotFractalParams * imParams);
 };
 
 #endif // MAINFRACTALS_H

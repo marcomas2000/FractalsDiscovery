@@ -5,14 +5,15 @@
 #include "../creators/juliacosh.h"
 #include "../creators/juliaexp.h"
 #include "../creators/juliapower4.h"
+#include "../creators/mandelbrot.h"
 //#include "attracthenon.h"
 //#include "attractikeda.h"
 #include "juliasquaredfractalparams.h"
 #include "juliacoshfractalparams.h"
 #include "juliaexpfractalparams.h"
 #include "juliapower4fractalparams.h"
+#include "mandelbrotfractalparams.h"
 //#include "lyapfractalparams.h"
-//#include "mandelbrot.h"
 //#include "lyapunov.h"
 //#include <QFileDialog>
 //#include <QPixmap>
@@ -118,6 +119,17 @@ void MainFractals::on_actionConfigure_triggered()
                 }
             }                
             break;
+        case (int) FRACTAL_DOMAIN::MANDELBROT:
+            {
+                MandelbrotFractalParams * mandelbrotParams = new MandelbrotFractalParams;
+                ret2 = mandelbrotParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    std::thread generation(&MainFractals::createMandelbrotImage, this, mandelbrotParams);
+                    generation.detach();
+                }
+            }                
+            break;
         default:
             break;
     }
@@ -203,6 +215,23 @@ void MainFractals::createJuliaPower4Image(JuliaPower4FractalParams * imParams)
     emit generationCompleted();
 }
 
+void MainFractals::createMandelbrotImage(MandelbrotFractalParams * imParams)
+{
+    Mandelbrot * im = new Mandelbrot;
+    im->setXres(imParams->getXres());
+    im->setYres(imParams->getYres());
+    im->setXmin(imParams->getXmin());
+    im->setYmin(imParams->getYmin());
+    im->setXmax(imParams->getXmax());
+    im->setYmax(imParams->getYmax());
+    im->setMaxiter(imParams->getMaxiter());
+    im->setDivergencyFactor(imParams->getDivergencyFactor());
+
+    double quote=im->createMandelbrot();
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
+    emit generationCompleted();
+}
 
 /*************************
 void MainFractals::showLyapImage()

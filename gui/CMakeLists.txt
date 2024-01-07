@@ -27,6 +27,9 @@ set(PROJECT_SOURCES
         juliapower4fractalparams.cpp
         juliapower4fractalparams.h
         juliapower4fractals_ui.h
+        mandelbrotfractalparams.cpp
+        mandelbrotfractalparams.h
+        mandelbrotfractals_ui.h
         main_ui.h
 )
 
