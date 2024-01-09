@@ -1,8 +1,7 @@
 #ifndef LYAPSET_H
 #define LYAPSET_H
 
-#include <QImage>
-#include <QProgressDialog>
+#include <vector>
 #include "fractimage.h"
 
 const int MAXCOLORS = 4;
@@ -12,10 +11,10 @@ public:
     LyapSet();
     virtual ~LyapSet();
     /**
-     * @brief createJulia creates the file by calling the msetlevel function defined in the
+     * @brief createLyap creates the file by calling the msetlevel function defined in the
      *          derived class
      */
-    virtual void createLyap();
+    virtual double createLyap();
 
     /**
      * @brief msetlevel checks the convergence at the given point. it
@@ -47,12 +46,6 @@ public:
     virtual void setYmax(double value);
 
     /**
-     * @brief getImage returns a pointer to the created image
-     * @return
-     */
-    virtual QImage * getImage();
-
-    /**
      * @brief setMaxiter
      * @param value
      */
@@ -60,24 +53,32 @@ public:
 
     void setInitialPoint(double value);
 
-    void setLyapSuccession(QString value);
+    void setLyapSuccession(const char * strvalue);
 
 protected:
     int m_suc[30];
     int m_suclen;
 
-private:
-    int cerca(double num);
+     /**
+     * @brief resizeDivergencyMatrix adapts matrix size to required size.
+     * @param xsize, ysite 
+     */
+
+    void resizeDivergencyMatrix(long xres, long yres);
+
+   /**
+     * @brief dynamic array to contain calculated divergency values
+     */
+    std::vector<std::vector<double> > m_divergency_matrix;
+
     /**
      * @brief coordinates of the "square of investigation" in the function
      */
     double m_xmin, m_ymin, m_xmax, m_ymax;
 
     /**
-     * @brief m_image variable containing created image
+     * @brief initial point for iteration
      */
-    QImage * m_image;
-
     double m_x;
 
 };
