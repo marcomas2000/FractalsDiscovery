@@ -6,6 +6,7 @@
 #include "../creators/juliaexp.h"
 #include "../creators/juliapower4.h"
 #include "../creators/mandelbrot.h"
+#include "../creators/lyapunov.h"
 //#include "attracthenon.h"
 //#include "attractikeda.h"
 #include "juliasquaredfractalparams.h"
@@ -13,8 +14,7 @@
 #include "juliaexpfractalparams.h"
 #include "juliapower4fractalparams.h"
 #include "mandelbrotfractalparams.h"
-//#include "lyapfractalparams.h"
-//#include "lyapunov.h"
+#include "lyapfractalparams.h"
 //#include <QFileDialog>
 //#include <QPixmap>
 //#include <QImageWriter>
@@ -130,6 +130,17 @@ void MainFractals::on_actionConfigure_triggered()
                 }
             }                
             break;
+        case (int) FRACTAL_DOMAIN::LYAPUNOV:
+            {
+                LyapFractalParams * lyapParams = new LyapFractalParams;
+                ret2 = lyapParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    std::thread generation(&MainFractals::createLyapImage, this, lyapParams);
+                    generation.detach();
+                }
+            }                
+            break;
         default:
             break;
     }
@@ -230,6 +241,25 @@ void MainFractals::createMandelbrotImage(MandelbrotFractalParams * imParams)
     double quote=im->createMandelbrot();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
     qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
+    emit generationCompleted();
+}
+
+void MainFractals::createLyapImage(LyapFractalParams * imParams)
+{
+    Lyapunov * im = new Lyapunov;
+    im->setXres(imParams->getXres());
+    im->setYres(imParams->getYres());
+    im->setXmin(imParams->getXmin());
+    im->setYmin(imParams->getYmin());
+    im->setXmax(imParams->getXmax());
+    im->setYmax(imParams->getYmax());
+    im->setMaxiter(imParams->getMaxiter());
+    im->setInitialPoint(imParams->getInitialPoint());
+    im->setLyapSuccession(imParams->getLyapSuccession().toStdString().c_str());
+
+    double quote=im->createLyap();
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    qWarning() << imParams->getLyapSuccession().toStdString().c_str() << " Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 

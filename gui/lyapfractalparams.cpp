@@ -1,5 +1,5 @@
 #include "lyapfractalparams.h"
-#include "ui_lyapfractalparams.h"
+#include "lyapfractals_ui.h"
 
 LyapFractalParams::LyapFractalParams(QWidget *parent) :
     QDialog(parent),
@@ -45,7 +45,7 @@ double LyapFractalParams::getYmax()
 
 int LyapFractalParams::getMaxiter()
 {
-    return ui->spinBox_3->value();
+    return ui->doubleSpinBox_4->value();
 }
 
 double LyapFractalParams::getInitialPoint()

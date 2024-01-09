@@ -264,7 +264,7 @@ public:
         label_2->setText(QCoreApplication::translate("MainFractals", "Mandelbrot Sets", nullptr));
         radioButton_4->setText(QCoreApplication::translate("MainFractals", "Mandelbrot", nullptr));
         label_3->setText(QCoreApplication::translate("MainFractals", "Lyapunov", nullptr));
-        radioButton_5->setText(QCoreApplication::translate("MainFractals", "Sequence1", nullptr));
+        radioButton_5->setText(QCoreApplication::translate("MainFractals", "", nullptr));
     } // retranslateUi
 
 };

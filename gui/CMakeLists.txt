@@ -30,6 +30,9 @@ set(PROJECT_SOURCES
         mandelbrotfractalparams.cpp
         mandelbrotfractalparams.h
         mandelbrotfractals_ui.h
+        lyapfractalparams.cpp
+        lyapfractalparams.h
+        lyapfractals_ui.h
         main_ui.h
 )
 

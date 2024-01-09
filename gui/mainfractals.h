@@ -16,7 +16,7 @@ enum  class FRACTAL_DOMAIN {
         HENON = -6,
         IKEDA = -7,
         MANDELBROT = -8,
-        SEQUENCE1 = -9
+        LYAPUNOV = -9
     };
 
 
@@ -25,6 +25,7 @@ class JuliaCosHFractalParams;
 class JuliaExpFractalParams;
 class JuliaPower4FractalParams;
 class MandelbrotFractalParams;
+class LyapFractalParams;
 
 class MainFractals : public QMainWindow
 {
@@ -54,6 +55,7 @@ private:
     void createJuliaExpImage(JuliaExpFractalParams * imParams);
     void createJuliaPower4Image(JuliaPower4FractalParams * imParams);
     void createMandelbrotImage(MandelbrotFractalParams * imParams);
+    void createLyapImage(LyapFractalParams * imParams);
 };
 
 #endif // MAINFRACTALS_H
