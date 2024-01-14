@@ -257,9 +257,10 @@ void MainFractals::createLyapImage(LyapFractalParams * imParams)
     im->setInitialPoint(imParams->getInitialPoint());
     im->setLyapSuccession(imParams->getLyapSuccession().toStdString().c_str());
 
+    qWarning() << imParams->getLyapSuccession().toStdString().c_str() << " Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+
     double quote=im->createLyap();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << imParams->getLyapSuccession().toStdString().c_str() << " Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 

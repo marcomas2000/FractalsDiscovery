@@ -57,7 +57,7 @@ public:
         doubleSpinBox->setMinimum(-1000.000000000000000);
         doubleSpinBox->setMaximum(1000.000000000000000);
         doubleSpinBox->setSingleStep(0.100000000000000);
-        doubleSpinBox->setValue(-2.000000000000000);
+        doubleSpinBox->setValue(0.000000000000000);
 
         horizontalLayout_2->addWidget(doubleSpinBox);
 
@@ -72,7 +72,7 @@ public:
         doubleSpinBox_2->setMinimum(-1000.000000000000000);
         doubleSpinBox_2->setMaximum(1000.000000000000000);
         doubleSpinBox_2->setSingleStep(0.100000000000000);
-        doubleSpinBox_2->setValue(-2.000000000000000);
+        doubleSpinBox_2->setValue(0.000000000000000);
 
         horizontalLayout_2->addWidget(doubleSpinBox_2);
 
@@ -92,7 +92,7 @@ public:
         doubleSpinBox_3->setMinimum(-1000.000000000000000);
         doubleSpinBox_3->setMaximum(1000.000000000000000);
         doubleSpinBox_3->setSingleStep(0.100000000000000);
-        doubleSpinBox_3->setValue(2.000000000000000);
+        doubleSpinBox_3->setValue(1.000000000000000);
 
         horizontalLayout_3->addWidget(doubleSpinBox_3);
 
@@ -107,7 +107,7 @@ public:
         doubleSpinBox_4->setMinimum(-1000.000000000000000);
         doubleSpinBox_4->setMaximum(1000.000000000000000);
         doubleSpinBox_4->setSingleStep(0.100000000000000);
-        doubleSpinBox_4->setValue(2.000000000000000);
+        doubleSpinBox_4->setValue(1.000000000000000);
 
         horizontalLayout_3->addWidget(doubleSpinBox_4);
 
@@ -123,11 +123,11 @@ public:
 
         doubleSpinBox_5 = new QDoubleSpinBox(verticalLayoutWidget);
         doubleSpinBox_5->setObjectName("doubleSpinBox_5");
-        doubleSpinBox_5->setDecimals(6);
-        doubleSpinBox_5->setMinimum(-100.000000000000000);
-        doubleSpinBox_5->setMaximum(100.000000000000000);
-        doubleSpinBox_5->setSingleStep(0.100000000000000);
-        doubleSpinBox_5->setValue(-0.900000000000000);
+        doubleSpinBox_5->setDecimals(0);
+        doubleSpinBox_5->setMinimum(000000000000000);
+        doubleSpinBox_5->setMaximum(10000);
+        doubleSpinBox_5->setSingleStep(100);
+        doubleSpinBox_5->setValue(4000);
 
         horizontalLayout_4->addWidget(doubleSpinBox_5);
 
@@ -142,7 +142,7 @@ public:
         doubleSpinBox_6->setMinimum(-100.000000000000000);
         doubleSpinBox_6->setMaximum(100.000000000000000);
         doubleSpinBox_6->setSingleStep(0.100000000000000);
-        doubleSpinBox_6->setValue(0.120000000000000);
+        doubleSpinBox_6->setValue(0.40000000000000);
 
         horizontalLayout_4->addWidget(doubleSpinBox_6);
 

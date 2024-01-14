@@ -1,5 +1,5 @@
 #include "lyapset.h"
-
+#include <iostream>
 LyapSet::LyapSet(): m_xmin(0.0), m_xmax(0.0),
     m_ymin(0.0), m_ymax(0.0), m_x(0.0), m_suclen(0)
 {
@@ -25,26 +25,19 @@ double LyapSet::createLyap()
     int ix, iy;
     double cx, cy, ris;
     resizeDivergencyMatrix(m_xres, m_yres);
+
     for(iy = 0; iy < m_yres; iy++)
     {
         cy=m_ymin+iy*(m_ymax-m_ymin)/(m_yres-1);
-        for(ix=0;ix<m_xres;ix++)
+        for(ix=0; ix < m_xres ; ix++)
         {
             cx=m_xmin+ix*(m_xmax-m_xmin)/(m_xres-1);
             ris = lyap(cy, cx, m_x);
-            if(ris > 0.0)
-            {
-                m_divergency_matrix[iy][ix] = 0.0;
-                non_divergent++;
-            }
-            else
-            {
-                m_divergency_matrix[iy][ix] = ris;
-                divergent++;
-            }
+            m_divergency_matrix[iy][ix] = ris;
         }
     }
-    return(static_cast<double>(non_divergent)/static_cast<double>(divergent));
+    std::cout << "Image ready" << std::endl;
+    return(0.0);
 }
 
 void LyapSet::setInitialPoint(double value)

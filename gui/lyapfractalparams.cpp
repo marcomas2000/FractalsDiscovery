@@ -45,12 +45,12 @@ double LyapFractalParams::getYmax()
 
 int LyapFractalParams::getMaxiter()
 {
-    return ui->doubleSpinBox_4->value();
+    return ui->doubleSpinBox_5->value();
 }
 
 double LyapFractalParams::getInitialPoint()
 {
-    return ui->doubleSpinBox_5->value();
+    return ui->doubleSpinBox_6->value();
 }
 
 QString LyapFractalParams::getLyapSuccession()
