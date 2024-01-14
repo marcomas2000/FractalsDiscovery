@@ -16,7 +16,6 @@ on:
         - info
         - warning
         - debug
-
   push:
     branches: [ master Development]
   pull_request:
