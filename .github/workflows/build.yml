@@ -37,25 +37,19 @@ jobs:
         version: 6.2.*
 
     - name: Windows - setup MSBuild
-      if: startsWith(matrix.os, 'windows')
       uses: microsoft/setup-msbuild@v1.3
 
     - name: Configure Project
       uses: threeal/cmake-action@v1.3.0
-      with:
-        generator: "MinGW Makefiles"
       
 #    - name: C
 #      run: cmake --build build 
 
-#    - name: Windows
-#      if: startsWith(matrix.os, 'windows')
-#      shell: cmd
-#      run: |
-#        %Qt5_DIR%\bin\qmake.exe -v
-#        call "%programfiles%\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-#        %Qt5_DIR%\bin\qmake.exe -tp vc -r
-#        msbuild /t:Build /p:Configuration=Release;PlatformToolset=v143
+     - name: Windows
+       shell: cmd
+       run: |
+         call "%programfiles%\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+         msbuild /t:Build /p:Configuration=Release;PlatformToolset=v143
 
 #    - name: Deployment Package
 #      run: |
