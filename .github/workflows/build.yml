@@ -42,8 +42,8 @@ jobs:
 
     - name: Configure Project
       uses: threeal/cmake-action@v1.3.0
-#      with:
-#        generator: "MinGW Makefiles"
+      with:
+        generator: "MinGW Makefiles"
       
 #    - name: C
 #      run: cmake --build build 
