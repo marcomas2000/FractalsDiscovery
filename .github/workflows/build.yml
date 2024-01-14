@@ -44,6 +44,8 @@ jobs:
       uses: threeal/cmake-action@v1.3.0
       with:
         generator: Ninja
+        c-compiler: clang
+        cxx-compiler: clang++
       
     - name: Build Project
       run: cmake --build build
