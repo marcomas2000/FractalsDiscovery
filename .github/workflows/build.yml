@@ -41,7 +41,6 @@ jobs:
 
     - name: Configure Project
       uses: threeal/cmake-action@v1.3.0
-      runs-on: windows-latest
       
 #    - name: C
 #      run: cmake --build build 
