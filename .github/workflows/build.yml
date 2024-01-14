@@ -17,9 +17,13 @@ on:
         - warning
         - debug
   push:
-    branches: [ master Development]
+    branches: 
+      - master 
+      - Development 
   pull_request:
-    branches: [ master Development]
+    branches:
+      - master 
+      - Development
 
 jobs:
     fractaldiscovery-build:
