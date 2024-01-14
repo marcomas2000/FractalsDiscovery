@@ -22,8 +22,7 @@ on:
     branches: [ master Development]
 
 jobs:
-  build:
-    name: Build_Project
+    fractaldiscovery-build
     runs-on: windows-latest
 
     steps:
