@@ -1,1 +1,4 @@
-FractalsDiscovery.pro.user
+build/
+CMakeLists.txt.user
+gui/*.xml
+gui/*.csv
