@@ -33,6 +33,7 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
+      version: 6.2.*
 
     - name: Windows - setup MSBuild
       if: startsWith(matrix.os, 'windows')
