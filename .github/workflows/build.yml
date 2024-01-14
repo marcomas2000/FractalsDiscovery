@@ -36,11 +36,12 @@ jobs:
       with:
         version: 6.2.*
 
-    - name: Windows - setup MSBuild
+    - name: MSBuild
       uses: microsoft/setup-msbuild@v1.3
 
     - name: Configure Project
       uses: threeal/cmake-action@v1.3.0
+      runs-on: windows-latest
       
 #    - name: C
 #      run: cmake --build build 
