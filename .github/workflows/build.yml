@@ -42,13 +42,11 @@ jobs:
 
     - name: Configure Project
       uses: threeal/cmake-action@v1.3.0
-      with:
-        generator: Ninja
-        c-compiler: clang
-        cxx-compiler: clang++
+#      with:
+#        generator: "MinGW Makefiles"
       
-    - name: Build Project
-      run: cmake --build build
+#    - name: C
+#      run: cmake --build build 
 
 #    - name: Windows
 #      if: startsWith(matrix.os, 'windows')
