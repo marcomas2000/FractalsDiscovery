@@ -51,7 +51,7 @@ long cont=0;
 
 void Lyapunov::storeImage(const char * standardPath)
 {
-    const std::chrono::_V2::system_clock::time_point timenow = std::chrono::system_clock::now();
+    const std::chrono::system_clock::time_point timenow = std::chrono::system_clock::now();
     const std::time_t timestamp = std::chrono::system_clock::to_time_t(timenow);
     
     char filename_timestamp[100];

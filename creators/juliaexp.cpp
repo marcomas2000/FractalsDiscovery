@@ -41,7 +41,7 @@ double JuliaExp::checkDivergency(double x_pos, double y_pos)
 
 void JuliaExp::storeImage(const char * standardPath)
 {
-    const std::chrono::_V2::system_clock::time_point timenow = std::chrono::system_clock::now();
+    const std::chrono::system_clock::time_point timenow = std::chrono::system_clock::now();
     const std::time_t timestamp = std::chrono::system_clock::to_time_t(timenow);
     
     char filename_timestamp[100];
