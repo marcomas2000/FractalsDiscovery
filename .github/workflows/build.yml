@@ -53,14 +53,14 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
-#    - name: Deployment Package
-#      run: |
-#        mkdir ${{github.workspace}}\release\all\
-#        cp ${{github.workspace}}/release/FractalsDiscovery.exe ${{github.workspace}}\release\all\
-#        cd ${{github.workspace}}\release\all\
-#        windeployqt.exe FractalsDiscovery.exe --release
-#        ls
-#        Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.zip
+    - name: Deployment Package
+      run: |
+        mkdir ${{github.workspace}}\release\all\
+        cp ${{github.workspace}}/release/FractalsDiscovery.exe ${{github.workspace}}\release\all\
+        cd ${{github.workspace}}\release\all\
+        windeployqt.exe FractalsDiscovery.exe --release
+        ls
+        Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.zip
  
 #    Upload Artifact
     - name: Upload production-ready build files
