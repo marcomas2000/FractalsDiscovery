@@ -33,6 +33,9 @@ set(PROJECT_SOURCES
         lyapfractalparams.cpp
         lyapfractalparams.h
         lyapfractals_ui.h
+        bifurfractalparams.cpp
+        bifurfractalparams.h
+        bifurfractals_ui.h
         main_ui.h
 )
 

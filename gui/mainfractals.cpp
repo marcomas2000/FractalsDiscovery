@@ -15,6 +15,7 @@
 #include "juliapower4fractalparams.h"
 #include "mandelbrotfractalparams.h"
 #include "lyapfractalparams.h"
+#include "bifurfractalparams.h"
 //#include <QFileDialog>
 //#include <QPixmap>
 //#include <QImageWriter>
@@ -73,6 +74,7 @@ void MainFractals::on_actionConfigure_triggered()
 {
     int ret, ret2;
 
+    qWarning() << "Type: " << ui->buttonGroup->checkedId();
     switch (ui->buttonGroup->checkedId())
     {
         case (int) FRACTAL_DOMAIN::SQUARED:
@@ -137,6 +139,17 @@ void MainFractals::on_actionConfigure_triggered()
                 if (ret2 == QDialog::Accepted)
                 {
                     std::thread generation(&MainFractals::createLyapImage, this, lyapParams);
+                    generation.detach();
+                }
+            }                
+            break;
+        case (int) FRACTAL_DOMAIN::BIFURCATION:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    std::thread generation(&MainFractals::createBifurImage, this, bifurParams);
                     generation.detach();
                 }
             }                
@@ -262,6 +275,11 @@ void MainFractals::createLyapImage(LyapFractalParams * imParams)
     double quote=im->createLyap();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
     emit generationCompleted();
+}
+
+void MainFractals::createBifurImage(BifurFractalParams * imParams)
+{
+
 }
 
 /*************************

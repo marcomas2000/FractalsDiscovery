@@ -9,14 +9,15 @@ class MainFractals;
 }
 
 enum  class FRACTAL_DOMAIN {
-        SQUARED = -2,
-        HCOS = -3,
-        EXPONENTIAL = -4,
-        POWER4 = -5,
-        HENON = -6,
-        IKEDA = -7,
-        MANDELBROT = -8,
-        LYAPUNOV = -9
+        BIFURCATION = -2,
+        SQUARED = -3,
+        HCOS = -4,
+        EXPONENTIAL = -5,
+        POWER4 = -6,
+        HENON = -7,
+        IKEDA = -8,
+        MANDELBROT = -9,
+        LYAPUNOV = -10
     };
 
 
@@ -26,6 +27,7 @@ class JuliaExpFractalParams;
 class JuliaPower4FractalParams;
 class MandelbrotFractalParams;
 class LyapFractalParams;
+class BifurFractalParams;
 
 class MainFractals : public QMainWindow
 {
@@ -56,6 +58,7 @@ private:
     void createJuliaPower4Image(JuliaPower4FractalParams * imParams);
     void createMandelbrotImage(MandelbrotFractalParams * imParams);
     void createLyapImage(LyapFractalParams * imParams);
+    void createBifurImage(BifurFractalParams * imParams);
 };
 
 #endif // MAINFRACTALS_H
