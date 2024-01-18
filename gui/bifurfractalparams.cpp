@@ -23,17 +23,17 @@ int BifurFractalParams::getYres()
     return ui->spinBox_2->value();
 }
 
-double BifurFractalParams::getXmin()
+double BifurFractalParams::getCmin()
 {
     return ui->doubleSpinBox->value();
 }
 
-double BifurFractalParams::getXmax()
+double BifurFractalParams::getCmax()
 {
     return ui->doubleSpinBox_2->value();
 }
 
-int BifurFractalParams::getMaxiter()
+int BifurFractalParams::getNoIterationsToExclude()
 {
     return ui->doubleSpinBox_6->value();
 }

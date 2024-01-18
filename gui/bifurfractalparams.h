@@ -17,13 +17,10 @@ public:
 
     int getXres();
     int getYres();
-    double getXmin();
-    double getYmin();
-    double getXmax();
-    double getYmax();
-    int getMaxiter();
+    double getCmin();
+    double getCmax();
+    int getNoIterationsToExclude();
     double getInitialPoint();
-    QString getLyapSuccession();
 
 private:
     Ui::BifurFractalParams *ui;

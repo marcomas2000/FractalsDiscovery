@@ -42,7 +42,7 @@ public:
     {
         Ui_Main::setupUi(BifurFractalParams);
 
-        /* Xmin */
+        /* Cmin */
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName("horizontalLayout_2");
@@ -53,15 +53,15 @@ public:
 
         doubleSpinBox = new QDoubleSpinBox(verticalLayoutWidget);
         doubleSpinBox->setObjectName("doubleSpinBox");
-        doubleSpinBox->setDecimals(19);
-        doubleSpinBox->setMinimum(-1000.000000000000000);
-        doubleSpinBox->setMaximum(1000.000000000000000);
-        doubleSpinBox->setSingleStep(0.100000000000000);
-        doubleSpinBox->setValue(0.000000000000000);
+        doubleSpinBox->setDecimals(2);
+        doubleSpinBox->setMinimum(-2.0);
+        doubleSpinBox->setMaximum(0.250);
+        doubleSpinBox->setSingleStep(0.1);
+        doubleSpinBox->setValue(-1.5);
 
         horizontalLayout_2->addWidget(doubleSpinBox);
 
-        /* Xmax */
+        /* Cmax */
 
         label_5 = new QLabel(verticalLayoutWidget);
         label_5->setObjectName("label_5");
@@ -70,14 +70,16 @@ public:
 
         doubleSpinBox_2 = new QDoubleSpinBox(verticalLayoutWidget);
         doubleSpinBox_2->setObjectName("doubleSpinBox_2");
-        doubleSpinBox_2->setDecimals(19);
-        doubleSpinBox_2->setMinimum(-1000.000000000000000);
-        doubleSpinBox_2->setMaximum(1000.000000000000000);
-        doubleSpinBox_2->setSingleStep(0.100000000000000);
-        doubleSpinBox_2->setValue(0.000000000000000);
+        doubleSpinBox_2->setDecimals(2);
+        doubleSpinBox_2->setMinimum(-2.0);
+        doubleSpinBox_2->setMaximum(0.250);
+        doubleSpinBox_2->setSingleStep(0.1);
+        doubleSpinBox_2->setValue(-1.0);
 
         horizontalLayout_2->addWidget(doubleSpinBox_2);
- 
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         /* Initial Point */
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName("horizontalLayout_4");
@@ -88,11 +90,11 @@ public:
 
         doubleSpinBox_5 = new QDoubleSpinBox(verticalLayoutWidget);
         doubleSpinBox_5->setObjectName("doubleSpinBox_5");
-        doubleSpinBox_5->setDecimals(0);
-        doubleSpinBox_5->setMinimum(000000000000000);
-        doubleSpinBox_5->setMaximum(10000);
-        doubleSpinBox_5->setSingleStep(100);
-        doubleSpinBox_5->setValue(4000);
+        doubleSpinBox_5->setDecimals(2);
+        doubleSpinBox_5->setMinimum(-2.0);
+        doubleSpinBox_5->setMaximum(2.0);
+        doubleSpinBox_5->setSingleStep(0.1);
+        doubleSpinBox_5->setValue(0.0);
 
         horizontalLayout_4->addWidget(doubleSpinBox_5);
 
@@ -105,12 +107,14 @@ public:
         doubleSpinBox_6 = new QDoubleSpinBox(verticalLayoutWidget);
         doubleSpinBox_6->setObjectName("doubleSpinBox_6");
         doubleSpinBox_6->setDecimals(0);
-        doubleSpinBox_6->setMinimum(000000000000000);
+        doubleSpinBox_6->setMinimum(0);
         doubleSpinBox_6->setMaximum(10000);
         doubleSpinBox_6->setSingleStep(100);
         doubleSpinBox_6->setValue(4000);
 
-        horizontalLayout_4->addWidget(label_7);
+        horizontalLayout_4->addWidget(doubleSpinBox_6);
+
+        verticalLayout->addLayout(horizontalLayout_4);
 
         /*************
 
@@ -194,8 +198,8 @@ public:
     {
         Ui_Main::retranslateUi(BifurFractalParams);
         BifurFractalParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", "Bifurcation Params", nullptr));
-        label_3->setText(QCoreApplication::translate("BifurFractalParams", "Xmin", nullptr));
-        label_5->setText(QCoreApplication::translate("BifurFractalParams", "Xmax", nullptr));
+        label_3->setText(QCoreApplication::translate("BifurFractalParams", "C min", nullptr));
+        label_5->setText(QCoreApplication::translate("BifurFractalParams", "C max", nullptr));
         label_7->setText(QCoreApplication::translate("BifurFractalParams", "# of iterations to be discarded", nullptr));
         label_8->setText(QCoreApplication::translate("BifurFractalParams", "Initial Point", nullptr));
     } // retranslateUi

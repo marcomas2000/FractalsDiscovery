@@ -12,6 +12,8 @@ set(PROJECT_SOURCES
         mandelbrot.cpp
         lyapset.cpp
         lyapunov.cpp
+        bifurset.cpp
+        bifurcation.cpp
 )
 
 add_library(creators STATIC ${PROJECT_SOURCES})

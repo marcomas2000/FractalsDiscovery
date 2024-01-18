@@ -7,6 +7,7 @@
 #include "../creators/juliapower4.h"
 #include "../creators/mandelbrot.h"
 #include "../creators/lyapunov.h"
+#include "../creators/bifurcation.h"
 //#include "attracthenon.h"
 //#include "attractikeda.h"
 #include "juliasquaredfractalparams.h"
@@ -279,61 +280,17 @@ void MainFractals::createLyapImage(LyapFractalParams * imParams)
 
 void MainFractals::createBifurImage(BifurFractalParams * imParams)
 {
+    Bifurcation * im = new Bifurcation;
+    im->setXres(imParams->getXres());
+    im->setYres(imParams->getYres());
+    im->setCmin(imParams->getCmin());
+    im->setCmax(imParams->getCmax());
+    im->setNoIterationsToExclude(imParams->getNoIterationsToExclude());
+    im->setInitialPoint(imParams->getInitialPoint());
 
+    qWarning() << " Destination Folder: " << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+
+    double quote=im->createBifur();
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    emit generationCompleted();
 }
-
-/*************************
-void MainFractals::showLyapImage()
-{
-    if (m_currentImage != 0)
-    {
-        delete m_currentImage;
-    }
-    m_lyapImage->setXres(m_lyapParams->getXres());
-    m_lyapImage->setYres(m_lyapParams->getYres());
-    m_lyapImage->setXmin(m_lyapParams->getXmin());
-    m_lyapImage->setYmin(m_lyapParams->getYmin());
-    m_lyapImage->setXmax(m_lyapParams->getXmax());
-    m_lyapImage->setYmax(m_lyapParams->getYmax());
-    m_lyapImage->setMaxiter(m_lyapParams->getMaxiter());
-    m_lyapImage->setInitialPoint(m_lyapParams->getInitialPoint());
-    m_lyapImage->setLyapSuccession(m_lyapParams->getLyapSuccession());
-
-    m_lyapImage->createLyap();
-
-    QPixmap * item = new QPixmap( QPixmap::fromImage(*(m_lyapImage->getImage())));
-    m_currentImage = m_scene->addPixmap(*item);
-    m_view->updateGeometry();
-
-    m_generatedImageNotSaved = true;
-    ui->actionSave->setEnabled(true);
-}
-*************************************/
-/*********************************
-void MainFractals::showAttractorImage()
-{
-    if (m_currentImage != 0)
-    {
-        delete m_currentImage;
-    }
-    m_attractImage->setXres(m_juliaParams->getXres());
-    m_attractImage->setYres(m_juliaParams->getYres());
-    m_attractImage->setXmin(m_juliaParams->getXmin());
-    m_attractImage->setYmin(m_juliaParams->getYmin());
-    m_attractImage->setXmax(m_juliaParams->getXmax());
-    m_attractImage->setYmax(m_juliaParams->getYmax());
-    m_attractImage->setMaxiter(m_juliaParams->getMaxiter());
-    m_attractImage->setLx(m_juliaParams->getLx());
-    m_attractImage->setLy(m_juliaParams->getLy());
-    m_attractImage->setDivergencyFactor(m_juliaParams->getDivergencyFactor());
-
-    m_attractImage->createAttractor();
-
-    QPixmap * item = new QPixmap( QPixmap::fromImage(*(m_attractImage->getImage())));
-    m_currentImage = m_scene->addPixmap(*item);
-    m_view->updateGeometry();
-
-    m_generatedImageNotSaved = true;
-    ui->actionSave->setEnabled(true);
-}
-*************************************/
