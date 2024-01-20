@@ -17,33 +17,34 @@ void BifurSet::resizeDivergencyMatrix(long xres, long yres)
     }
 }
 
+void BifurSet::resizeAttractorVectors(long yres)
+{
+    m_attractorsVector.resize(yres);
+    m_attractorsVectorIndex.resize(yres);
+}
+
 double BifurSet::createBifur()
 {
-    /***
     long divergent = 0, non_divergent = 0;
-    int ix, iy;
-    double cx, cy, ris;
+    int ix;
+    double cy, ris;
  
     resizeDivergencyMatrix(m_xres, m_yres);
-    for(iy=0; iy<m_yres; iy++)
+    resizeAttractorVectors(m_yres);
+    for(ix=0; ix<m_xres; ix++)
     {
-        cy=m_ymin+iy*(m_ymax-m_ymin)/(m_yres-1);
-        for(ix=0;ix<m_xres;ix++)
+        cy=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
+        ris = bifur(cy);
+        if (ris == 0.0)
         {
-            cx=m_xmin+ix*(m_xmax-m_xmin)/(m_xres-1);
-            ris = checkDivergency(cx, cy);
-            if (ris == 0.0)
-            {
-                m_divergency_matrix[iy][ix] = 0.0;
-                non_divergent++;
-            }
-            else
-            {
-                m_divergency_matrix[iy][ix] = ris;
-                divergent++;
-            }
+            //m_divergency_matrix[iy][ix] = 0.0;
+            non_divergent++;
+        }
+        else
+        {
+            //m_divergency_matrix[iy][ix] = ris;
+            divergent++;
         }
     }
-    ****/
-    return(0.0);
+    return(static_cast<double>(non_divergent)/static_cast<double>(m_xres * m_yres));
 }

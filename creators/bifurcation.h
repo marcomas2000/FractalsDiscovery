@@ -22,20 +22,23 @@ public:
     void setInitialPoint(double value);
 
     /**
-     * @brief bifur checks the convergence at the given point. it
-     *                  is implemented in the derived classes
-     * @param x_pos
-     * @param y_pos
-     * @return
-     */
-    double bifur(double a, double b, double x);
-
-    /**
      * @brief store data
      */
     void storeImage(const char * standardPath);
 
+    /**
+     * @brief bifur function defined in derived classes to check divergency in the specified position
+     * @param value
+     */
+    virtual double bifur(double c_pos);
+
 private:
+    /**
+     * @brief evaluateAttractors function defined in derived classes to check divergency in the specified position
+     * @param value
+     */
+    void evaluateAttractors();
+
     /**
      * @brief m_noIterationToExclude max number of iterations to exclude
      */

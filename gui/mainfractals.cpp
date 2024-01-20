@@ -75,7 +75,6 @@ void MainFractals::on_actionConfigure_triggered()
 {
     int ret, ret2;
 
-    qWarning() << "Type: " << ui->buttonGroup->checkedId();
     switch (ui->buttonGroup->checkedId())
     {
         case (int) FRACTAL_DOMAIN::SQUARED:
@@ -158,6 +157,7 @@ void MainFractals::on_actionConfigure_triggered()
         default:
             break;
     }
+    qWarning() << "Data generation completed.";
 }
 
 void MainFractals::createJuliaSquaredImage(JuliaSquaredFractalParams * imParams)
@@ -176,7 +176,6 @@ void MainFractals::createJuliaSquaredImage(JuliaSquaredFractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -196,7 +195,6 @@ void MainFractals::createJuliaCosHImage(JuliaCosHFractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -216,7 +214,6 @@ void MainFractals::createJuliaExpImage(JuliaExpFractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -236,7 +233,6 @@ void MainFractals::createJuliaPower4Image(JuliaPower4FractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -254,7 +250,6 @@ void MainFractals::createMandelbrotImage(MandelbrotFractalParams * imParams)
 
     double quote=im->createMandelbrot();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -271,8 +266,6 @@ void MainFractals::createLyapImage(LyapFractalParams * imParams)
     im->setInitialPoint(imParams->getInitialPoint());
     im->setLyapSuccession(imParams->getLyapSuccession().toStdString().c_str());
 
-    qWarning() << imParams->getLyapSuccession().toStdString().c_str() << " Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
-
     double quote=im->createLyap();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
     emit generationCompleted();
@@ -287,8 +280,6 @@ void MainFractals::createBifurImage(BifurFractalParams * imParams)
     im->setCmax(imParams->getCmax());
     im->setNoIterationsToExclude(imParams->getNoIterationsToExclude());
     im->setInitialPoint(imParams->getInitialPoint());
-
-    qWarning() << " Destination Folder: " << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 
     double quote=im->createBifur();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());

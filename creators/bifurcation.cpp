@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 Bifurcation::Bifurcation()
 {
@@ -14,12 +15,52 @@ Bifurcation::~Bifurcation()
 {
 }
 
-double Bifurcation::bifur(double a, double b, double x)
+double Bifurcation::bifur(double c_pos)
 {
-    int i,j;
+    long i = 0;
     double ret=0.0;
+    double x= m_initialPoint;
 
+    /* zero results vectors */
+    for(i=0; i < m_yres; i++)
+    {
+        m_attractorsVectorIndex[i] = 0;
+        m_attractorsVector[i] = 0; 
+    }     
+    std::cout << "C_POS: " << c_pos << std::endl; 
+    for(i = 0; i < m_noIterationToExclude; i++ )
+    {
+        x = std::pow(x,2) + c_pos;
+    }
+    bool stop = false;
+    int counter = 0;
+    while (stop == false)
+    {
+        x = std::pow(x,2) + c_pos;
+        long idx = static_cast<long>(((x - (-2.0))*m_yres) / 4.0);
+        m_attractorsVector[idx] = x;
+        m_attractorsVectorIndex[idx] += 1;
+        counter++;
+        if (counter >= 10000)
+        {
+            stop = true;
+        } 
+    }
+    evaluateAttractors();
     return(ret);
+}
+
+void Bifurcation::evaluateAttractors()
+{
+    int ix = 0;
+    long attractorIterations = 0;
+    for(ix=0; ix<m_yres; ix++)
+    {
+        if (m_attractorsVectorIndex[ix] > 2000)
+        {
+            std::cout << "Potential attractor. Index: " << ix << " Value: " << m_attractorsVectorIndex[ix] << " x:" << m_attractorsVector[ix] << std::endl; 
+        }
+    }     
 }
 
 void Bifurcation::storeImage(const char * standardPath)

@@ -11,26 +11,32 @@ public:
     BifurSet();
     virtual ~BifurSet();
     /**
-     * @brief createJulia creates the file by calling the bifur function defined in the
+     * @brief createBifur creates the file by calling the bifur function defined in the
      *          derived class
      */
     virtual double createBifur();
 
     /**
-     * @brief setXmin set min x of the fractal window
+     * @brief setCmin set min c of the fractal window
      * @param value
      */
     virtual void setCmin(double value);
     /**
-     * @brief setXmax set max x of the fractal window
+     * @brief setCmax set max c of the fractal window
      * @param value
      */
     virtual void setCmax(double value);
     /**
-     * @brief setDivergencyFactor
+     * @brief setNoIterationsToExclude number of iteration to exclude before reaching a stable orbit
      * @param value
      */
     virtual void setNoIterationsToExclude(int value) = 0;
+
+    /**
+     * @brief bifur function defined in derived classes to check divergency in the specified position
+     * @param value
+     */
+    virtual double bifur(double c_pos) = 0;
 
 protected:
     /**
@@ -40,14 +46,31 @@ protected:
     void resizeDivergencyMatrix(long xres, long yres);
 
     /**
+     * @brief resizeAttractorVectors adapts investigation structures to required size.
+     * @param yres 
+     */
+    void resizeAttractorVectors(long yres);
+
+    /**
      * @brief coordinates of the "interval of investigation" in the function
      */
     double m_cmin, m_cmax;
 
     /**
-     * @brief dynamic array to contain calculated divergency values
+     * @brief dynamic array to contain attractor points
      */
     std::vector<std::vector<double> > m_divergency_matrix;
+
+    /**
+     * @brief dynamic array to contain calculated divergency values
+     */
+    std::vector<double> m_attractorsVector;
+
+    /**
+     * @brief dynamic array to contain calculated divergency values
+     */
+    std::vector<long> m_attractorsVectorIndex;
+
 
 };
 
