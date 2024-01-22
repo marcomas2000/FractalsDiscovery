@@ -15,30 +15,50 @@ BifurFractalParams::~BifurFractalParams()
 
 int BifurFractalParams::getXres()
 {
-    return ui->spinBox->value();
+    return ui->spinBoxXres->value();
 }
 
 int BifurFractalParams::getYres()
 {
-    return ui->spinBox_2->value();
+    return ui->spinBoxYres->value();
+}
+
+double BifurFractalParams::getXmin()
+{
+    return ui->doubleSpinBoxXmin->value();
+}
+
+double BifurFractalParams::getXmax()
+{
+    return ui->doubleSpinBoxXmax->value();
 }
 
 double BifurFractalParams::getCmin()
 {
-    return ui->doubleSpinBox->value();
+    return ui->doubleSpinBoxCmin->value();
 }
 
 double BifurFractalParams::getCmax()
 {
-    return ui->doubleSpinBox_2->value();
+    return ui->doubleSpinBoxCmax->value();
 }
 
 int BifurFractalParams::getNoIterationsToExclude()
 {
-    return ui->doubleSpinBox_6->value();
+    return ui->doubleSpinBoxIterDiscarded->value();
 }
 
 double BifurFractalParams::getInitialPoint()
 {
-    return ui->doubleSpinBox_5->value();
+    return ui->doubleSpinBoxInitialPoint->value();
+}
+
+int BifurFractalParams::getMaxIter()
+{
+    return ui->doubleSpinBoxMaxIter->value();
+}
+
+double BifurFractalParams::getStability()
+{
+    return ui->doubleSpinBoxStability->value();
 }

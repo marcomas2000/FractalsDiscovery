@@ -18,74 +18,81 @@ QT_BEGIN_NAMESPACE
 class Ui_Main
 {
 public:
-    QDialogButtonBox *buttonBox;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout;
-    QLabel *label;
-    QSpinBox *spinBox;
-    QLabel *label_2;
-    QSpinBox *spinBox_2;
+    QDialogButtonBox *buttonExitBox;
+    QWidget *mainVerticalLayoutWidget;
+    QVBoxLayout *mainVerticalLayout;
+    QHBoxLayout *HLayoutXres;
+    QLabel *labelXres;
+    QSpinBox *spinBoxXres;
+    QLabel *labelYres;
+    QSpinBox *spinBoxYres;
 
     virtual void setupUi(QDialog *MainParamsUI)
     {
         if (MainParamsUI->objectName().isEmpty())
             MainParamsUI->setObjectName("MainParamsUI");
+
         MainParamsUI->resize(547, 300);
-        buttonBox = new QDialogButtonBox(MainParamsUI);
-        buttonBox->setObjectName("buttonBox");
-        buttonBox->setGeometry(QRect(30, 240, 341, 32));
-        buttonBox->setOrientation(Qt::Horizontal);
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        verticalLayoutWidget = new QWidget(MainParamsUI);
-        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 531, 231));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setObjectName("verticalLayout");
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName("horizontalLayout");
+        /* Exit box */
+        buttonExitBox = new QDialogButtonBox(MainParamsUI);
+        buttonExitBox->setObjectName("buttonBox");
+        buttonExitBox->setGeometry(QRect(30, 240, 341, 32));
+        buttonExitBox->setOrientation(Qt::Horizontal);
+        buttonExitBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+
+        /* layout main window */
+        mainVerticalLayoutWidget = new QWidget(MainParamsUI);
+        mainVerticalLayoutWidget->setObjectName("mainVerticalLayoutWidget");
+        mainVerticalLayoutWidget->setGeometry(QRect(10, 10, 531, 231));
+        mainVerticalLayout = new QVBoxLayout(mainVerticalLayoutWidget);
+        mainVerticalLayout->setObjectName("mainVerticalLayout");
+        mainVerticalLayout->setContentsMargins(0, 0, 0, 0);
+    
+        /* Xres */
+        HLayoutXres = new QHBoxLayout();
+        HLayoutXres->setObjectName("HLayoutXres");
    
-        label = new QLabel(verticalLayoutWidget);
-        label->setObjectName("xres");
+        labelXres = new QLabel(mainVerticalLayoutWidget);
+        labelXres->setObjectName("xres");
 
-        horizontalLayout->addWidget(label);
+        HLayoutXres->addWidget(labelXres);
 
-        spinBox = new QSpinBox(verticalLayoutWidget);
-        spinBox->setObjectName("xresvalue");
-        spinBox->setMinimum(320);
-        spinBox->setMaximum(9100);
-        spinBox->setSingleStep(1);
-        spinBox->setValue(1280);
+        spinBoxXres = new QSpinBox(mainVerticalLayoutWidget);
+        spinBoxXres->setObjectName("spinBoxXres");
+        spinBoxXres->setMinimum(320);
+        spinBoxXres->setMaximum(9100);
+        spinBoxXres->setSingleStep(1);
+        spinBoxXres->setValue(1280);
 
-        horizontalLayout->addWidget(spinBox);
+        HLayoutXres->addWidget(spinBoxXres);
 
-        label_2 = new QLabel(verticalLayoutWidget);
-        label_2->setObjectName("yres");
+        /* Yres */
+        labelYres = new QLabel(mainVerticalLayoutWidget);
+        labelYres->setObjectName("labelYres");
 
-        horizontalLayout->addWidget(label_2);
+        HLayoutXres->addWidget(labelYres);
 
-        spinBox_2 = new QSpinBox(verticalLayoutWidget);
-        spinBox_2->setObjectName("yresvalue");
-        spinBox_2->setMinimum(200);
-        spinBox_2->setMaximum(6500);
-        spinBox_2->setSingleStep(1);
-        spinBox_2->setValue(768);
+        spinBoxYres = new QSpinBox(mainVerticalLayoutWidget);
+        spinBoxYres->setObjectName("yresvalue");
+        spinBoxYres->setMinimum(200);
+        spinBoxYres->setMaximum(6500);
+        spinBoxYres->setSingleStep(1);
+        spinBoxYres->setValue(768);
 
-        horizontalLayout->addWidget(spinBox_2);
+        HLayoutXres->addWidget(spinBoxYres);
 
 
-        verticalLayout->addLayout(horizontalLayout);
-        QObject::connect(buttonBox, &QDialogButtonBox::accepted, MainParamsUI, qOverload<>(&QDialog::accept));
-        QObject::connect(buttonBox, &QDialogButtonBox::rejected, MainParamsUI, qOverload<>(&QDialog::reject));
+        mainVerticalLayout->addLayout(HLayoutXres);
+        QObject::connect(buttonExitBox, &QDialogButtonBox::accepted, MainParamsUI, qOverload<>(&QDialog::accept));
+        QObject::connect(buttonExitBox, &QDialogButtonBox::rejected, MainParamsUI, qOverload<>(&QDialog::reject));
 
         QMetaObject::connectSlotsByName(MainParamsUI);
     } // setupUi
 
     virtual void retranslateUi(QDialog *MainParamsUI)
     {
-        label->setText(QObject::tr("Xres"));
-        label_2->setText(QObject::tr("Yres"));
+        labelXres->setText(QObject::tr("H Res"));
+        labelYres->setText(QObject::tr("Y Res"));
     } // retranslateUi
 
 };

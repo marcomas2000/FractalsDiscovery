@@ -37,11 +37,11 @@ double Bifurcation::bifur(double c_pos)
     while (stop == false)
     {
         x = std::pow(x,2) + c_pos;
-        long idx = static_cast<long>(((x - (-2.0))*m_yres) / 4.0);
+        long idx = static_cast<long>(((x - m_xmin)*m_yres) / (m_xmax-m_xmin));
         m_attractorsVector[idx] = x;
         m_attractorsVectorIndex[idx] += 1;
         counter++;
-        if (counter >= 10000)
+        if (counter >= m_maxIter)
         {
             stop = true;
         } 
@@ -56,7 +56,7 @@ void Bifurcation::evaluateAttractors()
     long attractorIterations = 0;
     for(ix=0; ix<m_yres; ix++)
     {
-        if (m_attractorsVectorIndex[ix] > 2000)
+        if ((static_cast<double>(m_attractorsVectorIndex[ix])/m_maxIter) >= m_stability)
         {
             std::cout << "Potential attractor. Index: " << ix << " Value: " << m_attractorsVectorIndex[ix] << " x:" << m_attractorsVector[ix] << std::endl; 
         }

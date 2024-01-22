@@ -15,24 +15,24 @@ set(PROJECT_SOURCES
         mainfractals.cpp
         mainfractals.h
         mainfractals_ui.h
-        juliasquaredfractalparams.cpp
-        juliasquaredfractalparams.h
-        juliasquaredfractals_ui.h
-        juliacoshfractalparams.cpp
-        juliacoshfractalparams.h
-        juliacoshfractals_ui.h
-        juliaexpfractalparams.cpp
-        juliaexpfractalparams.h
-        juliaexpfractals_ui.h
-        juliapower4fractalparams.cpp
-        juliapower4fractalparams.h
-        juliapower4fractals_ui.h
-        mandelbrotfractalparams.cpp
-        mandelbrotfractalparams.h
-        mandelbrotfractals_ui.h
-        lyapfractalparams.cpp
-        lyapfractalparams.h
-        lyapfractals_ui.h
+#        juliasquaredfractalparams.cpp
+#        juliasquaredfractalparams.h
+#        juliasquaredfractals_ui.h
+#        juliacoshfractalparams.cpp
+#        juliacoshfractalparams.h
+#        juliacoshfractals_ui.h
+#        juliaexpfractalparams.cpp
+#        juliaexpfractalparams.h
+#        juliaexpfractals_ui.h
+#        juliapower4fractalparams.cpp
+#        juliapower4fractalparams.h
+#        juliapower4fractals_ui.h
+#        mandelbrotfractalparams.cpp
+#        mandelbrotfractalparams.h
+#        mandelbrotfractals_ui.h
+#        lyapfractalparams.cpp
+#        lyapfractalparams.h
+#        lyapfractals_ui.h
         bifurfractalparams.cpp
         bifurfractalparams.h
         bifurfractals_ui.h

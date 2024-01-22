@@ -21,11 +21,25 @@ public:
      * @param value
      */
     virtual void setCmin(double value);
+
     /**
      * @brief setCmax set max c of the fractal window
      * @param value
      */
     virtual void setCmax(double value);
+
+    /**
+     * @brief setXmin Setter for the parameter from the GUI
+     * @param value
+     */
+    virtual void setXmin(double value);
+
+    /**
+     * @brief setXmax Setter for the parameter from the GUI
+     * @param value
+     */
+    virtual void setXmax(double value);
+
     /**
      * @brief setNoIterationsToExclude number of iteration to exclude before reaching a stable orbit
      * @param value
@@ -57,6 +71,11 @@ protected:
     double m_cmin, m_cmax;
 
     /**
+     * @brief coordinates of the interval of investigation for attractors
+     */
+    double m_xmin, m_xmax;
+
+    /**
      * @brief dynamic array to contain attractor points
      */
     std::vector<std::vector<double> > m_divergency_matrix;
@@ -82,6 +101,16 @@ inline void BifurSet::setCmin(double value)
 inline void BifurSet::setCmax(double value)
 {
     m_cmax = value;
+}
+
+inline void BifurSet::setXmin(double value)
+{
+    m_xmin = value;
+}
+
+inline void BifurSet::setXmax(double value)
+{
+    m_xmax = value;
 }
 
 #endif // BIFURSET_H

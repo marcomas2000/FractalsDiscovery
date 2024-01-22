@@ -36,14 +36,13 @@ public:
     QAction *actionExit;
     QAction *actionConfigure;
     QAction *actionGenerate;
-    //QWidget *centralWidget;
     QFormLayout *formLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuTools;
     QStatusBar *statusBar;
 
-    QDialogButtonBox *buttonBox;
+    //QDialogButtonBox *buttonBox;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *julia_HLayout;
@@ -122,7 +121,7 @@ public:
 private:
     void setupWindowsMenus(QMainWindow *MainFractals)
     {
-        MainFractals->resize(400, 300);
+        MainFractals->resize(600, 400);
 
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         MainFractals->setSizePolicy(sizePolicy);

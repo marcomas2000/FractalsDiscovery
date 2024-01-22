@@ -1,12 +1,12 @@
 #include "mainfractals.h"
 #include "mainfractals_ui.h"
 //#include "fractaltypes.h"
-#include "../creators/juliasquared.h"
-#include "../creators/juliacosh.h"
-#include "../creators/juliaexp.h"
-#include "../creators/juliapower4.h"
-#include "../creators/mandelbrot.h"
-#include "../creators/lyapunov.h"
+//#include "../creators/juliasquared.h"
+//#include "../creators/juliacosh.h"
+//#include "../creators/juliaexp.h"
+//#include "../creators/juliapower4.h"
+//#include "../creators/mandelbrot.h"
+//#include "../creators/lyapunov.h"
 #include "../creators/bifurcation.h"
 //#include "attracthenon.h"
 //#include "attractikeda.h"
@@ -77,6 +77,7 @@ void MainFractals::on_actionConfigure_triggered()
 
     switch (ui->buttonGroup->checkedId())
     {
+        /**********
         case (int) FRACTAL_DOMAIN::SQUARED:
             {
                 JuliaSquaredFractalParams * juliaSqParams = new JuliaSquaredFractalParams;
@@ -143,6 +144,7 @@ void MainFractals::on_actionConfigure_triggered()
                 }
             }                
             break;
+        *******/
         case (int) FRACTAL_DOMAIN::BIFURCATION:
             {
                 BifurFractalParams * bifurParams = new BifurFractalParams;
@@ -160,6 +162,7 @@ void MainFractals::on_actionConfigure_triggered()
     qWarning() << "Data generation completed.";
 }
 
+/****
 void MainFractals::createJuliaSquaredImage(JuliaSquaredFractalParams * imParams)
 {
     JuliaSquared * im = new JuliaSquared;
@@ -270,16 +273,22 @@ void MainFractals::createLyapImage(LyapFractalParams * imParams)
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
     emit generationCompleted();
 }
+*******/
 
 void MainFractals::createBifurImage(BifurFractalParams * imParams)
 {
+
     Bifurcation * im = new Bifurcation;
     im->setXres(imParams->getXres());
     im->setYres(imParams->getYres());
+    im->setXmin(imParams->getXmin());
+    im->setXmax(imParams->getXmax());
     im->setCmin(imParams->getCmin());
     im->setCmax(imParams->getCmax());
     im->setNoIterationsToExclude(imParams->getNoIterationsToExclude());
     im->setInitialPoint(imParams->getInitialPoint());
+    im->setMaxIter(imParams->getMaxIter());
+    im->setStability(imParams->getStability());
 
     double quote=im->createBifur();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
