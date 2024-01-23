@@ -15,12 +15,14 @@ Bifurcation::~Bifurcation()
 {
 }
 
-double Bifurcation::bifur(double c_pos)
+double Bifurcation::bifur(long ix)
 {
     long i = 0;
     double ret=0.0;
     double x= m_initialPoint;
+    double c_pos = 0.0;
 
+    c_pos=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
     /* zero results vectors */
     for(i=0; i < m_yres; i++)
     {
@@ -46,19 +48,19 @@ double Bifurcation::bifur(double c_pos)
             stop = true;
         } 
     }
-    evaluateAttractors();
+    evaluateAttractors(ix);
     return(ret);
 }
 
-void Bifurcation::evaluateAttractors()
+void Bifurcation::evaluateAttractors(long ix)
 {
-    int ix = 0;
     long attractorIterations = 0;
-    for(ix=0; ix<m_yres; ix++)
+    for(int iy=0; iy<m_yres; iy++)
     {
-        if ((static_cast<double>(m_attractorsVectorIndex[ix])/m_maxIter) >= m_stability)
+        if ((static_cast<double>(m_attractorsVectorIndex[iy])/m_maxIter) >= m_stability)
         {
-            std::cout << "Potential attractor. Index: " << ix << " Value: " << m_attractorsVectorIndex[ix] << " x:" << m_attractorsVector[ix] << std::endl; 
+            long attractorPosition = static_cast<long>((m_attractorsVector[iy] * m_yres )/(m_xmax - m_xmin)) + m_yres/2;
+            m_divergency_matrix[attractorPosition][ix] = 1.0;
         }
     }     
 }
@@ -70,7 +72,6 @@ void Bifurcation::storeImage(const char * standardPath)
     
     char filename_timestamp[100];
     std::strftime(filename_timestamp, sizeof(filename_timestamp), "%Y%m%d_%H%M%S", std::localtime(&timestamp));
-    /****
 
     std::string fileNameXML(standardPath);
     fileNameXML += "/";
@@ -79,21 +80,17 @@ void Bifurcation::storeImage(const char * standardPath)
      
     std::ofstream specs;
     specs.open(fileNameXML.c_str());
-    specs << "<FRACTAL fractaltype=\"Bifurcation\">" << std::endl;
-    specs << "<IMAGERESOLUTION xres=" << m_xres << " yres=" << m_yres << "/>" << std::endl;
-    specs << "<FUNCTIONDOMAIN>" << std::endl;
-    specs << "    <TOPLEFTCORNER xmin=" << m_xmin << " ymin=" << m_ymin << "/>" << std::endl;
-    specs << "    <BOTTOMRIGHTCORNER xmax=" << m_xmax << " ymax=" << m_ymax << "/>" << std::endl;
-    specs << "</FUNCTIONDOMAIN>" << std::endl;
-    specs << "<MAXITERATIONS> " << m_maxiter << " </MAXITERATIONS>" << std::endl;
-    specs << "<INITIALPOINT> " << m_x << " </INITIALPOINT>" << std::endl;
-    specs << "<SUCCESSION> ";
-          for (int j=0; j < m_suclen; j++)
-          {
-              specs << m_suc[j];
-          } 
-    specs << " </SUCCESSION>" << std::endl;
-    specs << "</FRACTAL>" << std::endl;
+    specs << "<fractal fractaltype=\"Bifurcation\">" << std::endl;
+    specs << "<imageresolution xres=" << m_xres << " yres=" << m_yres << "/>" << std::endl;
+    specs << "<functiondomain>" << std::endl;
+    specs << "    <topleftcorner x_min=" << m_xmin << " c_min=" << m_cmin << "/>" << std::endl;
+    specs << "    <bottomrightcorner x_max=" << m_xmax << " c_max=" << m_cmax << "/>" << std::endl;
+    specs << "</functiondomain>" << std::endl;
+    specs << "<maxiteration> " << m_maxIter << " </maxiteration>" << std::endl;
+    specs << "<initialpoint> " << m_initialPoint << " </initialpoint>" << std::endl;
+    specs << "<orbitsdiscarded> " << m_noIterationToExclude << " </orbitsdiscarded>" << std::endl;
+    specs << "<stability> " << m_stability << " </stability>" << std::endl;
+    specs << "</fractal>" << std::endl;
     specs.close();
 
     std::string fileNameIm(standardPath);
@@ -113,6 +110,4 @@ void Bifurcation::storeImage(const char * standardPath)
         image << std::endl;
     }
     image.close();
-    *****/
-
 }

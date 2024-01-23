@@ -180,7 +180,7 @@ public:
         doubleSpinBoxMaxIter->setObjectName("doubleSpinBoxMaxIter");
         doubleSpinBoxMaxIter->setDecimals(0);
         doubleSpinBoxMaxIter->setMinimum(1000);
-        doubleSpinBoxMaxIter->setMaximum(30000);
+        doubleSpinBoxMaxIter->setMaximum(100000);
         doubleSpinBoxMaxIter->setSingleStep(100);
         doubleSpinBoxMaxIter->setValue(10000);
 

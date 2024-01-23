@@ -50,7 +50,7 @@ public:
      * @brief bifur function defined in derived classes to check divergency in the specified position
      * @param value
      */
-    virtual double bifur(double c_pos) = 0;
+    virtual double bifur(long ix) = 0;
 
 protected:
     /**

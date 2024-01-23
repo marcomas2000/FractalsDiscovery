@@ -27,14 +27,13 @@ double BifurSet::createBifur()
 {
     long divergent = 0, non_divergent = 0;
     int ix;
-    double cy, ris;
+    double ris;
  
     resizeDivergencyMatrix(m_xres, m_yres);
     resizeAttractorVectors(m_yres);
     for(ix=0; ix<m_xres; ix++)
     {
-        cy=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
-        ris = bifur(cy);
+        ris = bifur(ix);
         if (ris == 0.0)
         {
             //m_divergency_matrix[iy][ix] = 0.0;

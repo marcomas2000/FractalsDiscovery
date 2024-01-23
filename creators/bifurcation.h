@@ -50,14 +50,14 @@ public:
      * @brief bifur function for the discovery of stable orbits
      * @param c_pos fixed value used in the iterations
      */
-    virtual double bifur(double c_pos);
+    virtual double bifur(long ix);
 
 private:
     /**
      * @brief evaluateAttractors function defined in derived classes to check divergency in the specified position
      * @param value
      */
-    void evaluateAttractors();
+    void evaluateAttractors(long ix);
 
     /*
      * m_noIterationToExclude max number of iterations to exclude
