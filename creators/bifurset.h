@@ -90,6 +90,11 @@ protected:
      */
     std::vector<long> m_attractorsVectorIndex;
 
+    /**
+     * @brief dynamic array to check for potential attractors
+     */
+    std::vector<long> m_attractorsOrbits;
+
 
 };
 

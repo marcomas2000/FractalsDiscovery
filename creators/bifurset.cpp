@@ -21,6 +21,7 @@ void BifurSet::resizeAttractorVectors(long yres)
 {
     m_attractorsVector.resize(yres);
     m_attractorsVectorIndex.resize(yres);
+    m_attractorsOrbits.resize(yres);
 }
 
 double BifurSet::createBifur()

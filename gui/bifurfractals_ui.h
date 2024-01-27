@@ -79,7 +79,7 @@ public:
 
         doubleSpinBoxXmax = new QDoubleSpinBox(mainVerticalLayoutWidget);
         doubleSpinBoxXmax->setObjectName("doubleSpinBoxXmax");
-        doubleSpinBoxXmax->setDecimals(2);
+        doubleSpinBoxXmax->setDecimals(6);
         doubleSpinBoxXmax->setMinimum(-2.0);
         doubleSpinBoxXmax->setMaximum(2.0);
         doubleSpinBoxXmax->setSingleStep(0.1);
@@ -104,7 +104,7 @@ public:
 
         doubleSpinBoxCmin = new QDoubleSpinBox(mainVerticalLayoutWidget);
         doubleSpinBoxCmin->setObjectName("doubleSpinBoxCmin");
-        doubleSpinBoxCmin->setDecimals(2);
+        doubleSpinBoxCmin->setDecimals(5);
         doubleSpinBoxCmin->setMinimum(-2.0);
         doubleSpinBoxCmin->setMaximum(0.250);
         doubleSpinBoxCmin->setSingleStep(0.1);
@@ -120,7 +120,7 @@ public:
 
         doubleSpinBoxCmax = new QDoubleSpinBox(mainVerticalLayoutWidget);
         doubleSpinBoxCmax->setObjectName("doubleSpinBoxCmax");
-        doubleSpinBoxCmax->setDecimals(2);
+        doubleSpinBoxCmax->setDecimals(5);
         doubleSpinBoxCmax->setMinimum(-2.0);
         doubleSpinBoxCmax->setMaximum(0.250);
         doubleSpinBoxCmax->setSingleStep(0.1);
@@ -159,7 +159,7 @@ public:
         doubleSpinBoxIterDiscarded->setObjectName("doubleSpinBoxIterDiscarded");
         doubleSpinBoxIterDiscarded->setDecimals(0);
         doubleSpinBoxIterDiscarded->setMinimum(0);
-        doubleSpinBoxIterDiscarded->setMaximum(10000);
+        doubleSpinBoxIterDiscarded->setMaximum(100000);
         doubleSpinBoxIterDiscarded->setSingleStep(100);
         doubleSpinBoxIterDiscarded->setValue(4000);
 

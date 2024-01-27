@@ -60,9 +60,9 @@ public:
         spinBoxXres = new QSpinBox(mainVerticalLayoutWidget);
         spinBoxXres->setObjectName("spinBoxXres");
         spinBoxXres->setMinimum(320);
-        spinBoxXres->setMaximum(9100);
-        spinBoxXres->setSingleStep(1);
-        spinBoxXres->setValue(1280);
+        spinBoxXres->setMaximum(30000);
+        spinBoxXres->setSingleStep(100);
+        spinBoxXres->setValue(1024);
 
         HLayoutXres->addWidget(spinBoxXres);
 
@@ -75,8 +75,8 @@ public:
         spinBoxYres = new QSpinBox(mainVerticalLayoutWidget);
         spinBoxYres->setObjectName("yresvalue");
         spinBoxYres->setMinimum(200);
-        spinBoxYres->setMaximum(6500);
-        spinBoxYres->setSingleStep(1);
+        spinBoxYres->setMaximum(20000);
+        spinBoxYres->setSingleStep(100);
         spinBoxYres->setValue(768);
 
         HLayoutXres->addWidget(spinBoxYres);

@@ -22,33 +22,72 @@ double Bifurcation::bifur(long ix)
     double x= m_initialPoint;
     double c_pos = 0.0;
 
-    c_pos=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
+    m_attractorsOrbits.resize(std::trunc(m_maxIter * m_stability));
+    for(i = 0; i < m_maxIter * m_stability; i++)
+    {
+        m_attractorsOrbits[i] = 0;
+    }     
     /* zero results vectors */
     for(i=0; i < m_yres; i++)
     {
         m_attractorsVectorIndex[i] = 0;
         m_attractorsVector[i] = 0; 
     }     
+    c_pos=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
     std::cout << "C_POS: " << c_pos << std::endl; 
     for(i = 0; i < m_noIterationToExclude; i++ )
     {
         x = std::pow(x,2) + c_pos;
     }
     bool stop = false;
-    int counter = 0;
-    while (stop == false)
+    long counter = 0;
+    long previousCounter = 0;
+    long stability = 0;
+    long no_iterations = 0;
+    int stackPointer = 0;
+    while (stop == false) 
     {
-        x = std::pow(x,2) + c_pos;
-        long idx = static_cast<long>(((x - m_xmin)*m_yres) / (m_xmax-m_xmin));
-        m_attractorsVector[idx] = x;
-        m_attractorsVectorIndex[idx] += 1;
-        counter++;
-        if (counter >= m_maxIter)
+        if (no_iterations <= m_maxIter)
+        {
+            previousCounter = counter;
+            x = std::pow(x,2) + c_pos;
+            double idx = std::trunc(((x - m_xmin)*m_yres) / (m_xmax-m_xmin));
+            if ((idx >= 0) && (idx < m_yres))
+            {
+                m_attractorsVector[idx] = x;
+                if (m_attractorsOrbits[idx] == 0)
+                {
+                    // Orbit has passed the point [c_pos][idx]
+                    m_attractorsOrbits[stackPointer] = idx;
+                    m_attractorsVectorIndex[idx] = 1;
+                    stackPointer++; 
+                    if (stackPointer >= std::trunc(m_maxIter * m_stability))
+                    {
+                        stop = true;
+                    }
+                }
+                else
+                {
+                    std::cout << "Orbit: "; 
+                    while (stackPointer > 0)
+                    {                        
+                        m_divergency_matrix[m_attractorsOrbits[stackPointer-1]][ix] = 1;
+                        std::cout << m_attractorsOrbits[stackPointer-1] << " - ";
+                        stackPointer--;
+                    }     
+                    std::cout << std::endl;
+                    stop = true;
+                    // Orbit has already passed in [c_pos][idx]
+                }
+            }
+            no_iterations++;
+        }
+        else
         {
             stop = true;
-        } 
+        }
     }
-    evaluateAttractors(ix);
+    //evaluateAttractors(ix);
     return(ret);
 }
 
@@ -57,10 +96,10 @@ void Bifurcation::evaluateAttractors(long ix)
     long attractorIterations = 0;
     for(int iy=0; iy<m_yres; iy++)
     {
-        if ((static_cast<double>(m_attractorsVectorIndex[iy])/m_maxIter) >= m_stability)
+        if ((static_cast<double>(m_attractorsVectorIndex[iy])) >= m_maxIter * m_stability)
         {
-            long attractorPosition = static_cast<long>((m_attractorsVector[iy] * m_yres )/(m_xmax - m_xmin)) + m_yres/2;
-            m_divergency_matrix[attractorPosition][ix] = 1.0;
+            long attractorPosition = std::trunc(((m_attractorsVector[iy] * m_yres )/(m_xmax - m_xmin)) + m_yres/2);
+            m_divergency_matrix[attractorPosition][ix] = m_attractorsVectorIndex[iy];
         }
     }     
 }
