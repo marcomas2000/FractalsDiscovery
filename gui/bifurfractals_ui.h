@@ -7,10 +7,10 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QDoubleSpinBox>
-#include <QtWidgets/QHBoxLayout>
+//#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QVBoxLayout>
+//#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QLineEdit>
 
@@ -21,26 +21,21 @@ QT_BEGIN_NAMESPACE
 class Ui_BifurFractalParams : public Ui_Main
 {
 public:
-    QHBoxLayout *HLayoutXRange;
     QLabel *labelXmin;
     QDoubleSpinBox *doubleSpinBoxXmin;    
     QLabel *labelXmax;
     QDoubleSpinBox *doubleSpinBoxXmax;
 
-
-    QHBoxLayout *HLayoutCRange;
     QLabel *labelCmin;
     QDoubleSpinBox *doubleSpinBoxCmin;
     QLabel *labelCmax;
     QDoubleSpinBox *doubleSpinBoxCmax;
 
-    QHBoxLayout *HLayoutStartParams;
     QLabel *labelInitialPoint;
     QDoubleSpinBox *doubleSpinBoxInitialPoint;
     QLabel *labelIterDiscarded;
     QDoubleSpinBox *doubleSpinBoxIterDiscarded;
 
-    QHBoxLayout *HLayoutStability;
     QLabel *labelMaxIter;
     QDoubleSpinBox *doubleSpinBoxMaxIter;
     QLabel *labelStability;
@@ -52,16 +47,12 @@ public:
         Ui_Main::setupUi(BifurFractalParams);
 
         /* X range */
-        HLayoutXRange = new QHBoxLayout();
-        HLayoutXRange->setObjectName("HLayoutXRange");
 
         /* Xmin */
-        labelXmin = new QLabel(mainVerticalLayoutWidget);
+        labelXmin = new QLabel();
         labelXmin->setObjectName("labelXmin");
 
-        HLayoutXRange->addWidget(labelXmin);
-
-        doubleSpinBoxXmin = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxXmin = new QDoubleSpinBox();
         doubleSpinBoxXmin->setObjectName("doubleSpinBoxXmin");
         doubleSpinBoxXmin->setDecimals(6);
         doubleSpinBoxXmin->setMinimum(-2.0);
@@ -69,15 +60,11 @@ public:
         doubleSpinBoxXmin->setSingleStep(0.1);
         doubleSpinBoxXmin->setValue(-2.0);
 
-        HLayoutXRange->addWidget(doubleSpinBoxXmin);
-
         /* Xmax */
-        labelXmax = new QLabel(mainVerticalLayoutWidget);
+        labelXmax = new QLabel();
         labelXmax->setObjectName("labelXmax");
 
-        HLayoutXRange->addWidget(labelXmax);
-
-        doubleSpinBoxXmax = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxXmax = new QDoubleSpinBox();
         doubleSpinBoxXmax->setObjectName("doubleSpinBoxXmax");
         doubleSpinBoxXmax->setDecimals(6);
         doubleSpinBoxXmax->setMinimum(-2.0);
@@ -85,24 +72,20 @@ public:
         doubleSpinBoxXmax->setSingleStep(0.1);
         doubleSpinBoxXmax->setValue(2.0);
 
-        HLayoutXRange->addWidget(doubleSpinBoxXmax);
-
         /*  First window line */
-        mainVerticalLayout->addLayout(HLayoutXRange);
 
-
+        gridLayout->addWidget(labelXmin, 1, 0);
+        gridLayout->addWidget(doubleSpinBoxXmin, 1, 1); 
+        gridLayout->addWidget(labelXmax, 1, 2);
+        gridLayout->addWidget(doubleSpinBoxXmax, 1, 3);
 
         /* C range */
-        HLayoutCRange = new QHBoxLayout();
-        HLayoutCRange->setObjectName("HLayoutCRange");
 
         /* Cmin */
-        labelCmin = new QLabel(mainVerticalLayoutWidget);
+        labelCmin = new QLabel();
         labelCmin->setObjectName("labelCmin");
 
-        HLayoutCRange->addWidget(labelCmin);
-
-        doubleSpinBoxCmin = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxCmin = new QDoubleSpinBox();
         doubleSpinBoxCmin->setObjectName("doubleSpinBoxCmin");
         doubleSpinBoxCmin->setDecimals(5);
         doubleSpinBoxCmin->setMinimum(-2.0);
@@ -110,15 +93,11 @@ public:
         doubleSpinBoxCmin->setSingleStep(0.1);
         doubleSpinBoxCmin->setValue(-1.5);
 
-        HLayoutCRange->addWidget(doubleSpinBoxCmin);
-
         /* Cmax */
-        labelCmax = new QLabel(mainVerticalLayoutWidget);
+        labelCmax = new QLabel();
         labelCmax->setObjectName("labelCmax");
 
-        HLayoutCRange->addWidget(labelCmax);
-
-        doubleSpinBoxCmax = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxCmax = new QDoubleSpinBox();
         doubleSpinBoxCmax->setObjectName("doubleSpinBoxCmax");
         doubleSpinBoxCmax->setDecimals(5);
         doubleSpinBoxCmax->setMinimum(-2.0);
@@ -126,20 +105,17 @@ public:
         doubleSpinBoxCmax->setSingleStep(0.1);
         doubleSpinBoxCmax->setValue(-1.0);
 
-        HLayoutCRange->addWidget(doubleSpinBoxCmax);
-
         /*  Second window line */
-        mainVerticalLayout->addLayout(HLayoutCRange);
+        gridLayout->addWidget(labelCmin, 2, 0);
+        gridLayout->addWidget(doubleSpinBoxCmin, 2, 1); 
+        gridLayout->addWidget(labelCmax, 2, 2);
+        gridLayout->addWidget(doubleSpinBoxCmax, 2, 3);
 
         /* Initial Point */
-        HLayoutStartParams = new QHBoxLayout();
-        HLayoutStartParams->setObjectName("HLayoutStartParams");
-        labelIterDiscarded = new QLabel(mainVerticalLayoutWidget);
+        labelIterDiscarded = new QLabel();
         labelIterDiscarded->setObjectName("labelIterDiscarded");
 
-        HLayoutStartParams->addWidget(labelIterDiscarded);
-
-        doubleSpinBoxInitialPoint = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxInitialPoint = new QDoubleSpinBox();
         doubleSpinBoxInitialPoint->setObjectName("doubleSpinBoxInitialPoint");
         doubleSpinBoxInitialPoint->setDecimals(2);
         doubleSpinBoxInitialPoint->setMinimum(-2.0);
@@ -147,15 +123,11 @@ public:
         doubleSpinBoxInitialPoint->setSingleStep(0.1);
         doubleSpinBoxInitialPoint->setValue(0.0);
 
-        HLayoutStartParams->addWidget(doubleSpinBoxInitialPoint);
-
         /* # of iterations excluded */
-        labelInitialPoint = new QLabel(mainVerticalLayoutWidget);
+        labelInitialPoint = new QLabel();
         labelInitialPoint->setObjectName("labelInitialPoint");
 
-        HLayoutStartParams->addWidget(labelInitialPoint);
-
-        doubleSpinBoxIterDiscarded = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxIterDiscarded = new QDoubleSpinBox();
         doubleSpinBoxIterDiscarded->setObjectName("doubleSpinBoxIterDiscarded");
         doubleSpinBoxIterDiscarded->setDecimals(0);
         doubleSpinBoxIterDiscarded->setMinimum(0);
@@ -163,20 +135,17 @@ public:
         doubleSpinBoxIterDiscarded->setSingleStep(100);
         doubleSpinBoxIterDiscarded->setValue(4000);
 
-        HLayoutStartParams->addWidget(doubleSpinBoxIterDiscarded);
-
         /*  Third window line */
-        mainVerticalLayout->addLayout(HLayoutStartParams);
+        gridLayout->addWidget(labelIterDiscarded, 3, 0);
+        gridLayout->addWidget(doubleSpinBoxInitialPoint, 3, 1); 
+        gridLayout->addWidget(labelInitialPoint, 3, 2);
+        gridLayout->addWidget(doubleSpinBoxIterDiscarded, 3, 3);
 
         /* Max Iteration */
-        HLayoutStability = new QHBoxLayout();
-        HLayoutStability->setObjectName("HLayoutStability");
-        labelMaxIter = new QLabel(mainVerticalLayoutWidget);
+        labelMaxIter = new QLabel();
         labelMaxIter->setObjectName("labelMaxIter");
 
-        HLayoutStability->addWidget(labelMaxIter);
-
-        doubleSpinBoxMaxIter = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxMaxIter = new QDoubleSpinBox();
         doubleSpinBoxMaxIter->setObjectName("doubleSpinBoxMaxIter");
         doubleSpinBoxMaxIter->setDecimals(0);
         doubleSpinBoxMaxIter->setMinimum(1000);
@@ -184,15 +153,11 @@ public:
         doubleSpinBoxMaxIter->setSingleStep(100);
         doubleSpinBoxMaxIter->setValue(10000);
 
-        HLayoutStability->addWidget(doubleSpinBoxMaxIter);
-
         /* # of iterations excluded */
-        labelStability = new QLabel(mainVerticalLayoutWidget);
+        labelStability = new QLabel();
         labelStability->setObjectName("labelStability");
 
-        HLayoutStability->addWidget(labelStability);
-
-        doubleSpinBoxStability = new QDoubleSpinBox(mainVerticalLayoutWidget);
+        doubleSpinBoxStability = new QDoubleSpinBox();
         doubleSpinBoxStability->setObjectName("doubleSpinBoxStability");
         doubleSpinBoxStability->setDecimals(2);
         doubleSpinBoxStability->setMinimum(0);
@@ -200,14 +165,24 @@ public:
         doubleSpinBoxStability->setSingleStep(1);
         doubleSpinBoxStability->setValue(0.6);
 
-        HLayoutStability->addWidget(doubleSpinBoxStability);
-
         /*  Fourth window line */
-        mainVerticalLayout->addLayout(HLayoutStability);
+        gridLayout->addWidget(labelMaxIter, 4, 0);
+        gridLayout->addWidget(doubleSpinBoxMaxIter, 4, 1); 
+        gridLayout->addWidget(labelStability, 4, 2);
+        gridLayout->addWidget(doubleSpinBoxStability, 4, 3);
+
+        /* Exit box */
+        buttonExitBox->setObjectName("buttonBox");
+        buttonExitBox->setGeometry(QRect(30, 240, 341, 32));
+        buttonExitBox->setOrientation(Qt::Horizontal);
+        buttonExitBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+
+        gridLayout->addWidget(buttonExitBox, 5, 0, 1, 4);
 
         retranslateUi(BifurFractalParams);
 
         QMetaObject::connectSlotsByName(BifurFractalParams);
+
     } // setupUi
 
     virtual void retranslateUi(QDialog *BifurFractalParams)
