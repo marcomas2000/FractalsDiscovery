@@ -3,15 +3,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(PROJECT_SOURCES
         fractimage.cpp
-        juliaset.cpp
-        juliasquared.cpp
-        juliacosh.cpp
-        juliaexp.cpp
-        juliapower4.cpp
-        mandelbrotset.cpp
-        mandelbrot.cpp
-        lyapset.cpp
-        lyapunov.cpp
+#        juliaset.cpp
+#        juliasquared.cpp
+#        juliacosh.cpp
+#        juliaexp.cpp
+#        juliapower4.cpp
+#        mandelbrotset.cpp
+#        mandelbrot.cpp
+#        lyapset.cpp
+#        lyapunov.cpp
+        bifurset.cpp
+        bifurcation.cpp
 )
 
 add_library(creators STATIC ${PROJECT_SOURCES})

@@ -1,12 +1,13 @@
 #include "mainfractals.h"
 #include "mainfractals_ui.h"
 //#include "fractaltypes.h"
-#include "../creators/juliasquared.h"
-#include "../creators/juliacosh.h"
-#include "../creators/juliaexp.h"
-#include "../creators/juliapower4.h"
-#include "../creators/mandelbrot.h"
-#include "../creators/lyapunov.h"
+//#include "../creators/juliasquared.h"
+//#include "../creators/juliacosh.h"
+//#include "../creators/juliaexp.h"
+//#include "../creators/juliapower4.h"
+//#include "../creators/mandelbrot.h"
+//#include "../creators/lyapunov.h"
+#include "../creators/bifurcation.h"
 //#include "attracthenon.h"
 //#include "attractikeda.h"
 #include "juliasquaredfractalparams.h"
@@ -15,6 +16,7 @@
 #include "juliapower4fractalparams.h"
 #include "mandelbrotfractalparams.h"
 #include "lyapfractalparams.h"
+#include "bifurfractalparams.h"
 //#include <QFileDialog>
 //#include <QPixmap>
 //#include <QImageWriter>
@@ -75,6 +77,7 @@ void MainFractals::on_actionConfigure_triggered()
 
     switch (ui->buttonGroup->checkedId())
     {
+        /**********
         case (int) FRACTAL_DOMAIN::SQUARED:
             {
                 JuliaSquaredFractalParams * juliaSqParams = new JuliaSquaredFractalParams;
@@ -141,11 +144,25 @@ void MainFractals::on_actionConfigure_triggered()
                 }
             }                
             break;
+        *******/
+        case (int) FRACTAL_DOMAIN::BIFURCATION:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    std::thread generation(&MainFractals::createBifurImage, this, bifurParams);
+                    generation.detach();
+                }
+            }                
+            break;
         default:
             break;
     }
+    qWarning() << "Data generation completed.";
 }
 
+/****
 void MainFractals::createJuliaSquaredImage(JuliaSquaredFractalParams * imParams)
 {
     JuliaSquared * im = new JuliaSquared;
@@ -162,7 +179,6 @@ void MainFractals::createJuliaSquaredImage(JuliaSquaredFractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -182,7 +198,6 @@ void MainFractals::createJuliaCosHImage(JuliaCosHFractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -202,7 +217,6 @@ void MainFractals::createJuliaExpImage(JuliaExpFractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -222,7 +236,6 @@ void MainFractals::createJuliaPower4Image(JuliaPower4FractalParams * imParams)
 
     double quote=im->createJulia();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -240,7 +253,6 @@ void MainFractals::createMandelbrotImage(MandelbrotFractalParams * imParams)
 
     double quote=im->createMandelbrot();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    qWarning() << "Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation) << " - Percentage converging points: "<< quote;
     emit generationCompleted();
 }
 
@@ -257,65 +269,28 @@ void MainFractals::createLyapImage(LyapFractalParams * imParams)
     im->setInitialPoint(imParams->getInitialPoint());
     im->setLyapSuccession(imParams->getLyapSuccession().toStdString().c_str());
 
-    qWarning() << imParams->getLyapSuccession().toStdString().c_str() << " Destination Folder" << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
-
     double quote=im->createLyap();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
     emit generationCompleted();
 }
+*******/
 
-/*************************
-void MainFractals::showLyapImage()
+void MainFractals::createBifurImage(BifurFractalParams * imParams)
 {
-    if (m_currentImage != 0)
-    {
-        delete m_currentImage;
-    }
-    m_lyapImage->setXres(m_lyapParams->getXres());
-    m_lyapImage->setYres(m_lyapParams->getYres());
-    m_lyapImage->setXmin(m_lyapParams->getXmin());
-    m_lyapImage->setYmin(m_lyapParams->getYmin());
-    m_lyapImage->setXmax(m_lyapParams->getXmax());
-    m_lyapImage->setYmax(m_lyapParams->getYmax());
-    m_lyapImage->setMaxiter(m_lyapParams->getMaxiter());
-    m_lyapImage->setInitialPoint(m_lyapParams->getInitialPoint());
-    m_lyapImage->setLyapSuccession(m_lyapParams->getLyapSuccession());
 
-    m_lyapImage->createLyap();
+    Bifurcation * im = new Bifurcation;
+    im->setXres(imParams->getXres());
+    im->setYres(imParams->getYres());
+    im->setXmin(imParams->getXmin());
+    im->setXmax(imParams->getXmax());
+    im->setCmin(imParams->getCmin());
+    im->setCmax(imParams->getCmax());
+    im->setNoIterationsToExclude(imParams->getNoIterationsToExclude());
+    im->setInitialPoint(imParams->getInitialPoint());
+    im->setMaxIter(imParams->getMaxIter());
+    im->setStability(imParams->getStability());
 
-    QPixmap * item = new QPixmap( QPixmap::fromImage(*(m_lyapImage->getImage())));
-    m_currentImage = m_scene->addPixmap(*item);
-    m_view->updateGeometry();
-
-    m_generatedImageNotSaved = true;
-    ui->actionSave->setEnabled(true);
+    double quote=im->createBifur();
+    im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
+    emit generationCompleted();
 }
-*************************************/
-/*********************************
-void MainFractals::showAttractorImage()
-{
-    if (m_currentImage != 0)
-    {
-        delete m_currentImage;
-    }
-    m_attractImage->setXres(m_juliaParams->getXres());
-    m_attractImage->setYres(m_juliaParams->getYres());
-    m_attractImage->setXmin(m_juliaParams->getXmin());
-    m_attractImage->setYmin(m_juliaParams->getYmin());
-    m_attractImage->setXmax(m_juliaParams->getXmax());
-    m_attractImage->setYmax(m_juliaParams->getYmax());
-    m_attractImage->setMaxiter(m_juliaParams->getMaxiter());
-    m_attractImage->setLx(m_juliaParams->getLx());
-    m_attractImage->setLy(m_juliaParams->getLy());
-    m_attractImage->setDivergencyFactor(m_juliaParams->getDivergencyFactor());
-
-    m_attractImage->createAttractor();
-
-    QPixmap * item = new QPixmap( QPixmap::fromImage(*(m_attractImage->getImage())));
-    m_currentImage = m_scene->addPixmap(*item);
-    m_view->updateGeometry();
-
-    m_generatedImageNotSaved = true;
-    ui->actionSave->setEnabled(true);
-}
-*************************************/
