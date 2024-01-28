@@ -11,6 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
+#include <QtGui/QGuiApplication>
+#include <QtGui/QScreen>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QFrame>
@@ -121,7 +123,7 @@ public:
 private:
     void setupWindowsMenus(QMainWindow *MainFractals)
     {
-        MainFractals->resize(600, 400);
+        MainFractals->setFixedSize(QGuiApplication::primaryScreen()->availableGeometry().size() * 0.4);
 
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         MainFractals->setSizePolicy(sizePolicy);
