@@ -3,15 +3,17 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAbstractButton>
+#include <QtGui/QGuiApplication>
+#include <QtGui/QScreen>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QDoubleSpinBox>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+
+#include <QtWidgets/QGridLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -19,74 +21,59 @@ class Ui_Main
 {
 public:
     QDialogButtonBox *buttonExitBox;
-    QWidget *mainVerticalLayoutWidget;
-    QVBoxLayout *mainVerticalLayout;
-    QHBoxLayout *HLayoutXres;
     QLabel *labelXres;
     QSpinBox *spinBoxXres;
     QLabel *labelYres;
     QSpinBox *spinBoxYres;
+
+    QGridLayout *gridLayout;
 
     virtual void setupUi(QDialog *MainParamsUI)
     {
         if (MainParamsUI->objectName().isEmpty())
             MainParamsUI->setObjectName("MainParamsUI");
 
-        MainParamsUI->resize(547, 300);
-        /* Exit box */
-        buttonExitBox = new QDialogButtonBox(MainParamsUI);
-        buttonExitBox->setObjectName("buttonBox");
-        buttonExitBox->setGeometry(QRect(30, 240, 341, 32));
-        buttonExitBox->setOrientation(Qt::Horizontal);
-        buttonExitBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        MainParamsUI->setFixedSize(QGuiApplication::primaryScreen()->availableGeometry().size() * 0.3);
 
         /* layout main window */
-        mainVerticalLayoutWidget = new QWidget(MainParamsUI);
-        mainVerticalLayoutWidget->setObjectName("mainVerticalLayoutWidget");
-        mainVerticalLayoutWidget->setGeometry(QRect(10, 10, 531, 231));
-        mainVerticalLayout = new QVBoxLayout(mainVerticalLayoutWidget);
-        mainVerticalLayout->setObjectName("mainVerticalLayout");
-        mainVerticalLayout->setContentsMargins(0, 0, 0, 0);
     
-        /* Xres */
-        HLayoutXres = new QHBoxLayout();
-        HLayoutXres->setObjectName("HLayoutXres");
-   
-        labelXres = new QLabel(mainVerticalLayoutWidget);
+        gridLayout = new QGridLayout();
+        MainParamsUI->setLayout(gridLayout);
+
+        /* Xres */   
+        labelXres = new QLabel();
         labelXres->setObjectName("xres");
 
-        HLayoutXres->addWidget(labelXres);
-
-        spinBoxXres = new QSpinBox(mainVerticalLayoutWidget);
+        spinBoxXres = new QSpinBox();
         spinBoxXres->setObjectName("spinBoxXres");
         spinBoxXres->setMinimum(320);
         spinBoxXres->setMaximum(30000);
         spinBoxXres->setSingleStep(100);
         spinBoxXres->setValue(1024);
 
-        HLayoutXres->addWidget(spinBoxXres);
+        gridLayout->addWidget(labelXres, 0, 0);
+        gridLayout->addWidget(spinBoxXres, 0, 1);
+
 
         /* Yres */
-        labelYres = new QLabel(mainVerticalLayoutWidget);
+        labelYres = new QLabel();
         labelYres->setObjectName("labelYres");
 
-        HLayoutXres->addWidget(labelYres);
-
-        spinBoxYres = new QSpinBox(mainVerticalLayoutWidget);
+        spinBoxYres = new QSpinBox();
         spinBoxYres->setObjectName("yresvalue");
         spinBoxYres->setMinimum(200);
         spinBoxYres->setMaximum(20000);
         spinBoxYres->setSingleStep(100);
         spinBoxYres->setValue(768);
 
-        HLayoutXres->addWidget(spinBoxYres);
+        gridLayout->addWidget(labelYres, 0, 2);
+        gridLayout->addWidget(spinBoxYres, 0, 3);
 
-
-        mainVerticalLayout->addLayout(HLayoutXres);
+        buttonExitBox = new QDialogButtonBox(MainParamsUI);
         QObject::connect(buttonExitBox, &QDialogButtonBox::accepted, MainParamsUI, qOverload<>(&QDialog::accept));
         QObject::connect(buttonExitBox, &QDialogButtonBox::rejected, MainParamsUI, qOverload<>(&QDialog::reject));
-
         QMetaObject::connectSlotsByName(MainParamsUI);
+
     } // setupUi
 
     virtual void retranslateUi(QDialog *MainParamsUI)

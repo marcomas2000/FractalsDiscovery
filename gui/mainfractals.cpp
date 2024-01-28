@@ -36,7 +36,6 @@ MainFractals::MainFractals(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainFractals)
 {
-    connect(this, &MainFractals::generationCompleted, this, &MainFractals::generationCompleted_triggered);
     QDir pictureFolder(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
     if (!pictureFolder.exists())
     {
@@ -64,11 +63,6 @@ void MainFractals::on_actionLoad_triggered()
 void MainFractals::closeEvent(QCloseEvent *event)
 {
     exit(0);
-}
-
-void MainFractals::generationCompleted_triggered()
-{
-    ui->actionGenerate->setEnabled(true);
 }
 
 void MainFractals::on_actionConfigure_triggered()
@@ -292,5 +286,4 @@ void MainFractals::createBifurImage(BifurFractalParams * imParams)
 
     double quote=im->createBifur();
     im->storeImage((QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)).toStdString().c_str());
-    emit generationCompleted();
 }

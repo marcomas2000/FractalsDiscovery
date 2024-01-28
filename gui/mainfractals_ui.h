@@ -1,10 +1,7 @@
-/********************************************************************************
-** Form generated from reading UI file 'mainfractals.ui'
-**
-** Created by: Qt User Interface Compiler version 6.4.2
-**
-** WARNING! All changes made in this file will be lost when recompiling UI file!
-********************************************************************************/
+/********************************************
+ * Author: Marco Mascioli,  2024
+ * Released under Apache License
+ *******************************************/
 
 #ifndef MAINFRACTALS_UI_H
 #define MAINFRACTALS_UI_H
@@ -14,20 +11,18 @@
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QFrame>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QButtonGroup>
+
+#include <QtWidgets/QGridLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -37,46 +32,30 @@ public:
     QAction *actionLoad;
     QAction *actionExit;
     QAction *actionConfigure;
-    QAction *actionGenerate;
-    QFormLayout *formLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuTools;
     QStatusBar *statusBar;
 
-    //QDialogButtonBox *buttonBox;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
-    QHBoxLayout *julia_HLayout;
     QLabel *labelJulia;
-    QVBoxLayout *verticalLayout_2;
     QRadioButton *radioSquared;
     QRadioButton *radioCosh;
     QRadioButton *radioExp;
     QRadioButton *radioPower4;
-    QHBoxLayout *horizontalLayout_4;
     QLabel *labelAttract;
-    QVBoxLayout *verticalLayout_6;
     QRadioButton *radioHenon;
     QRadioButton *radioIkeda;
-    QHBoxLayout *horizontalLayout_2;
     QLabel *labelMandel;
-    QVBoxLayout *verticalLayout_3;
     QRadioButton *radioMandel;
-    QHBoxLayout *lyap_HLayout;
-    QVBoxLayout *labelLyapVLayout;
     QLabel *labelLyap;
-    QVBoxLayout *radioLyapVLayout;
     QRadioButton *radioLyap;
-    QButtonGroup *buttonGroup;
-
-    QHBoxLayout *bifurcationLayout;
     QLabel *labelbifur;
-    QVBoxLayout *verticalLayout_7;
-    QVBoxLayout *verticalLayout_8;
     QRadioButton *radioBifur;
 
+    QButtonGroup *buttonGroup;
 
+    QWidget *widget;
+    QGridLayout *gridLayout;
 
     void setupUi(QMainWindow *MainFractals)
     {
@@ -85,14 +64,15 @@ public:
 
         setupWindowsMenus(MainFractals);
         setupBifurcation(MainFractals);
-        setupJulia(MainFractals);
-        setupAttract(MainFractals);
-        setupMandel(MainFractals);
-        setupLyap(MainFractals);
+        //setupJulia(MainFractals);
+        //setupAttract(MainFractals);
+        //setupMandel(MainFractals);
+        //setupLyap(MainFractals);
 
         retranslateUi(MainFractals);
-
+        
         QMetaObject::connectSlotsByName(MainFractals);
+    
     } // setupUi
 
     void retranslateUi(QMainWindow *MainFractals)
@@ -101,21 +81,20 @@ public:
         actionLoad->setText(QCoreApplication::translate("MainFractals", "Load", nullptr));
         actionExit->setText(QCoreApplication::translate("MainFractals", "Exit", nullptr));
         actionConfigure->setText(QCoreApplication::translate("MainFractals", "Configure", nullptr));
-        actionGenerate->setText(QCoreApplication::translate("MainFractals", "Generate", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainFractals", "File", nullptr));
         menuTools->setTitle(QCoreApplication::translate("MainFractals", "Tools", nullptr));
-        labelJulia->setText(QCoreApplication::translate("MainFractals", "Julia Sets", nullptr));
-        radioSquared->setText(QCoreApplication::translate("MainFractals", "Squared", nullptr));
-        radioCosh->setText(QCoreApplication::translate("MainFractals", "HyperbolicCos", nullptr));
-        radioExp->setText(QCoreApplication::translate("MainFractals", "Exponential", nullptr));
-        radioPower4->setText(QCoreApplication::translate("MainFractals", "Power4", nullptr));
-        labelAttract->setText(QCoreApplication::translate("MainFractals", "Attractors", nullptr));
-        radioHenon->setText(QCoreApplication::translate("MainFractals", "Henon", nullptr));
-        radioIkeda->setText(QCoreApplication::translate("MainFractals", "Ikeda", nullptr));
-        labelMandel->setText(QCoreApplication::translate("MainFractals", "Mandelbrot Sets", nullptr));
-        radioMandel->setText(QCoreApplication::translate("MainFractals", "Mandelbrot", nullptr));
-        labelLyap->setText(QCoreApplication::translate("MainFractals", "Lyapunov", nullptr));
-        radioLyap->setText(QCoreApplication::translate("MainFractals", "", nullptr));
+        //labelJulia->setText(QCoreApplication::translate("MainFractals", "Julia Sets", nullptr));
+        //radioSquared->setText(QCoreApplication::translate("MainFractals", "Squared", nullptr));
+        //radioCosh->setText(QCoreApplication::translate("MainFractals", "HyperbolicCos", nullptr));
+        //radioExp->setText(QCoreApplication::translate("MainFractals", "Exponential", nullptr));
+        //radioPower4->setText(QCoreApplication::translate("MainFractals", "Power4", nullptr));
+        //labelAttract->setText(QCoreApplication::translate("MainFractals", "Attractors", nullptr));
+        //radioHenon->setText(QCoreApplication::translate("MainFractals", "Henon", nullptr));
+        //radioIkeda->setText(QCoreApplication::translate("MainFractals", "Ikeda", nullptr));
+        //labelMandel->setText(QCoreApplication::translate("MainFractals", "Mandelbrot Sets", nullptr));
+        //radioMandel->setText(QCoreApplication::translate("MainFractals", "Mandelbrot", nullptr));
+        //labelLyap->setText(QCoreApplication::translate("MainFractals", "Lyapunov", nullptr));
+        //radioLyap->setText(QCoreApplication::translate("MainFractals", "", nullptr));
         labelbifur->setText(QCoreApplication::translate("MainFractals", "Bifurcation", nullptr));
         radioBifur->setText(QCoreApplication::translate("MainFractals", "", nullptr));
     } // retranslateUi
@@ -123,22 +102,18 @@ public:
 private:
     void setupWindowsMenus(QMainWindow *MainFractals)
     {
-        MainFractals->setFixedSize(QGuiApplication::primaryScreen()->availableGeometry().size() * 0.4);
+        MainFractals->setFixedSize(QGuiApplication::primaryScreen()->availableGeometry().size() * 0.3);
 
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        MainFractals->setSizePolicy(sizePolicy);
         actionLoad = new QAction(MainFractals);
         actionLoad->setObjectName("actionLoad");
+        actionLoad->setDisabled(true);
         actionExit = new QAction(MainFractals);
         actionExit->setObjectName("actionExit");
         actionConfigure = new QAction(MainFractals);
         actionConfigure->setObjectName("actionConfigure");
-        actionGenerate = new QAction(MainFractals);
-        actionGenerate->setObjectName("actionGenerate");
 
         menuBar = new QMenuBar(MainFractals);
         menuBar->setObjectName("menuBar");
-        menuBar->setGeometry(QRect(0, 0, 400, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName("menuFile");
         menuTools = new QMenu(menuBar);
@@ -155,149 +130,102 @@ private:
         menuFile->addSeparator();
         menuBar->addAction(menuTools->menuAction());
         menuTools->addAction(actionConfigure);
-        actionGenerate->setDisabled(true);
-        menuTools->addAction(actionGenerate);
-
-        verticalLayoutWidget = new QWidget(MainFractals);
-        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 381, 231));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setObjectName("verticalLayout");
-        verticalLayout->setContentsMargins(20, 20, 0, 0);
 
         buttonGroup = new QButtonGroup(MainFractals);
         buttonGroup->setObjectName("buttonGroup");
+
+        gridLayout = new QGridLayout();
+
+        QWidget* widget = new QWidget(MainFractals);
+        widget->setLayout(gridLayout);
+        MainFractals->setCentralWidget(widget);
     }
 
     void setupLyap(QMainWindow *MainFractals)
     {
-        lyap_HLayout = new QHBoxLayout();
-        lyap_HLayout->setObjectName("lyap_HLayout");
-        labelLyapVLayout = new QVBoxLayout();
-        labelLyapVLayout->setObjectName("labelLyapVLayout");
-        labelLyap = new QLabel(verticalLayoutWidget);
+        labelLyap = new QLabel();
         labelLyap->setObjectName("labelLyap");
 
-        labelLyapVLayout->addWidget(labelLyap);
-
-        lyap_HLayout->addLayout(labelLyapVLayout);
-
-        radioLyapVLayout = new QVBoxLayout();
-        radioLyapVLayout->setObjectName("radioLyapVLayout");
-        radioLyap = new QRadioButton(verticalLayoutWidget);
+        radioLyap = new QRadioButton();
         buttonGroup->addButton(radioLyap);
         radioLyap->setObjectName("radioLyap");
 
-        radioLyapVLayout->addWidget(radioLyap);
-        lyap_HLayout->addLayout(radioLyapVLayout);
-        verticalLayout->addLayout(lyap_HLayout);
+        gridLayout->addWidget(labelMandel, 8, 0);
+        gridLayout->addWidget(radioMandel, 8, 1);
     }
 
     void setupJulia(QMainWindow *MainFractals)
     {
-        julia_HLayout = new QHBoxLayout();
-        julia_HLayout->setObjectName("julia_HLayout");
-        labelJulia = new QLabel(verticalLayoutWidget);
+        labelJulia = new QLabel();
         labelJulia->setObjectName("labelJulia");
 
-        julia_HLayout->addWidget(labelJulia);
-
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setObjectName("verticalLayout_2");
-        radioSquared = new QRadioButton(verticalLayoutWidget);
+        radioSquared = new QRadioButton();
         buttonGroup->addButton(radioSquared);
         radioSquared->setObjectName("radioSquared");
-        radioSquared->setChecked(true);
         
-        verticalLayout_2->addWidget(radioSquared);
-        radioCosh = new QRadioButton(verticalLayoutWidget);
+        radioCosh = new QRadioButton();
         buttonGroup->addButton(radioCosh);
         radioCosh->setObjectName("radioCosh");
 
-        verticalLayout_2->addWidget(radioCosh);
-
-        radioExp = new QRadioButton(verticalLayoutWidget);
+        radioExp = new QRadioButton();
         buttonGroup->addButton(radioExp);
         radioExp->setObjectName("radioExp");
 
-        verticalLayout_2->addWidget(radioExp);
-
-        radioPower4 = new QRadioButton(verticalLayoutWidget);
+        radioPower4 = new QRadioButton();
         buttonGroup->addButton(radioPower4);
         radioPower4->setObjectName("radioPower4");
 
-        verticalLayout_2->addWidget(radioPower4);
-        julia_HLayout->addLayout(verticalLayout_2);
-        verticalLayout->addLayout(julia_HLayout);
+        gridLayout->addWidget(labelJulia, 1, 0, 4, 1);
+        gridLayout->addWidget(radioSquared, 1, 1);
+        gridLayout->addWidget(radioCosh, 2, 1);
+        gridLayout->addWidget(radioExp, 3, 1);
+        gridLayout->addWidget(radioPower4, 4, 1);
     }
 
     void setupAttract(QMainWindow *MainFractals)
     {
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName("horizontalLayout_4");
-        labelAttract = new QLabel(verticalLayoutWidget);
+        labelAttract = new QLabel();
         labelAttract->setObjectName("labelAttract");
 
-        horizontalLayout_4->addWidget(labelAttract);
-
-        verticalLayout_6 = new QVBoxLayout();
-        verticalLayout_6->setObjectName("verticalLayout_6");
-        radioHenon = new QRadioButton(verticalLayoutWidget);
+        radioHenon = new QRadioButton();
         buttonGroup->addButton(radioHenon);
         radioHenon->setObjectName("radioHenon");
 
-        verticalLayout_6->addWidget(radioHenon);
-
-        radioIkeda = new QRadioButton(verticalLayoutWidget);
+        radioIkeda = new QRadioButton();
         buttonGroup->addButton(radioIkeda);
         radioIkeda->setObjectName("radioIkeda");
 
-        verticalLayout_6->addWidget(radioIkeda);
-        horizontalLayout_4->addLayout(verticalLayout_6);
-        verticalLayout->addLayout(horizontalLayout_4);
+        gridLayout->addWidget(labelAttract, 5, 0, 2, 1);
+        gridLayout->addWidget(radioHenon, 5, 1);
+        gridLayout->addWidget(radioIkeda, 6, 1);
     }
 
     void setupMandel(QMainWindow *MainFractals)
     {
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName("horizontalLayout_2");
-        labelMandel = new QLabel(verticalLayoutWidget);
+        labelMandel = new QLabel();
         labelMandel->setObjectName("labelMandel");
 
-        horizontalLayout_2->addWidget(labelMandel);
-
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setObjectName("verticalLayout_3");
-        radioMandel = new QRadioButton(verticalLayoutWidget);
+        radioMandel = new QRadioButton();
         buttonGroup->addButton(radioMandel);
         radioMandel->setObjectName("radioMandel");
 
-        verticalLayout_3->addWidget(radioMandel);
-        horizontalLayout_2->addLayout(verticalLayout_3);
-        verticalLayout->addLayout(horizontalLayout_2);
+        gridLayout->addWidget(labelMandel, 7, 0);
+        gridLayout->addWidget(radioMandel, 7, 1);
+
     }
 
     void setupBifurcation(QMainWindow *MainFractals)
     {
-
-        bifurcationLayout = new QHBoxLayout();
-        bifurcationLayout->setObjectName("bifurcationlLayout");
-        verticalLayout_7 = new QVBoxLayout();
-        verticalLayout_7->setObjectName("verticalLayout_7");
-        labelbifur = new QLabel(verticalLayoutWidget);
+        labelbifur = new QLabel();
         labelbifur->setObjectName("labelbifur");
-        verticalLayout_7->addWidget(labelbifur);
-        bifurcationLayout->addLayout(verticalLayout_7);
 
-        verticalLayout_8 = new QVBoxLayout();
-        verticalLayout_8->setObjectName("verticalLayout_8");
-        radioBifur = new QRadioButton(verticalLayoutWidget);
+        radioBifur = new QRadioButton();
         buttonGroup->addButton(radioBifur);
         radioBifur->setObjectName("radioBifur");
+        radioBifur->setChecked(true);
 
-        verticalLayout_8->addWidget(radioBifur);
-        bifurcationLayout->addLayout(verticalLayout_8);
-        verticalLayout->addLayout(bifurcationLayout);
+        gridLayout->addWidget(labelbifur, 0, 0);
+        gridLayout->addWidget(radioBifur, 0, 1);
     }
 };
 

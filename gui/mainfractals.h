@@ -45,11 +45,7 @@ private slots:
 
     void on_actionConfigure_triggered();
 
-    void generationCompleted_triggered();
-
     void closeEvent(QCloseEvent * event);
-signals:
-    void generationCompleted();
 private:
     Ui::MainFractals *ui;
     void createJuliaSquaredImage(JuliaSquaredFractalParams * imParams);
