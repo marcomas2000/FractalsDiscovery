@@ -30,6 +30,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QStandardPaths>
+#include <QtWidgets/QStatusBar>
 #include <thread>
 
 MainFractals::MainFractals(QWidget *parent) :
@@ -145,15 +146,19 @@ void MainFractals::on_actionConfigure_triggered()
                 ret2 = bifurParams->exec();
                 if (ret2 == QDialog::Accepted)
                 {
+                    QApplication::setOverrideCursor(Qt::WaitCursor);
+                    QApplication::processEvents();
+                    ui->statusBar->showMessage("Generating data. Please wait...");
                     std::thread generation(&MainFractals::createBifurImage, this, bifurParams);
-                    generation.detach();
+                    generation.join();
+                    ui->statusBar->showMessage("...Data generation completed.");
+                    QApplication::restoreOverrideCursor();
                 }
             }                
             break;
         default:
             break;
     }
-    qWarning() << "Data generation completed.";
 }
 
 /****

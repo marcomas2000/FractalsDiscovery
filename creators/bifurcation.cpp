@@ -34,7 +34,6 @@ double Bifurcation::bifur(long ix)
         m_attractorsVector[i] = 0; 
     }     
     c_pos=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
-    std::cout << "C_POS: " << c_pos << std::endl; 
     for(i = 0; i < m_noIterationToExclude; i++ )
     {
         x = std::pow(x,2) + c_pos;
@@ -68,14 +67,11 @@ double Bifurcation::bifur(long ix)
                 }
                 else
                 {
-                    std::cout << "Orbit: "; 
                     while (stackPointer > 0)
                     {                        
                         m_divergency_matrix[m_attractorsOrbits[stackPointer-1]][ix] = 1;
-                        std::cout << m_attractorsOrbits[stackPointer-1] << " - ";
                         stackPointer--;
                     }     
-                    std::cout << std::endl;
                     stop = true;
                     // Orbit has already passed in [c_pos][idx]
                 }
