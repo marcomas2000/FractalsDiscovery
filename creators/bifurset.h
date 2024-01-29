@@ -3,7 +3,10 @@
 
 #include <vector>
 #include "fractimage.h"
-
+/**
+ * This is an abstract class declaring part of the interface implemented in the
+ * derived classes
+*/
 class BifurSet : public FractImage
 {
 
@@ -48,7 +51,7 @@ public:
 
     /**
      * @brief bifur function defined in derived classes to check divergency in the specified position
-     * @param value
+     * @param ix fixed value used in the iterations
      */
     virtual double bifur(long ix) = 0;
 
@@ -66,14 +69,24 @@ protected:
     void resizeAttractorVectors(long yres);
 
     /**
-     * @brief coordinates of the "interval of investigation" in the function
+     * @brief lower end of the "interval of investigation" in the function
      */
-    double m_cmin, m_cmax;
+    double m_cmin; 
 
     /**
-     * @brief coordinates of the interval of investigation for attractors
+     * @brief upper end of the "interval of investigation" in the function
      */
-    double m_xmin, m_xmax;
+    double m_cmax;
+
+    /**
+     * @brief lower end of the interval of investigation for attractors
+     */
+    double m_xmin;
+    
+    /**
+     * @brief upper end of the interval of investigation for attractors
+     */
+    double m_xmax;
 
     /**
      * @brief dynamic array to contain attractor points

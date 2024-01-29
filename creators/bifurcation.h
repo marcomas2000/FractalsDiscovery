@@ -3,6 +3,10 @@
 
 #include "bifurset.h"
 
+/**
+ * This class implements the algorithm for the investigation of the
+ * bifurcation for the function y = pow(x,2) + c 
+*/
 class Bifurcation: public BifurSet
 {
 public:
@@ -48,7 +52,7 @@ public:
 
     /**
      * @brief bifur function for the discovery of stable orbits
-     * @param c_pos fixed value used in the iterations
+     * @param ix fixed value used in the iterations
      */
     virtual double bifur(long ix);
 
