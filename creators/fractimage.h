@@ -1,6 +1,10 @@
 #ifndef FRACTIMAGE_H
 #define FRACTIMAGE_H
 
+/**
+ * Base class modeling the common characteristics of data produced 
+ * by the different algorithms implemented in the derived classes 
+*/
 class FractImage
 {
 public:

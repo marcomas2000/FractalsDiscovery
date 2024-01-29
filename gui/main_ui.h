@@ -17,17 +17,47 @@
 
 QT_BEGIN_NAMESPACE
 
+/**
+ * This class implement the common part of the GUI for entering parameters
+ * for the different types of functions
+*/
 class Ui_Main
 {
 public:
+    /**
+     * buttonExitBox box contains standard buttons to close the dialog
+    */
     QDialogButtonBox *buttonExitBox;
+
+    /**
+     * labelXres XRes fixed text label
+    */
     QLabel *labelXres;
+
+    /**
+     * spinBoxXres x axis resolution value
+    */
     QSpinBox *spinBoxXres;
+
+    /**
+     * spinBoxYres YRes fixed text label
+    */
     QLabel *labelYres;
+
+    /**
+     * spinBoxYres y axis resolution value
+    */
     QSpinBox *spinBoxYres;
 
+    /**
+     * gridLayout layout applied to the Dialog
+    */
     QGridLayout *gridLayout;
 
+    /**
+     * @brief setupUi function for creating the GUI
+     * @param MainParamsUI Dialog containing the common parameters for data generation
+     */
     virtual void setupUi(QDialog *MainParamsUI)
     {
         if (MainParamsUI->objectName().isEmpty())
@@ -76,6 +106,10 @@ public:
 
     } // setupUi
 
+    /**
+     * @brief retranslateUi function for the potential multilanguage support
+     * @param MainParamsUI Dialog containing the common parameters for data generation
+     */
     virtual void retranslateUi(QDialog *MainParamsUI)
     {
         labelXres->setText(QObject::tr("H Res"));
