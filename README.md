@@ -11,7 +11,7 @@ A release is planned for when they are going to reach a satisfying quality level
 ## [<b>The Chaos Hypertextbook</b>](https://hypertextbook.com/chaos/)  Experiments -> 1.2 Bifurcation
 The algorithm has been implemented and the images on the book generated. They are available in the folder <b> renderings -> bifurcation </b>
 together with the xml files describing the parameters used to create the images.
-Please note that FractalsDiscovery only generated data about the orbits. Images are rendered using other tols tools (like MATLAB).
+Please note that FractalsDiscovery only generates data about the orbits. Images are rendered using other tools (like MATLAB).
 Also, differently from the book the vertical axis for the images is oriented downwards.
 
 <p>
