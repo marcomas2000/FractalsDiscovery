@@ -53,8 +53,8 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Doxygen
-      uses: mattnotmitt/doxygen-action@v1.9.5
+    - name: Install Doxygen
+      uses: ssciwr/doxygen-install@v1
  
     - name: Deployment Package
       run: |
