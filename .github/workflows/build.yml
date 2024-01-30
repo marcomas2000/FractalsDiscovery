@@ -39,7 +39,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
+      #  os: [windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
 
     steps:
     - name: Checkout
@@ -103,7 +104,7 @@ jobs:
     - name: Linux - Deployment Package
       if: startsWith(matrix.os, 'ubuntu')
       run: |
-        mkdir ${{github.workspace}}\release\all\
+        mkdir -p ${{github.workspace}}\release\all\
         cp -r ${{github.workspace}}/docs ${{github.workspace}}\release\all\
         cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}\release\all\
         Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.tar.gz
