@@ -46,10 +46,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4.1.1
 
-    - name: Set Node
-      uses: actions/setup-node@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: '20'
 
     - name: Linux - Update gcc and g++
       if: startsWith(matrix.os, 'ubuntu')
@@ -104,10 +103,10 @@ jobs:
     - name: Linux - Deployment Package
       if: startsWith(matrix.os, 'ubuntu')
       run: |
-        mkdir -p ${{github.workspace}}\release\all\
-        cp -r ${{github.workspace}}/docs ${{github.workspace}}\release\all\
-        cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}\release\all\
-        Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.tar.gz
+        mkdir -p ${{github.workspace}}/release/all/
+        cp -r ${{github.workspace}}/docs ${{github.workspace}}/release/all/
+        cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}/release/all/
+        tar cvf ${{github.workspace}}/release/FractalsDiscovery.tar.gz ${{github.workspace}}/release/all/
  
     - name: Windows - Upload Production-Ready Files
       if: startsWith(matrix.os, 'windows')
@@ -115,4 +114,11 @@ jobs:
       with:
          name: WindowsPackage
          path: ${{github.workspace}}/release/FractalsDiscovery.zip
+
+    - name: Linux - Upload Production-Ready Files
+      if: startsWith(matrix.os, 'ubuntu')
+      uses: actions/upload-artifact@v4
+      with:
+         name: UbuntuPackage
+         path: ${{github.workspace}}/release/FractalsDiscovery.tar.gz
 
