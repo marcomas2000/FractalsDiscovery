@@ -39,8 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-      #  os: [windows-latest, ubuntu-latest]
-        os: [ubuntu-latest]
+        os: [windows-latest, ubuntu-latest]
 
     steps:
     - name: Checkout
@@ -106,7 +105,8 @@ jobs:
         mkdir -p ${{github.workspace}}/release/all/
         cp -r ${{github.workspace}}/docs ${{github.workspace}}/release/all/
         cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}/release/all/
-        tar cvf ${{github.workspace}}/release/FractalsDiscovery.tar.gz ${{github.workspace}}/release/all/
+        cd ${{github.workspace}}/release/all/
+        tar cvzf ${{github.workspace}}/release/FractalsDiscovery.tar.gz .
  
     - name: Windows - Upload Production-Ready Files
       if: startsWith(matrix.os, 'windows')
