@@ -58,6 +58,7 @@ jobs:
       if: startsWith(matrix.os, 'windows')
       uses: jurplel/install-qt-action@v3
       with:
+        using: 'node20'
         version: 6.2.*
 
     - name: Windows - Install Doxygen
