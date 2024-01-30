@@ -54,35 +54,38 @@ jobs:
         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 50
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 50
         g++ --version
-        sudo apt install libgl1-mesa-dev
+        sudo apt install libgl1-mesa-dev doxygen
         sudo apt install qt6-base-dev
 
     - name: Windows - Install Qt
       if: startsWith(matrix.os, 'windows')
       uses: jurplel/install-qt-action@v3
       with:
-        node-version: 20
         version: 6.2.*
 
     - name: Windows - Install Doxygen
       if: startsWith(matrix.os, 'windows')
       uses: ssciwr/doxygen-install@v1
 
-    - name: Configure CMake
+    - name: Common - Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
-    - name: Build
+    - name: Common - Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
 
-    - name: Run Doxygen
+    - name: Windows - Run Doxygen
       if: startsWith(matrix.os, 'windows')
       run: doxygen Doxyfile
  
-    - name: Deployment Package
+    - name: Linux - Run Doxygen
+      if: startsWith(matrix.os, 'ubuntu')
+      run: doxygen Doxyfile
+ 
+    - name: Windows - Deployment Package
       if: startsWith(matrix.os, 'windows')
       run: |
         mkdir ${{github.workspace}}\release\all\
@@ -94,7 +97,7 @@ jobs:
         Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.zip
  
 #    Upload Artifact
-    - name: Upload production-ready build files
+    - name: Windows - Hello Upload production-ready build files
       if: startsWith(matrix.os, 'windows')
       uses: actions/upload-artifact@v4
       with:
