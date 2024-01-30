@@ -53,12 +53,13 @@ jobs:
         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 50
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 50
         g++ --version
+        sudo apt install qt6-base-dev
 
     - name: Windows - Install Qt
       if: startsWith(matrix.os, 'windows')
       uses: jurplel/install-qt-action@v3
       with:
-        using: 'node20'
+        node-version: 20
         version: 6.2.*
 
     - name: Windows - Install Doxygen
