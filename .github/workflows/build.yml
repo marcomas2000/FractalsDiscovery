@@ -110,6 +110,7 @@ jobs:
         cp /lib/x86_64-linux-gnu/libQt6Gui.so.6 ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6Core.so.6 ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6DBus.so.6 ${{github.workspace}}/release/all/
+        cp /lib/x86_64-linux-gnu/libQt6XcbQpa.so.6 ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/qt6/plugins/platforms/libqxcb.so ${{github.workspace}}/release/all/plugins/platforms
         cd ${{github.workspace}}/release/all/
         ldd FractalsDiscovery
