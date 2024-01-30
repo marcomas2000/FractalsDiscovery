@@ -39,7 +39,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: ['20.x']
         os: [windows-latest, ubuntu-latest]
 
     steps:
@@ -57,6 +56,9 @@ jobs:
         sudo apt install libgl1-mesa-dev doxygen
         sudo apt install qt6-base-dev
 
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '20'
     - name: Windows - Install Qt
       if: startsWith(matrix.os, 'windows')
       uses: jurplel/install-qt-action@v3
@@ -95,11 +97,19 @@ jobs:
         windeployqt.exe FractalsDiscovery.exe --release
         ls
         Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.zip
+
+    - name: Linux - Deployment Package
+      if: startsWith(matrix.os, 'ubuntu')
+      run: |
+        mkdir ${{github.workspace}}\release\all\
+        cp -R ${{github.workspace}}/docs ${{github.workspace}}\release\all\
+        cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}\release\all\
+        Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.tar.gz
  
-#    Upload Artifact
-    - name: Windows - Hello Upload production-ready build files
+    - name: Windows - Upload Production-Ready Files
       if: startsWith(matrix.os, 'windows')
       uses: actions/upload-artifact@v4
       with:
+         name: WindowsPackage
          path: ${{github.workspace}}/release/FractalsDiscovery.zip
 
