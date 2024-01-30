@@ -39,7 +39,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        # os: [windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
 
     steps:
     - name: Checkout
@@ -105,7 +106,6 @@ jobs:
         mkdir -p ${{github.workspace}}/release/all/
         cp -r ${{github.workspace}}/docs ${{github.workspace}}/release/all/
         cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}/release/all/
-        cp /usr/lib64/libQt6Widgets.so ${{github.workspace}}/release/all/
         cd ${{github.workspace}}/release/all/
         ldd FractalsDiscovery
         tar cvzf ${{github.workspace}}/release/FractalsDiscovery.tar.gz .
