@@ -103,7 +103,8 @@ jobs:
     - name: Linux - Deployment Package
       if: startsWith(matrix.os, 'ubuntu')
       run: |
-        mkdir -p ${{github.workspace}}/release/all/plugins/platforms
+        mkdir -p ${{github.workspace}}/release/all/plugins
+        mkdir -p ${{github.workspace}}/release/all/platforms
         cp -r ${{github.workspace}}/docs ${{github.workspace}}/release/all/
         cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6Widgets.so.6 ${{github.workspace}}/release/all/
@@ -111,7 +112,7 @@ jobs:
         cp /lib/x86_64-linux-gnu/libQt6Core.so.6 ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6DBus.so.6 ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6XcbQpa.so.6 ${{github.workspace}}/release/all/
-        cp /lib/x86_64-linux-gnu/qt6/plugins/platforms/libqxcb.so ${{github.workspace}}/release/all/plugins/platforms
+        cp /lib/x86_64-linux-gnu/qt6/plugins/platforms/libqxcb.so ${{github.workspace}}/release/all/platforms
         cd ${{github.workspace}}/release/all/
         ldd FractalsDiscovery
         tar cvzf ${{github.workspace}}/release/FractalsDiscovery.tar.gz .
