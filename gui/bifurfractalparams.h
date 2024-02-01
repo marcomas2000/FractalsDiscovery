@@ -24,6 +24,16 @@ public:
     virtual ~BifurFractalParams();
 
     /**
+     * @brief setWindowFunction Setter for window title
+     */
+    void setWindowFunction(std::string value);
+
+    /**
+     * @brief getWindowFunction Getter for window title
+     */
+    std::string getWindowFunction();
+
+    /**
      * @brief getXres Getter for parameter from GUI
      * @return Horizontal resolution
      */
@@ -74,8 +84,24 @@ public:
      */
     double getStability();
 
+protected:
+    /**
+     * @brief m_windowTitle string to be shown on the Window title
+     */
+    std::string m_windowFunction;
+
 private:
     Ui::BifurFractalParams *ui;
 };
+
+inline void BifurFractalParams::setWindowFunction(std::string value)
+{
+    m_windowFunction = value;
+}
+
+inline std::string BifurFractalParams::getWindowFunction()
+{
+    return m_windowFunction;
+}
 
 #endif // BIFURFRACTALPARAMS_H

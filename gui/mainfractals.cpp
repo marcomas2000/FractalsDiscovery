@@ -1,13 +1,14 @@
 #include "mainfractals.h"
 #include "mainfractals_ui.h"
 //#include "fractaltypes.h"
+#include "../creators/bifurcation.h"
+#include "../creators/unisin.h"
 //#include "../creators/juliasquared.h"
 //#include "../creators/juliacosh.h"
 //#include "../creators/juliaexp.h"
 //#include "../creators/juliapower4.h"
 //#include "../creators/mandelbrot.h"
 //#include "../creators/lyapunov.h"
-#include "../creators/bifurcation.h"
 //#include "attracthenon.h"
 //#include "attractikeda.h"
 #include "juliasquaredfractalparams.h"
@@ -72,6 +73,45 @@ void MainFractals::on_actionConfigure_triggered()
 
     switch (ui->buttonGroup->checkedId())
     {
+        case (int) FRACTAL_DOMAIN::BIFURCATION:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                Bifurcation * im = new Bifurcation;
+                std::string title = "Bifurcation Params: pow(x,2)+c";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    QApplication::setOverrideCursor(Qt::WaitCursor);
+                    QApplication::processEvents();
+                    ui->statusBar->showMessage("Generating data. Please wait...");
+                    std::thread generation(&MainFractals::createBifurImage, this, bifurParams, im);
+                    generation.join();
+                    ui->statusBar->showMessage("...Data generation completed.");
+                    QApplication::restoreOverrideCursor();
+                }
+            }                
+            break;
+
+        case (int) FRACTAL_DOMAIN::UNISIN:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                UniSin * im = new UniSin;
+                std::string title = "Bifurcation Params: c sin(x)";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    QApplication::setOverrideCursor(Qt::WaitCursor);
+                    QApplication::processEvents();
+                    ui->statusBar->showMessage("Generating data. Please wait...");
+                    std::thread generation(&MainFractals::createBifurImage, this, bifurParams, im);
+                    generation.join();
+                    ui->statusBar->showMessage("...Data generation completed.");
+                    QApplication::restoreOverrideCursor();
+                }
+            }                
+            break;
         /**********
         case (int) FRACTAL_DOMAIN::SQUARED:
             {
@@ -140,22 +180,6 @@ void MainFractals::on_actionConfigure_triggered()
             }                
             break;
         *******/
-        case (int) FRACTAL_DOMAIN::BIFURCATION:
-            {
-                BifurFractalParams * bifurParams = new BifurFractalParams;
-                ret2 = bifurParams->exec();
-                if (ret2 == QDialog::Accepted)
-                {
-                    QApplication::setOverrideCursor(Qt::WaitCursor);
-                    QApplication::processEvents();
-                    ui->statusBar->showMessage("Generating data. Please wait...");
-                    std::thread generation(&MainFractals::createBifurImage, this, bifurParams);
-                    generation.join();
-                    ui->statusBar->showMessage("...Data generation completed.");
-                    QApplication::restoreOverrideCursor();
-                }
-            }                
-            break;
         default:
             break;
     }
@@ -274,10 +298,8 @@ void MainFractals::createLyapImage(LyapFractalParams * imParams)
 }
 *******/
 
-void MainFractals::createBifurImage(BifurFractalParams * imParams)
+void MainFractals::createBifurImage(BifurFractalParams * imParams, BifurSet * im)
 {
-
-    Bifurcation * im = new Bifurcation;
     im->setXres(imParams->getXres());
     im->setYres(imParams->getYres());
     im->setXmin(imParams->getXmin());

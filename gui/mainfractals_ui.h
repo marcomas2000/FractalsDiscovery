@@ -37,6 +37,21 @@ public:
     QMenu *menuTools;
     QStatusBar *statusBar;
 
+    // Bifurcation
+    QLabel *labelbifur;
+    QRadioButton *radioBifur;
+
+    // Universals
+    QLabel *labelUniversal;
+    QRadioButton *radioUniSin;
+    QRadioButton *radioUniPiSin;
+    QRadioButton *radioUni1MinusSquared;
+    QRadioButton *radioUniXCubed;
+    QRadioButton *radioUniXQuater;
+    QRadioButton *radioUniLyapLike;
+    QRadioButton *radioUniTent;
+
+    // Julias 
     QLabel *labelJulia;
     QRadioButton *radioSquared;
     QRadioButton *radioCosh;
@@ -49,8 +64,6 @@ public:
     QRadioButton *radioMandel;
     QLabel *labelLyap;
     QRadioButton *radioLyap;
-    QLabel *labelbifur;
-    QRadioButton *radioBifur;
 
     QButtonGroup *buttonGroup;
 
@@ -64,6 +77,7 @@ public:
 
         setupWindowsMenus(MainFractals);
         setupBifurcation(MainFractals);
+        setupUniversal(MainFractals);
         //setupJulia(MainFractals);
         //setupAttract(MainFractals);
         //setupMandel(MainFractals);
@@ -83,6 +97,19 @@ public:
         actionConfigure->setText(QCoreApplication::translate("MainFractals", "Configure", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainFractals", "File", nullptr));
         menuTools->setTitle(QCoreApplication::translate("MainFractals", "Tools", nullptr));
+        // Bifurcation
+        labelbifur->setText(QCoreApplication::translate("MainFractals", "Bifurcation", nullptr));
+        radioBifur->setText(QCoreApplication::translate("MainFractals", "pow(x,2)+c", nullptr));
+        // Universal
+        labelUniversal->setText(QCoreApplication::translate("MainFractals", "Universality", nullptr));
+        radioUniSin->setText(QCoreApplication::translate("MainFractals", "c sin x", nullptr));
+        radioUniPiSin->setText(QCoreApplication::translate("MainFractals", "sin(Pi x)+c", nullptr));
+        radioUni1MinusSquared->setText(QCoreApplication::translate("MainFractals", "cx(1-x)", nullptr));
+        radioUniXCubed->setText(QCoreApplication::translate("MainFractals", "c pow(x,3)(1-x)", nullptr));
+        radioUniXQuater->setText(QCoreApplication::translate("MainFractals", "c(1- pow((2x-1),4)", nullptr));
+        radioUniLyapLike->setText(QCoreApplication::translate("MainFractals", "cx(1-x)", nullptr));
+        radioUniTent->setText(QCoreApplication::translate("MainFractals", "c(1-2|x-1/2|)", nullptr));
+
         //labelJulia->setText(QCoreApplication::translate("MainFractals", "Julia Sets", nullptr));
         //radioSquared->setText(QCoreApplication::translate("MainFractals", "Squared", nullptr));
         //radioCosh->setText(QCoreApplication::translate("MainFractals", "HyperbolicCos", nullptr));
@@ -95,8 +122,6 @@ public:
         //radioMandel->setText(QCoreApplication::translate("MainFractals", "Mandelbrot", nullptr));
         //labelLyap->setText(QCoreApplication::translate("MainFractals", "Lyapunov", nullptr));
         //radioLyap->setText(QCoreApplication::translate("MainFractals", "", nullptr));
-        labelbifur->setText(QCoreApplication::translate("MainFractals", "Bifurcation", nullptr));
-        radioBifur->setText(QCoreApplication::translate("MainFractals", "", nullptr));
     } // retranslateUi
 
 private:
@@ -226,6 +251,49 @@ private:
 
         gridLayout->addWidget(labelbifur, 0, 0);
         gridLayout->addWidget(radioBifur, 0, 1);
+    }
+
+    void setupUniversal(QMainWindow *MainFractals)
+    {
+        labelUniversal = new QLabel();
+        labelUniversal->setObjectName("labelUniversal");
+
+        radioUniSin = new QRadioButton();
+        buttonGroup->addButton(radioUniSin);
+        radioUniSin->setObjectName("radioUniSin");
+
+        radioUniPiSin = new QRadioButton();
+        buttonGroup->addButton(radioUniPiSin);
+        radioUniPiSin->setObjectName("radioUniPiSin");
+
+        radioUni1MinusSquared = new QRadioButton();
+        buttonGroup->addButton(radioUni1MinusSquared);
+        radioUni1MinusSquared->setObjectName("radioUni1MinusSquared");
+
+        radioUniXCubed = new QRadioButton();
+        buttonGroup->addButton(radioUniXCubed);
+        radioUniXCubed->setObjectName("radioUniXCubed");
+
+        radioUniXQuater = new QRadioButton();
+        buttonGroup->addButton(radioUniXQuater);
+        radioUniXQuater->setObjectName("radioUniXQuater");
+
+        radioUniLyapLike = new QRadioButton();
+        buttonGroup->addButton(radioUniLyapLike);
+        radioUniLyapLike->setObjectName("radioUniLyapLike");
+
+        radioUniTent = new QRadioButton();
+        buttonGroup->addButton(radioUniTent);
+        radioUniTent->setObjectName("radioUniTent");
+
+        gridLayout->addWidget(labelUniversal, 1, 0, 7, 1);
+        gridLayout->addWidget(radioUniSin, 1, 1);
+        gridLayout->addWidget(radioUniPiSin, 2, 1);
+        gridLayout->addWidget(radioUni1MinusSquared, 3, 1);
+        gridLayout->addWidget(radioUniXCubed, 4, 1);
+        gridLayout->addWidget(radioUniXQuater, 5, 1);
+        gridLayout->addWidget(radioUniLyapLike, 6, 1);
+        gridLayout->addWidget(radioUniTent, 7, 1);
     }
 };
 
