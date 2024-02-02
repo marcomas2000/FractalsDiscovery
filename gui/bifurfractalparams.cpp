@@ -3,7 +3,8 @@
 
 BifurFractalParams::BifurFractalParams(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::BifurFractalParams)
+    ui(new Ui::BifurFractalParams),
+    m_windowFunction("")
 {
     ui->setupUi(this);
 }

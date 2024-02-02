@@ -1,11 +1,11 @@
-<fractal fractaltype="Bifurcation">
+<fractal fractaltype="UniSin">
 <imageresolution xres=1024 yres=768/>
 <functiondomain>
-    <topleftcorner x_min=-1.81 c_min=-1.792/>
-    <bottomrightcorner x_max=1.448 c_max=-1.747/>
+    <topleftcorner x_min=-6 c_min=1.4/>
+    <bottomrightcorner x_max=6 c_max=16/>
 </functiondomain>
 <maxiteration> 10000 </maxiteration>
-<initialpoint> 0 </initialpoint>
+<initialpoint> 0.78 </initialpoint>
 <orbitsdiscarded> 4000 </orbitsdiscarded>
 <stability> 0.2 </stability>
 </fractal>

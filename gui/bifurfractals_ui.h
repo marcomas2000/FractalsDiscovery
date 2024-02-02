@@ -42,9 +42,9 @@ public:
     QDoubleSpinBox *doubleSpinBoxStability;
 
 
-    virtual void setupUi(QDialog *BifurFractalParams)
+    virtual void setupUi(QDialog *bifurFractalParams)
     {
-        Ui_Main::setupUi(BifurFractalParams);
+        Ui_Main::setupUi(bifurFractalParams);
 
         /* X range */
 
@@ -55,8 +55,8 @@ public:
         doubleSpinBoxXmin = new QDoubleSpinBox();
         doubleSpinBoxXmin->setObjectName("doubleSpinBoxXmin");
         doubleSpinBoxXmin->setDecimals(6);
-        doubleSpinBoxXmin->setMinimum(-2.0);
-        doubleSpinBoxXmin->setMaximum(2.0);
+        doubleSpinBoxXmin->setMinimum(-6.0);
+        doubleSpinBoxXmin->setMaximum(6.0);
         doubleSpinBoxXmin->setSingleStep(0.1);
         doubleSpinBoxXmin->setValue(-2.0);
 
@@ -68,12 +68,11 @@ public:
         doubleSpinBoxXmax->setObjectName("doubleSpinBoxXmax");
         doubleSpinBoxXmax->setDecimals(6);
         doubleSpinBoxXmax->setMinimum(-2.0);
-        doubleSpinBoxXmax->setMaximum(2.0);
+        doubleSpinBoxXmax->setMaximum(6.0);
         doubleSpinBoxXmax->setSingleStep(0.1);
         doubleSpinBoxXmax->setValue(2.0);
 
         /*  First window line */
-
         gridLayout->addWidget(labelXmin, 1, 0);
         gridLayout->addWidget(doubleSpinBoxXmin, 1, 1); 
         gridLayout->addWidget(labelXmax, 1, 2);
@@ -89,7 +88,7 @@ public:
         doubleSpinBoxCmin->setObjectName("doubleSpinBoxCmin");
         doubleSpinBoxCmin->setDecimals(5);
         doubleSpinBoxCmin->setMinimum(-2.0);
-        doubleSpinBoxCmin->setMaximum(0.250);
+        doubleSpinBoxCmin->setMaximum(2.0);
         doubleSpinBoxCmin->setSingleStep(0.1);
         doubleSpinBoxCmin->setValue(-1.5);
 
@@ -101,7 +100,7 @@ public:
         doubleSpinBoxCmax->setObjectName("doubleSpinBoxCmax");
         doubleSpinBoxCmax->setDecimals(5);
         doubleSpinBoxCmax->setMinimum(-2.0);
-        doubleSpinBoxCmax->setMaximum(0.250);
+        doubleSpinBoxCmax->setMaximum(16);
         doubleSpinBoxCmax->setSingleStep(0.1);
         doubleSpinBoxCmax->setValue(-1.0);
 
@@ -112,8 +111,8 @@ public:
         gridLayout->addWidget(doubleSpinBoxCmax, 2, 3);
 
         /* Initial Point */
-        labelIterDiscarded = new QLabel();
-        labelIterDiscarded->setObjectName("labelIterDiscarded");
+        labelInitialPoint = new QLabel();
+        labelInitialPoint->setObjectName("labelInitialPoint");
 
         doubleSpinBoxInitialPoint = new QDoubleSpinBox();
         doubleSpinBoxInitialPoint->setObjectName("doubleSpinBoxInitialPoint");
@@ -124,8 +123,8 @@ public:
         doubleSpinBoxInitialPoint->setValue(0.0);
 
         /* # of iterations excluded */
-        labelInitialPoint = new QLabel();
-        labelInitialPoint->setObjectName("labelInitialPoint");
+        labelIterDiscarded = new QLabel();
+        labelIterDiscarded->setObjectName("labelIterDiscarded");
 
         doubleSpinBoxIterDiscarded = new QDoubleSpinBox();
         doubleSpinBoxIterDiscarded->setObjectName("doubleSpinBoxIterDiscarded");
@@ -136,9 +135,9 @@ public:
         doubleSpinBoxIterDiscarded->setValue(4000);
 
         /*  Third window line */
-        gridLayout->addWidget(labelIterDiscarded, 3, 0);
+        gridLayout->addWidget(labelInitialPoint, 3, 0);
         gridLayout->addWidget(doubleSpinBoxInitialPoint, 3, 1); 
-        gridLayout->addWidget(labelInitialPoint, 3, 2);
+        gridLayout->addWidget(labelIterDiscarded, 3, 2);
         gridLayout->addWidget(doubleSpinBoxIterDiscarded, 3, 3);
 
         /* Max Iteration */
@@ -179,22 +178,21 @@ public:
 
         gridLayout->addWidget(buttonExitBox, 5, 0, 1, 4);
 
-        retranslateUi(BifurFractalParams);
+        retranslateUi(bifurFractalParams);
 
-        QMetaObject::connectSlotsByName(BifurFractalParams);
+        QMetaObject::connectSlotsByName(bifurFractalParams);
 
     } // setupUi
 
-    virtual void retranslateUi(QDialog *BifurFractalParams)
+    virtual void retranslateUi(QDialog *bifurFractalParams)
     {
-        Ui_Main::retranslateUi(BifurFractalParams);
-        BifurFractalParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", "Bifurcation Params", nullptr));
+        Ui_Main::retranslateUi(bifurFractalParams);
         labelXmin->setText(QCoreApplication::translate("BifurFractalParams", "X min", nullptr));
         labelXmax->setText(QCoreApplication::translate("BifurFractalParams", "X max", nullptr));
         labelCmin->setText(QCoreApplication::translate("BifurFractalParams", "C min", nullptr));
         labelCmax->setText(QCoreApplication::translate("BifurFractalParams", "C max", nullptr));
-        labelInitialPoint->setText(QCoreApplication::translate("BifurFractalParams", "To be discarded", nullptr));
-        labelIterDiscarded->setText(QCoreApplication::translate("BifurFractalParams", "Initial Point", nullptr));
+        labelInitialPoint->setText(QCoreApplication::translate("BifurFractalParams", "Initial Point", nullptr));
+        labelIterDiscarded->setText(QCoreApplication::translate("BifurFractalParams", "To be discarded", nullptr));
         labelMaxIter->setText(QCoreApplication::translate("BifurFractalParams", "Iterations", nullptr));
         labelStability->setText(QCoreApplication::translate("BifurFractalParams", "Perc.Stable Orbits", nullptr));
     } // retranslateUi

@@ -4,3 +4,4 @@ gui/*.xml
 gui/*.csv
 docs/
 logDoxygen
+.vscode/

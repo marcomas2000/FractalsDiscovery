@@ -47,7 +47,31 @@ public:
      * @brief setNoIterationsToExclude number of iteration to exclude before reaching a stable orbit
      * @param value
      */
-    virtual void setNoIterationsToExclude(int value) = 0;
+    virtual void setNoIterationsToExclude(int value);
+
+    /**
+     * @brief setInitialPoint Setter for parameter from GUI
+     * @param value
+     */
+    virtual void setInitialPoint(double value);
+
+    /**
+     * @brief setMaxIter Setter for parameter from GUI
+     * @param value
+     */
+    virtual void setMaxIter(int value);
+
+    /**
+     * @brief setStability Setter for parameter from GUI
+     * @param value
+     */
+    virtual void setStability(double value);
+
+    /**
+     * @brief storeImage function to store creation parameters and data for images
+     * @param standardPath folder where data is stored
+     */
+    virtual void storeImage(const char * standardPath) = 0;
 
     /**
      * @brief bifur function defined in derived classes to check divergency in the specified position
@@ -87,6 +111,26 @@ protected:
      * @brief upper end of the interval of investigation for attractors
      */
     double m_xmax;
+
+    /**
+     * m_noIterationToExclude max number of iterations to exclude
+     */
+    int m_noIterationToExclude;
+
+    /**
+     * m_initialPoint seed for iteration
+     */
+    double m_initialPoint;
+
+    /**
+     * m_maxIter maximum number of iterations
+     */
+    int m_maxIter;
+
+    /**
+     * m_stability percentage of stable orbits to consider a point an attractor
+     */
+    double m_stability;
 
     /**
      * @brief dynamic array to contain attractor points
@@ -129,6 +173,26 @@ inline void BifurSet::setXmin(double value)
 inline void BifurSet::setXmax(double value)
 {
     m_xmax = value;
+}
+
+inline void BifurSet::setNoIterationsToExclude(int value)
+{
+    m_noIterationToExclude = value;
+}
+
+inline void BifurSet::setInitialPoint(double value)
+{
+    m_initialPoint = value;
+}
+
+inline void BifurSet::setMaxIter(int value)
+{
+    m_maxIter = value;
+}
+
+inline void BifurSet::setStability(double value)
+{
+    m_stability = value;
 }
 
 #endif // BIFURSET_H
