@@ -112,22 +112,22 @@ protected:
      */
     double m_xmax;
 
-    /*
+    /**
      * m_noIterationToExclude max number of iterations to exclude
      */
     int m_noIterationToExclude;
 
-    /*
+    /**
      * m_initialPoint seed for iteration
      */
-    int m_initialPoint;
+    double m_initialPoint;
 
-    /*
+    /**
      * m_maxIter maximum number of iterations
      */
     int m_maxIter;
 
-    /*
+    /**
      * m_stability percentage of stable orbits to consider a point an attractor
      */
     double m_stability;

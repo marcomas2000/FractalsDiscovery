@@ -111,8 +111,8 @@ public:
         gridLayout->addWidget(doubleSpinBoxCmax, 2, 3);
 
         /* Initial Point */
-        labelIterDiscarded = new QLabel();
-        labelIterDiscarded->setObjectName("labelIterDiscarded");
+        labelInitialPoint = new QLabel();
+        labelInitialPoint->setObjectName("labelInitialPoint");
 
         doubleSpinBoxInitialPoint = new QDoubleSpinBox();
         doubleSpinBoxInitialPoint->setObjectName("doubleSpinBoxInitialPoint");
@@ -123,8 +123,8 @@ public:
         doubleSpinBoxInitialPoint->setValue(0.0);
 
         /* # of iterations excluded */
-        labelInitialPoint = new QLabel();
-        labelInitialPoint->setObjectName("labelInitialPoint");
+        labelIterDiscarded = new QLabel();
+        labelIterDiscarded->setObjectName("labelIterDiscarded");
 
         doubleSpinBoxIterDiscarded = new QDoubleSpinBox();
         doubleSpinBoxIterDiscarded->setObjectName("doubleSpinBoxIterDiscarded");
@@ -135,9 +135,9 @@ public:
         doubleSpinBoxIterDiscarded->setValue(4000);
 
         /*  Third window line */
-        gridLayout->addWidget(labelIterDiscarded, 3, 0);
+        gridLayout->addWidget(labelInitialPoint, 3, 0);
         gridLayout->addWidget(doubleSpinBoxInitialPoint, 3, 1); 
-        gridLayout->addWidget(labelInitialPoint, 3, 2);
+        gridLayout->addWidget(labelIterDiscarded, 3, 2);
         gridLayout->addWidget(doubleSpinBoxIterDiscarded, 3, 3);
 
         /* Max Iteration */
@@ -191,8 +191,8 @@ public:
         labelXmax->setText(QCoreApplication::translate("BifurFractalParams", "X max", nullptr));
         labelCmin->setText(QCoreApplication::translate("BifurFractalParams", "C min", nullptr));
         labelCmax->setText(QCoreApplication::translate("BifurFractalParams", "C max", nullptr));
-        labelInitialPoint->setText(QCoreApplication::translate("BifurFractalParams", "To be discarded", nullptr));
-        labelIterDiscarded->setText(QCoreApplication::translate("BifurFractalParams", "Initial Point", nullptr));
+        labelInitialPoint->setText(QCoreApplication::translate("BifurFractalParams", "Initial Point", nullptr));
+        labelIterDiscarded->setText(QCoreApplication::translate("BifurFractalParams", "To be discarded", nullptr));
         labelMaxIter->setText(QCoreApplication::translate("BifurFractalParams", "Iterations", nullptr));
         labelStability->setText(QCoreApplication::translate("BifurFractalParams", "Perc.Stable Orbits", nullptr));
     } // retranslateUi

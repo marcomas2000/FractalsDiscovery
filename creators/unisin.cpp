@@ -21,6 +21,9 @@ double UniSin::bifur(long ix)
     double ret=0.0;
     double x= m_initialPoint;
     double c_pos = 0.0;
+    bool stop = false;
+    long no_iterations = 0;
+    int stackPointer = 0;
 
     m_attractorsOrbits.resize(std::trunc(m_maxIter * m_stability));
     for(i = 0; i < m_maxIter * m_stability; i++)
@@ -36,25 +39,21 @@ double UniSin::bifur(long ix)
     c_pos=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
     for(i = 0; i < m_noIterationToExclude; i++ )
     {
-        x = std::pow(x,2) + c_pos;
+        x = c_pos * std::sin(x);
     }
-    bool stop = false;
-    long counter = 0;
-    long previousCounter = 0;
-    long stability = 0;
-    long no_iterations = 0;
-    int stackPointer = 0;
+    no_iterations = 0;
+    stackPointer = 0;
+    stop = false;
     while (stop == false) 
     {
         if (no_iterations <= m_maxIter)
         {
-            previousCounter = counter;
-            x = std::pow(x,2) + c_pos;
+            x = c_pos * std::sin(x);
             double idx = std::trunc(((x - m_xmin)*m_yres) / (m_xmax-m_xmin));
             if ((idx >= 0) && (idx < m_yres))
             {
                 m_attractorsVector[idx] = x;
-                if (m_attractorsOrbits[idx] == 0)
+                if (m_attractorsVectorIndex[idx] == 0)
                 {
                     // Orbit has passed the point [c_pos][idx]
                     m_attractorsOrbits[stackPointer] = idx;
@@ -67,13 +66,13 @@ double UniSin::bifur(long ix)
                 }
                 else
                 {
+                    // Orbit has already passed in [c_pos][idx]
                     while (stackPointer > 0)
                     {                        
                         m_divergency_matrix[m_attractorsOrbits[stackPointer-1]][ix] = 1;
                         stackPointer--;
                     }     
                     stop = true;
-                    // Orbit has already passed in [c_pos][idx]
                 }
             }
             no_iterations++;
@@ -83,21 +82,7 @@ double UniSin::bifur(long ix)
             stop = true;
         }
     }
-    //evaluateAttractors(ix);
     return(ret);
-}
-
-void UniSin::evaluateAttractors(long ix)
-{
-    long attractorIterations = 0;
-    for(int iy=0; iy<m_yres; iy++)
-    {
-        if ((static_cast<double>(m_attractorsVectorIndex[iy])) >= m_maxIter * m_stability)
-        {
-            long attractorPosition = std::trunc(((m_attractorsVector[iy] * m_yres )/(m_xmax - m_xmin)) + m_yres/2);
-            m_divergency_matrix[attractorPosition][ix] = m_attractorsVectorIndex[iy];
-        }
-    }     
 }
 
 void UniSin::storeImage(const char * standardPath)

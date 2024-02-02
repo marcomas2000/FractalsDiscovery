@@ -54,7 +54,7 @@ double Bifurcation::bifur(long ix)
             if ((idx >= 0) && (idx < m_yres))
             {
                 m_attractorsVector[idx] = x;
-                if (m_attractorsOrbits[idx] == 0)
+                if (m_attractorsVectorIndex[idx] == 0)
                 {
                     // Orbit has passed the point [c_pos][idx]
                     m_attractorsOrbits[stackPointer] = idx;
@@ -83,21 +83,7 @@ double Bifurcation::bifur(long ix)
             stop = true;
         }
     }
-    //evaluateAttractors(ix);
     return(ret);
-}
-
-void Bifurcation::evaluateAttractors(long ix)
-{
-    long attractorIterations = 0;
-    for(int iy=0; iy<m_yres; iy++)
-    {
-        if ((static_cast<double>(m_attractorsVectorIndex[iy])) >= m_maxIter * m_stability)
-        {
-            long attractorPosition = std::trunc(((m_attractorsVector[iy] * m_yres )/(m_xmax - m_xmin)) + m_yres/2);
-            m_divergency_matrix[attractorPosition][ix] = m_attractorsVectorIndex[iy];
-        }
-    }     
 }
 
 void Bifurcation::storeImage(const char * standardPath)

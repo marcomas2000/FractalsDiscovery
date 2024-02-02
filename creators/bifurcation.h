@@ -32,13 +32,6 @@ public:
      */
     void storeImage(const char * standardPath);
 
-private:
-    /**
-     * @brief evaluateAttractors function defined in derived classes to check divergency in the specified position
-     * @param value
-     */
-    void evaluateAttractors(long ix);
-
 };
 
 
