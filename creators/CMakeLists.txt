@@ -15,6 +15,7 @@ set(PROJECT_SOURCES
         bifurset.cpp
         bifurcation.cpp
         unisin.cpp
+        unipisin.cpp
 )
 
 add_library(creators STATIC ${PROJECT_SOURCES})
