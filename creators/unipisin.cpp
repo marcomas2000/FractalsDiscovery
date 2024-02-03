@@ -5,8 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#define _USE_MATH_DEFINES
 #include <cmath>
+
+constexpr double PI = 3.14159265358979323846;
 
 UniPiSin::UniPiSin()
 {
@@ -40,7 +41,7 @@ double UniPiSin::bifur(long ix)
     c_pos=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
     for(i = 0; i < m_noIterationToExclude; i++ )
     {
-        x = std::sin(M_PI * x) + c_pos;
+        x = std::sin(PI * x) + c_pos;
     }
     no_iterations = 0;
     stackPointer = 0;
@@ -49,7 +50,7 @@ double UniPiSin::bifur(long ix)
     {
         if (no_iterations <= m_maxIter)
         {
-            x = std::sin(M_PI * x) + c_pos;
+            x = std::sin(PI * x) + c_pos;
             double idx = std::trunc(((x - m_xmin)*m_yres) / (m_xmax-m_xmin));
             if ((idx >= 0) && (idx < m_yres))
             {
