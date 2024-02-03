@@ -29,6 +29,10 @@ together with the xml files describing the parameters used to create the images.
   <img src="/renderings/universality/UniSin2.png" width="400">
 </p>
 
+<p>
+  <img src="/renderings/universality/UniPiSin1.png" width="400">
+</p>
+
 All the images are licensed under ![Creative Commons BY license](/renderings/CC_BY_icon.svg) [Creative Commons License BY](https://creativecommons.org/licenses/by/4.0/)
 
 ![Build status](https://github.com/marcomas2000/FractalsDiscovery/actions/workflows/build.yml/badge.svg)
