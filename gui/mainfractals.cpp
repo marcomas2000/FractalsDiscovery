@@ -3,6 +3,7 @@
 //#include "fractaltypes.h"
 #include "../creators/bifurcation.h"
 #include "../creators/unisin.h"
+#include "../creators/unipisin.h"
 //#include "../creators/juliasquared.h"
 //#include "../creators/juliacosh.h"
 //#include "../creators/juliaexp.h"
@@ -67,6 +68,17 @@ void MainFractals::closeEvent(QCloseEvent *event)
     exit(0);
 }
 
+void MainFractals::dataGeneration(BifurFractalParams * bifurParams, BifurSet *im)
+{
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    QApplication::processEvents();
+    ui->statusBar->showMessage("Generating data. Please wait...");
+    std::thread generation(&MainFractals::createBifurImage, this, bifurParams, im);
+    generation.join();
+    ui->statusBar->showMessage("...Data generation completed.");
+    QApplication::restoreOverrideCursor();
+}
+
 void MainFractals::on_actionConfigure_triggered()
 {
     int ret, ret2;
@@ -82,13 +94,7 @@ void MainFractals::on_actionConfigure_triggered()
                 ret2 = bifurParams->exec();
                 if (ret2 == QDialog::Accepted)
                 {
-                    QApplication::setOverrideCursor(Qt::WaitCursor);
-                    QApplication::processEvents();
-                    ui->statusBar->showMessage("Generating data. Please wait...");
-                    std::thread generation(&MainFractals::createBifurImage, this, bifurParams, im);
-                    generation.join();
-                    ui->statusBar->showMessage("...Data generation completed.");
-                    QApplication::restoreOverrideCursor();
+                    dataGeneration(bifurParams, im);
                 }
             }                
             break;
@@ -102,13 +108,21 @@ void MainFractals::on_actionConfigure_triggered()
                 ret2 = bifurParams->exec();
                 if (ret2 == QDialog::Accepted)
                 {
-                    QApplication::setOverrideCursor(Qt::WaitCursor);
-                    QApplication::processEvents();
-                    ui->statusBar->showMessage("Generating data. Please wait...");
-                    std::thread generation(&MainFractals::createBifurImage, this, bifurParams, im);
-                    generation.join();
-                    ui->statusBar->showMessage("...Data generation completed.");
-                    QApplication::restoreOverrideCursor();
+                    dataGeneration(bifurParams, im);
+                }
+            }                
+            break;
+
+        case (int) FRACTAL_DOMAIN::UNIPISIN:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                UniPiSin * im = new UniPiSin;
+                std::string title = "Bifurcation Params: sin(PI x)+ c";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    dataGeneration(bifurParams, im);
                 }
             }                
             break;

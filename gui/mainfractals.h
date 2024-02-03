@@ -11,7 +11,7 @@ class MainFractals;
 enum  class FRACTAL_DOMAIN {
         BIFURCATION = -2,
         UNISIN = -3,
-        UNIPYSIN = -4,
+        UNIPISIN = -4,
         UNI1MINUSSQUARE = -5,
         UNIXCUBED = -6,
         UNIXQUATER = -7,
@@ -43,8 +43,16 @@ class MainFractals : public QMainWindow
     
 public:
 
+    /**
+     * @brief Constructor
+     * @param parent parent window
+     */
     explicit MainFractals(QWidget *parent = 0);
-    ~MainFractals();
+
+    /**
+     * @brief Denstructor
+     */
+    virtual ~MainFractals();
     
 private slots:
     void on_actionExit_triggered();
@@ -63,6 +71,13 @@ private:
     void createMandelbrotImage(MandelbrotFractalParams * imParams);
     void createLyapImage(LyapFractalParams * imParams);
     void createBifurImage(BifurFractalParams * imParams, BifurSet * im);
+
+    /**
+     * @brief dataGeneration function to generate data in a separate thread
+     * @param im function for which data are generated
+     */
+    void dataGeneration(BifurFractalParams * bifurParams, BifurSet *im);
+
 };
 
 #endif // MAINFRACTALS_H
