@@ -1,5 +1,5 @@
 #include <math.h>
-#include "bifurcation.h"
+#include "unixquater.h"
 #include <vector>
 #include <chrono>
 #include <iostream>
@@ -7,20 +7,23 @@
 #include <string>
 #include <cmath>
 
-Bifurcation::Bifurcation()
+UniXQuater::UniXQuater()
 {
 }
 
-Bifurcation::~Bifurcation()
+UniXQuater::~UniXQuater()
 {
 }
 
-double Bifurcation::bifur(long ix)
+double UniXQuater::bifur(long ix)
 {
     long i = 0;
     double ret=0.0;
     double x= m_initialPoint;
     double c_pos = 0.0;
+    bool stop = false;
+    long no_iterations = 0;
+    int stackPointer = 0;
 
     m_attractorsOrbits.resize(std::trunc(m_maxIter * m_stability));
     for(i = 0; i < m_maxIter * m_stability; i++)
@@ -36,20 +39,18 @@ double Bifurcation::bifur(long ix)
     c_pos=m_cmin+ix*(m_cmax-m_cmin)/(m_xres-1);
     for(i = 0; i < m_noIterationToExclude; i++ )
     {
-        x = std::pow(x,2) + c_pos;
+        double temp_x = 2*x - 1;
+        x = c_pos * (1-pow(temp_x, 4));
     }
-    bool stop = false;
-    long counter = 0;
-    long previousCounter = 0;
-    long stability = 0;
-    long no_iterations = 0;
-    int stackPointer = 0;
+    no_iterations = 0;
+    stackPointer = 0;
+    stop = false;
     while (stop == false) 
     {
         if (no_iterations <= m_maxIter)
         {
-            previousCounter = counter;
-            x = std::pow(x,2) + c_pos;
+            double temp_x = 2*x - 1;
+            x = c_pos * (1-pow(temp_x, 4));
             double idx = std::trunc(((x - m_xmin)*m_yres) / (m_xmax-m_xmin));
             if ((idx >= 0) && (idx < m_yres))
             {
@@ -67,13 +68,13 @@ double Bifurcation::bifur(long ix)
                 }
                 else
                 {
+                    // Orbit has already passed in [c_pos][idx]
                     while (stackPointer > 0)
                     {                        
                         m_divergency_matrix[m_attractorsOrbits[stackPointer-1]][ix] = 1;
                         stackPointer--;
                     }     
                     stop = true;
-                    // Orbit has already passed in [c_pos][idx]
                 }
             }
             no_iterations++;
@@ -86,7 +87,7 @@ double Bifurcation::bifur(long ix)
     return(ret);
 }
 
-void Bifurcation::storeImage(const char * standardPath)
+void UniXQuater::storeImage(const char * standardPath)
 {
     const std::chrono::system_clock::time_point timenow = std::chrono::system_clock::now();
     const std::time_t timestamp = std::chrono::system_clock::to_time_t(timenow);
@@ -97,11 +98,11 @@ void Bifurcation::storeImage(const char * standardPath)
     std::string fileNameXML(standardPath);
     fileNameXML += "/";
     fileNameXML += filename_timestamp;
-    fileNameXML += "Bifurcation.xml";
+    fileNameXML += "UniXQuater.xml";
      
     std::ofstream specs;
     specs.open(fileNameXML.c_str());
-    specs << "<fractal fractaltype=\"Bifurcation: pow(x,2) + c\">" << std::endl;
+    specs << "<fractal fractaltype=\"UniXQuater: c (1-pow((2x-1),4))\">" << std::endl;
     specs << "<imageresolution xres=" << m_xres << " yres=" << m_yres << "/>" << std::endl;
     specs << "<functiondomain>" << std::endl;
     specs << "    <topleftcorner x_min=" << m_xmin << " c_min=" << m_cmin << "/>" << std::endl;
@@ -117,7 +118,7 @@ void Bifurcation::storeImage(const char * standardPath)
     std::string fileNameIm(standardPath);
     fileNameIm += "/";
     fileNameIm += filename_timestamp;
-    fileNameIm += "Bifurcation.csv";
+    fileNameIm += "UniXQuater.csv";
 
     std::ofstream image;
     image.open(fileNameIm.c_str());

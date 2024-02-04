@@ -16,6 +16,11 @@ set(PROJECT_SOURCES
         bifurcation.cpp
         unisin.cpp
         unipisin.cpp
+        uni1minussquare.cpp
+        unixcubed.cpp
+        unixquater.cpp
+        unilyaplike.cpp
+        unitent.cpp
 )
 
 add_library(creators STATIC ${PROJECT_SOURCES})

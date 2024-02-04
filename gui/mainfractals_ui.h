@@ -104,7 +104,7 @@ public:
         labelUniversal->setText(QCoreApplication::translate("MainFractals", "Universality", nullptr));
         radioUniSin->setText(QCoreApplication::translate("MainFractals", "c sin x", nullptr));
         radioUniPiSin->setText(QCoreApplication::translate("MainFractals", "sin(Pi x)+c", nullptr));
-        radioUni1MinusSquared->setText(QCoreApplication::translate("MainFractals", "cx(1-x)", nullptr));
+        radioUni1MinusSquared->setText(QCoreApplication::translate("MainFractals", "cx(1-pow(x,2))", nullptr));
         radioUniXCubed->setText(QCoreApplication::translate("MainFractals", "c pow(x,3)(1-x)", nullptr));
         radioUniXQuater->setText(QCoreApplication::translate("MainFractals", "c(1- pow((2x-1),4)", nullptr));
         radioUniLyapLike->setText(QCoreApplication::translate("MainFractals", "cx(1-x)", nullptr));

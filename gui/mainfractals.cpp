@@ -4,6 +4,11 @@
 #include "../creators/bifurcation.h"
 #include "../creators/unisin.h"
 #include "../creators/unipisin.h"
+#include "../creators/uni1minussquare.h"
+#include "../creators/unixcubed.h"
+#include "../creators/unixquater.h"
+#include "../creators/unilyaplike.h"
+#include "../creators/unitent.h"
 //#include "../creators/juliasquared.h"
 //#include "../creators/juliacosh.h"
 //#include "../creators/juliaexp.h"
@@ -126,6 +131,76 @@ void MainFractals::on_actionConfigure_triggered()
                 }
             }                
             break;
+
+        case (int) FRACTAL_DOMAIN::UNI1MINUSSQUARE:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                Uni1MinusSquare * im = new Uni1MinusSquare;
+                std::string title = "Bifurcation Params: cx (1-pow(x,2))";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    dataGeneration(bifurParams, im);
+                }
+            }                
+            break;
+        case (int) FRACTAL_DOMAIN::UNIXCUBED:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                UniXCubed * im = new UniXCubed;
+                std::string title = "Bifurcation Params: c pow(x,3)(1-x)";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    dataGeneration(bifurParams, im);
+                }
+            }                
+            break;
+
+        case (int) FRACTAL_DOMAIN::UNIXQUATER:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                UniXQuater * im = new UniXQuater;
+                std::string title = "Bifurcation Params: c ( 1-pow((2x - 1),4))";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    dataGeneration(bifurParams, im);
+                }
+            }                
+            break;
+
+        case (int) FRACTAL_DOMAIN::UNILYAPLIKE:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                UniLyapLike * im = new UniLyapLike;
+                std::string title = "Bifurcation Params: cx (1-x))";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    dataGeneration(bifurParams, im);
+                }
+            }                
+            break;
+
+        case (int) FRACTAL_DOMAIN::UNITENT:
+            {
+                BifurFractalParams * bifurParams = new BifurFractalParams;
+                UniTent * im = new UniTent;
+                std::string title = "Bifurcation Params: c (1 - 2 |x - 1/2|)";
+                bifurParams->setWindowTitle(QCoreApplication::translate("BifurFractalParams", title.c_str(), nullptr));
+                ret2 = bifurParams->exec();
+                if (ret2 == QDialog::Accepted)
+                {
+                    dataGeneration(bifurParams, im);
+                }
+            }                
+            break;
+
         /**********
         case (int) FRACTAL_DOMAIN::SQUARED:
             {
