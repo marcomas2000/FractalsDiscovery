@@ -31,6 +31,12 @@ together with the xml files describing the parameters used to create the images.
 
 <p>
   <img src="/renderings/universality/UniPiSin1.png" width="400">
+  <img src="/renderings/universality/Uni1MinusSquare1.png" width="400">
+</p>
+
+<p>
+  <img src="/renderings/universality/UniLyapLike1.png" width="400">
+  <img src="/renderings/universality/UniTent1.png" width="400">
 </p>
 
 All the images are licensed under ![Creative Commons BY license](/renderings/CC_BY_icon.svg) [Creative Commons License BY](https://creativecommons.org/licenses/by/4.0/)
