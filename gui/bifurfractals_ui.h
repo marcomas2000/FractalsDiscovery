@@ -88,7 +88,7 @@ public:
         doubleSpinBoxCmin->setObjectName("doubleSpinBoxCmin");
         doubleSpinBoxCmin->setDecimals(5);
         doubleSpinBoxCmin->setMinimum(-2.0);
-        doubleSpinBoxCmin->setMaximum(2.0);
+        doubleSpinBoxCmin->setMaximum(8.0);
         doubleSpinBoxCmin->setSingleStep(0.1);
         doubleSpinBoxCmin->setValue(-1.5);
 

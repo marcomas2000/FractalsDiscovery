@@ -102,7 +102,7 @@ void UniPiSin::storeImage(const char * standardPath)
      
     std::ofstream specs;
     specs.open(fileNameXML.c_str());
-    specs << "<fractal fractaltype=\"UniPiSin\">" << std::endl;
+    specs << "<fractal fractaltype=\"UniPiSin: sin(PI x)+c\">" << std::endl;
     specs << "<imageresolution xres=" << m_xres << " yres=" << m_yres << "/>" << std::endl;
     specs << "<functiondomain>" << std::endl;
     specs << "    <topleftcorner x_min=" << m_xmin << " c_min=" << m_cmin << "/>" << std::endl;

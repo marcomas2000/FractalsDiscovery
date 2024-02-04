@@ -1,0 +1,14 @@
+<!-- Images downloadable from https://github.com/marcomas2000/FractalsDiscovery
+     are licensed under the Creative Commons BY license
+     For information https://creativecommons.org/licenses/by/4.0/ -->
+<fractal fractaltype="UniXCubed: c pow(x,3) (1- x)">
+<imageresolution xres=1024 yres=768/>
+<functiondomain>
+    <topleftcorner x_min=0.45 c_min=6.73/>
+    <bottomrightcorner x_max=0.945 c_max=8.9/>
+</functiondomain>
+<maxiteration> 10000 </maxiteration>
+<initialpoint> 0.78 </initialpoint>
+<orbitsdiscarded> 4000 </orbitsdiscarded>
+<stability> 0.2 </stability>
+</fractal>
