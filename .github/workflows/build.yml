@@ -93,7 +93,7 @@ jobs:
       run: |
         mkdir ${{github.workspace}}\release\all\
         cp -R ${{github.workspace}}/docs ${{github.workspace}}\release\all\
-        cp ${{github.workspace}}/build/gui/Release/FractalsDiscovery.exe ${{github.workspace}}\release\all\
+        cp ${{github.workspace}}/build/main/Release/FractalsDiscovery.exe ${{github.workspace}}\release\all\
         cd ${{github.workspace}}\release\all\
         windeployqt.exe FractalsDiscovery.exe --release
         ls
