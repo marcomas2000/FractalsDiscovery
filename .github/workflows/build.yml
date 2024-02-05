@@ -5,92 +5,128 @@
 name: Build
 
 on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
   push:
-    branches: [ master ]
+    branches: 
+      - master 
+      - Development 
   pull_request:
-    branches: [ master ]
+    branches:
+      - master 
+      - Development
 
 env:
-  # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: .
-
-  # Configuration type to build.
-  BUILD_CONFIGURATION: Release
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
 
 jobs:
   build:
-    name: Build & test on ${{ matrix.os }} with ${{ matrix.compiler }}
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    name: Build on ${{ matrix.os }} with ${{ matrix.compiler }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest]
-#        os: [ubuntu-latest, macos-latest, windows-latest]
-
+        os: [windows-latest, ubuntu-latest]
+        
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4.1.1
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
 
-    - name: Windows - setup MSBuild
-      if: startsWith(matrix.os, 'windows')
-      uses: microsoft/setup-msbuild@v1.3
-
-    - name: Windows
-      if: startsWith(matrix.os, 'windows')
-      shell: cmd
+    - name: Linux - Update gcc and g++
+      if: startsWith(matrix.os, 'ubuntu')
+      working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
-        %Qt5_DIR%\bin\qmake.exe -v
-        call "%programfiles%\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-        %Qt5_DIR%\bin\qmake.exe -tp vc -r
-        msbuild /t:Build /p:Configuration=Release;PlatformToolset=v143
+        sudo apt update -y; sudo apt install -qq gcc-12 g++-12
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 50
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 50
+        g++ --version
+        sudo apt install libgl1-mesa-dev doxygen
+        sudo apt install qt6-base-dev
 
-    - name: Deployment Package
+    - name: Windows - Install Qt
+      if: startsWith(matrix.os, 'windows')
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: 6.2.*
+
+    - name: Windows - Install Doxygen
+      if: startsWith(matrix.os, 'windows')
+      uses: ssciwr/doxygen-install@v1
+
+    - name: Common - Configure CMake
+      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Common - Build
+      # Build your program with the given configuration
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+
+    - name: Windows - Run Doxygen
+      if: startsWith(matrix.os, 'windows')
+      run: doxygen Doxyfile
+ 
+    - name: Linux - Run Doxygen
+      if: startsWith(matrix.os, 'ubuntu')
+      run: doxygen Doxyfile
+ 
+    - name: Windows - Deployment Package
+      if: startsWith(matrix.os, 'windows')
       run: |
         mkdir ${{github.workspace}}\release\all\
-        cp ${{github.workspace}}/release/FractalsDiscovery.exe ${{github.workspace}}\release\all\
+        cp -R ${{github.workspace}}/docs ${{github.workspace}}\release\all\
+        cp ${{github.workspace}}/build/main/Release/FractalsDiscovery.exe ${{github.workspace}}\release\all\
         cd ${{github.workspace}}\release\all\
         windeployqt.exe FractalsDiscovery.exe --release
         ls
         Compress-Archive -Path ${{github.workspace}}\release\all\ -DestinationPath ${{github.workspace}}\release\FractalsDiscovery.zip
+
+    - name: Linux - Deployment Package
+      if: startsWith(matrix.os, 'ubuntu')
+      run: |
+        mkdir -p ${{github.workspace}}/release/all/plugins
+        mkdir -p ${{github.workspace}}/release/all/platforms
+        cp -r ${{github.workspace}}/docs ${{github.workspace}}/release/all/
+        cp ${{github.workspace}}/build/main/FractalsDiscovery ${{github.workspace}}/release/all/
+        cp /lib/x86_64-linux-gnu/libQt6Widgets.so.6 ${{github.workspace}}/release/all/
+        cp /lib/x86_64-linux-gnu/libQt6Gui.so.6 ${{github.workspace}}/release/all/
+        cp /lib/x86_64-linux-gnu/libQt6Core.so.6 ${{github.workspace}}/release/all/
+        cp /lib/x86_64-linux-gnu/libQt6DBus.so.6 ${{github.workspace}}/release/all/
+        cp /lib/x86_64-linux-gnu/libQt6XcbQpa.so.6 ${{github.workspace}}/release/all/
+        cp /lib/x86_64-linux-gnu/qt6/plugins/platforms/libqxcb.so ${{github.workspace}}/release/all/platforms
+        cd ${{github.workspace}}/release/all/
+        ldd FractalsDiscovery
+        tar cvzf ${{github.workspace}}/release/FractalsDiscovery.tar.gz .
  
-#    Upload Artifact
-    - name: Upload production-ready build files
-      uses: actions/upload-artifact@v3
+    - name: Windows - Upload Production-Ready Files
+      if: startsWith(matrix.os, 'windows')
+      uses: actions/upload-artifact@v4
       with:
-         name: production
-         path: ./release
+         name: WindowsPackage
+         path: ${{github.workspace}}/release/FractalsDiscovery.zip
 
-#    - name: Mac
-#      if: startsWith(matrix.os, 'macos')
-#      working-directory: ${{env.GITHUB_WORKSPACE}}
-#      run: |
-#        clang --version
-#        $Qt5_DIR/bin/qmake -r
-#        make -j
+    - name: Linux - Upload Production-Ready Files
+      if: startsWith(matrix.os, 'ubuntu')
+      uses: actions/upload-artifact@v4
+      with:
+         name: UbuntuPackage
+         path: ${{github.workspace}}/release/FractalsDiscovery.tar.gz
 
-#    - name: Linux
-#      if: startsWith(matrix.os, 'ubuntu')
-#      working-directory: ${{env.GITHUB_WORKSPACE}}
-#      run: |
-#        sudo apt update -y; sudo apt install -qq gcc-12 g++-12
-#        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 50
-#        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 50
-#        g++ --version
-#        $Qt5_DIR/bin/qmake -r
-#        make -j
-
-    # - name: Test run
-    #   if: startsWith(matrix.os, 'macos')
-    #   run: ./tests/bin/tests.app/Contents/MacOS/tests
-      
-    # - name: Test run
-    #   if: startsWith(matrix.os, 'ubuntu')
-    #   run: ./tests/bin/tests
-
-    # - name: Test run
-    #   if: startsWith(matrix.os, 'widows')
-    #   run: ./tests/bin/tests.exe
-    

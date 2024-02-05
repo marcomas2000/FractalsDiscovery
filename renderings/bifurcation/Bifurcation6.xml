@@ -1,0 +1,14 @@
+<!-- Images downloadable from https://github.com/marcomas2000/FractalsDiscovery
+     are licensed under the Creative Commons BY license
+     For information https://creativecommons.org/licenses/by/4.0/ --> 
+<fractal fractaltype="Bifurcation">
+<imageresolution xres=1024 yres=768/>
+<functiondomain>
+    <topleftcorner x_min=-0.028 c_min=-1.787/>
+    <bottomrightcorner x_max=0.026 c_max=-1.786/>
+</functiondomain>
+<maxiteration> 10000 </maxiteration>
+<initialpoint> 0 </initialpoint>
+<orbitsdiscarded> 4000 </orbitsdiscarded>
+<stability> 0.2 </stability>
+</fractal>

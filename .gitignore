@@ -1,0 +1,7 @@
+build/
+CMakeLists.txt.user
+gui/*.xml
+gui/*.csv
+docs/
+logDoxygen
+.vscode/
