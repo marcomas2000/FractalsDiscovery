@@ -105,7 +105,7 @@ jobs:
         mkdir -p ${{github.workspace}}/release/all/plugins
         mkdir -p ${{github.workspace}}/release/all/platforms
         cp -r ${{github.workspace}}/docs ${{github.workspace}}/release/all/
-        cp ${{github.workspace}}/build/gui/FractalsDiscovery ${{github.workspace}}/release/all/
+        cp ${{github.workspace}}/build/main/FractalsDiscovery ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6Widgets.so.6 ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6Gui.so.6 ${{github.workspace}}/release/all/
         cp /lib/x86_64-linux-gnu/libQt6Core.so.6 ${{github.workspace}}/release/all/
